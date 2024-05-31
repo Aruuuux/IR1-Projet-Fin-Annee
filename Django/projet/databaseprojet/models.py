@@ -4,18 +4,6 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 
-class Course(models.Model):
-    id=models.AutoField(primary_key=True)
-    name= models.CharField(max_length=255)
-    Number_of_credits=models.IntegerField() 
-    Year=models.IntegerField() 
-    Speciality_id=models.IntegerField() 
-    coefficient=models.IntegerField() 
-    module_id=models.IntegerField() 
-    semester=models.IntegerField() 
-    coefficient_lectures=models.IntegerField() 
-    coefficient_PW=models.IntegerField() 
-    coefficient_DW=models.IntegerField() 
 
 
 class Roles(models.Model):
@@ -54,11 +42,11 @@ class User(models.Model):
     last_name = models.CharField(max_length=255)
     roles = models.ForeignKey(Roles, on_delete=models.CASCADE)
     date_of_birth = models.DateField()
-    speciality = models.ForeignKey(Speciality, on_delete=models.CASCADE)
+    speciality_id = models.ForeignKey(Speciality, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to='../Media/photos/')
     email = models.EmailField(unique=True)
     password = models.TextField(max_length=255)
-    card_id = models.IntegerField(unique=True)
+    student_id = models.IntegerField(unique=True)
     year = models.IntegerField()
 
     def __str__(self):
@@ -76,3 +64,40 @@ class Module(models.Model):
     id=models.AutoField(primary_key=True)
     speciality_id = models.ForeignKey(Speciality, on_delete=models.CASCADE)
     name= models.CharField(max_length=255)
+
+class Course(models.Model):
+    course_id=models.AutoField(primary_key=True)
+    name= models.CharField(max_length=255)
+    Number_of_credits=models.IntegerField() 
+    Year=models.IntegerField() 
+    Speciality_id=models.IntegerField() 
+    coefficient=models.IntegerField() 
+    module_id=models.ForeignKey(Module, on_delete=models.CASCADE)
+    semester=models.IntegerField() 
+    coefficient_lectures=models.IntegerField() 
+    coefficient_PW=models.IntegerField() 
+    coefficient_DW=models.IntegerField() 
+
+class Score(models.Model):
+    id=models.AutoField(primary_key=True)
+    student_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
+    student_score = models.FloatField()
+
+
+
+class Course_type(models.Model):
+    id=models.AutoField(primary_key=True)
+    course_id=models.ForeignKey(Course, on_delete=models.CASCADE)
+    student_id=models.ForeignKey(User, on_delete=models.CASCADE)
+    Score=models.FloatField()
+    absence_number=models.IntegerField()
+    course_type=models.IntegerField()
+
+
+
+class absence(models.Model):
+    id=models.AutoField(primary_key=True)
+    course_id=models.ForeignKey(Course, on_delete=models.CASCADE)
+    date=models.DateField()
+    student_id=models.ForeignKey(User, on_delete=models.CASCADE)
