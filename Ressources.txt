@@ -1,2 +1,6 @@
 Eco-conception :
 https://thecodingmachine.com/eco-conception-web-20-bonnes-pratiques/
+
+Données :
+https://www.cnil.fr/fr/comprendre-mes-droits/le-droit-dacces-connaitre-les-donnees-quun-organisme-detient-sur-vous
+https://www.cnil.fr/fr/rgpd-de-quoi-parle-t-on
