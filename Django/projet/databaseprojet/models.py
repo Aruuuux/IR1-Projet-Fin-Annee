@@ -35,8 +35,8 @@ class Speciality(models.Model):
     SPECIALITY_CHOICES = [
         (1, 'Informatique et réseaux'),
         (2, 'Automatique et systèmes embarqués'),
-        (3, 'Textile'),
-        (4, 'Mécanique'),
+        (3, 'Génie Textile et Fibres'),
+        (4, 'Génie Mécanique'),
         (5, 'Génie industriel'),
     ]
     id = models.AutoField(primary_key=True)
