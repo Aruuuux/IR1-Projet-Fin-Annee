@@ -58,7 +58,7 @@ class User(models.Model):
     photo = models.ImageField(upload_to='photos/')
     email = models.EmailField(unique=True)
     password = models.TextField(max_length=255)
-    student_id = models.IntegerField(max_length=50, unique=True)
+    card_id = models.IntegerField(unique=True)
     year = models.IntegerField()
 
     def __str__(self):
