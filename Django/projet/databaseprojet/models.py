@@ -1,7 +1,26 @@
 from django.db import models
 
 
-from django.db import models
+
+class MyModel(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+class Course(models.Model):
+    id=models.AutoField(primary_key=True)
+    name= models.CharField(max_length=255)
+    Number_of_credits=models.IntegerField() 
+    Year=models.IntegerField() 
+    Speciality_id=models.IntegerField() 
+    coefficient=models.IntegerField() 
+    module_id=models.IntegerField() 
+    semester=models.IntegerField() 
+    coefficient_lectures=models.IntegerField() 
+    coefficient_PW=models.IntegerField() 
+    coefficient_DW=models.IntegerField() 
 
 # Statut
 class Statut(models.Model):
@@ -16,7 +35,7 @@ class Statut(models.Model):
     def __str__(self):
         return self.get_name_display()
 
-class Specialite(models.Model):
+class Speciality(models.Model):
     SPECIALITE_CHOICES = [
         (1, 'IR'),
         (2, 'ASE'),
@@ -38,3 +57,8 @@ class MyModel(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Module(models.Model):
+    id=models.AutoField(primary_key=True)
+    speciality_id = models.ForeignKey(Speciality, on_delete=models.CASCADE)
+    name= models.CharField(max_length=255)
