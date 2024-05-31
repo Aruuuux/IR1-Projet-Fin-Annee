@@ -1,6 +1,6 @@
 from django.db import models
 import re
-from django.databaseprojet.exceptions import ValidationError
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 
