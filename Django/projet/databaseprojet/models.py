@@ -18,14 +18,14 @@ class Course(models.Model):
     coefficient_DW=models.IntegerField() 
 
 
-class Status(models.Model):
-    STATUS_CHOICES = [
+class Roles(models.Model):
+    ROLES = [
         (1, 'Student'),
         (2, 'Teacher'),
         (3, 'Supervisor'),
     ]
     id = models.AutoField(primary_key=True)
-    name = models.IntegerField(choices=STATUS_CHOICES, unique=True)
+    name = models.IntegerField(choices=ROLES, unique=True)
 
     def __str__(self):
         return self.get_name_display()
