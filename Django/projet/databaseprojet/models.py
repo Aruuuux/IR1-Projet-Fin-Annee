@@ -71,13 +71,6 @@ class User(models.Model):
             raise ValidationError(_('Email doit être sous la forme prenom.nom@uha.fr'))
 
 
-
-class MyModel(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-
-    def __str__(self):
-        return self.name
     
 class Module(models.Model):
     id=models.AutoField(primary_key=True)
