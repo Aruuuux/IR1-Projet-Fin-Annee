@@ -3,11 +3,12 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'user/mainstyle.css' %}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 {% endblock %}
 
 {% block main-content %}
 <section id="left-menu">
-    <button id="menu-filter-button">Filtres</button>
+    <button id="menu-filter-button"><i class="fas fa-filter fa-sm"></i>    Filtres</button>
     <div id="menu-filter">
         <div class="filter-components">
             <button class="title-filter" onclick="toggleDropdown('year-dropdown')">Année</button>

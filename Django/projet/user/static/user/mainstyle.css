@@ -254,3 +254,7 @@ th, td {
     min-width: 100px;
     box-sizing: border-box;
 }
+
+.filter-icon {
+    margin-right: 10px;
+}
