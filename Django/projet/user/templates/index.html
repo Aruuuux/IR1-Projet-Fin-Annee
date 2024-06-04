@@ -1,32 +1,17 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="fr">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Admin management</title>
-    {% block styles %}
-        <link rel="stylesheet" href="{% static 'user/styles.css' %}" />
-        <link rel="stylesheet" href="{% static 'user/variables.css' %}" />
-    {% endblock %}
-</head>
+{% block styles %}
+<link rel="stylesheet" href="{% static 'user/styles.css' %}" />
+{% endblock %}
 
-<body>
-    <header>
-        <p>EduTrack</p>
-    </header>
-    <section>
-        <div class="loginbox">
-            <h1>Se connecter</h1>
-            <form>
-                <p>E-Mail</p>
-                <input type="text" name="email" placeholder="tonemail@uha.fr">
-                <p>Mot de passe</p>
-                <input type="password" name="password" placeholder="********">
-                <input type="submit" name="" value="Login"><br>
-                <a href="{% url 'psswrdforgot' %}">Lost your password ?</a><br>
-            </form>
-        </div>
-    </section>
-</body>
-</html>
+{% block main-content %}
+<div class="loginbox">
+    <h1>Se connecter</h1>
+    <form>
+        <p>E-Mail</p>
+        <input type="text" name="email" placeholder="tonemail@uha.fr">
+        <p>Mot de passe</p>
+        <input type="password" name="password" placeholder="********">
+        <input type="submit" name="" value="Login"><br>
+        <a href="{% url 'psswrdforgot' %}">Lost your password ?</a><br>
+    </form>
+</div>
+{% endblock %}
