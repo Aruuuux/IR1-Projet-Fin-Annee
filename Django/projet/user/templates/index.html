@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'user/styles.css' %}" />
+    <link rel="stylesheet" href="{% static 'user/variables.css' %}" />
+
+    <title>Document Title</title>
+    <style>
+        body {
+            background-image: url("{% static 'png/loginimg.jpg' %}");
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <p>EduTrack</p>
+    </header>
+    <section>
+        <div class="loginbox">
+            <h1>Se connecter</h1>
+            <form>
+                <p>E-Mail</p>
+                <input type="text" name="email" placeholder="tonemail@uha.fr">
+                <p>Mot de passe</p>
+                <input type="password" name="password" placeholder="********">
+                <input type="submit" name="" value="Login"><br>
+                <a href="{% url 'psswrdforgot' %}">Lost your password ?</a><br>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
