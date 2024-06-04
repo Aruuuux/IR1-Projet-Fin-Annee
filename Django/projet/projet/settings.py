@@ -38,7 +38,13 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'databaseprojet',
+    'guardian', #Pour la gestion des permissions
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',  
+    'guardian.backends.ObjectPermissionBackend',
+)
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -85,7 +91,23 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = []
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', # le mdp doit être suffisamment différent des attributs du User
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 8,
+        }
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator', # le mdp doit être différent d'un ensemble de mdp 'common' donné par django dans une liste  
+    },
+    {
+        'NAME': 'databaseprojet.password_validator.PasswordValidator' # Le chemin de la classe PasswordValidator 
+    },
+]
 
 
 # Internationalization
@@ -109,6 +131,9 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+'''
 STATICFILES_DIRS = [
     BASE_DIR / "static"
-]
+] 
+'''

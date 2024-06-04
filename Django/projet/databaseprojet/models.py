@@ -4,20 +4,6 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 
-class Course(models.Model):
-    id=models.AutoField(primary_key=True)
-    name= models.CharField(max_length=255)
-    Number_of_credits=models.IntegerField() 
-    Year=models.IntegerField() 
-    Speciality_id=models.IntegerField() 
-    coefficient=models.IntegerField() 
-    module_id=models.IntegerField() 
-    semester=models.IntegerField() 
-    coefficient_lectures=models.IntegerField() 
-    coefficient_PW=models.IntegerField() 
-    coefficient_DW=models.IntegerField() 
-
-
 class Roles(models.Model):
     ROLES = [
         (1, 'Student'),
@@ -35,8 +21,8 @@ class Speciality(models.Model):
     SPECIALITY_CHOICES = [
         (1, 'Informatique et réseaux'),
         (2, 'Automatique et systèmes embarqués'),
-        (3, 'Textile'),
-        (4, 'Mécanique'),
+        (3, 'Génie Textile et Fibres'),
+        (4, 'Génie Mécanique'),
         (5, 'Génie industriel'),
     ]
     id = models.AutoField(primary_key=True)
@@ -54,11 +40,11 @@ class User(models.Model):
     last_name = models.CharField(max_length=255)
     roles = models.ForeignKey(Roles, on_delete=models.CASCADE)
     date_of_birth = models.DateField()
-    speciality = models.ForeignKey(Speciality, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to='photos/')
+    speciality_id = models.ForeignKey(Speciality, on_delete=models.CASCADE)
+    photo = models.ImageField(upload_to='../Media/photos/')
     email = models.EmailField(unique=True)
     password = models.TextField(max_length=255)
-    card_id = models.IntegerField(unique=True)
+    student_id = models.IntegerField(unique=True) # C'est pour les étudiants, les profs et les superviseurs
     year = models.IntegerField()
 
     def __str__(self):
@@ -66,7 +52,7 @@ class User(models.Model):
     
     def clean(self):
         super().clean()
-        email_pattern = '^[a-zA-Z]+\.[a-zA-Z]+@uha\.fr$'
+        email_pattern = r'^[a-zA-Z]+\.[a-zA-Z]+@uha\.fr$'
         if not re.match(email_pattern, self.email):
             raise ValidationError(_('Email doit être sous la forme prenom.nom@uha.fr'))
 
@@ -76,3 +62,40 @@ class Module(models.Model):
     id=models.AutoField(primary_key=True)
     speciality_id = models.ForeignKey(Speciality, on_delete=models.CASCADE)
     name= models.CharField(max_length=255)
+
+class Course(models.Model):
+    course_id=models.AutoField(primary_key=True)
+    name= models.CharField(max_length=255)
+    Number_of_credits=models.IntegerField() 
+    Year=models.IntegerField() 
+    Speciality_id=models.IntegerField() 
+    coefficient=models.IntegerField() 
+    module_id=models.ForeignKey(Module, on_delete=models.CASCADE)
+    semester=models.IntegerField() 
+    coefficient_lectures=models.IntegerField() 
+    coefficient_PW=models.IntegerField() 
+    coefficient_DW=models.IntegerField() 
+
+class Score(models.Model):
+    id=models.AutoField(primary_key=True)
+    student_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
+    student_score = models.FloatField()
+
+
+
+class Course_type(models.Model):
+    id=models.AutoField(primary_key=True)
+    course_id=models.ForeignKey(Course, on_delete=models.CASCADE)
+    student_id=models.ForeignKey(User, on_delete=models.CASCADE)
+    Score=models.FloatField()
+    absence_number=models.IntegerField()
+    course_type=models.IntegerField()
+
+
+
+class Absence(models.Model):
+    id=models.AutoField(primary_key=True)
+    course_id=models.ForeignKey(Course, on_delete=models.CASCADE)
+    date=models.DateField()
+    student_id=models.ForeignKey(User, on_delete=models.CASCADE)
