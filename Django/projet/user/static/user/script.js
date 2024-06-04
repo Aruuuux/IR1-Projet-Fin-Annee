@@ -19,8 +19,9 @@ document.getElementById('profil-utilisateur').addEventListener('click', function
 window.addEventListener('click', function() {
     document.getElementById('dropdown-menu').classList.remove('show');
 });
-document.getElementById('filtres-button').addEventListener('click', function () {
-    var filtresMenu = document.getElementById('filtres-menu');
+
+document.getElementById('menu-filter-button').addEventListener('click', function () {
+    var filtresMenu = document.getElementById('menu-filter');
     if (filtresMenu.classList.contains('open')) {
         filtresMenu.classList.remove('open');
     } else {

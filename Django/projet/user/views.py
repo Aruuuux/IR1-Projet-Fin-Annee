@@ -2,12 +2,17 @@ from django.shortcuts import render, redirect
 from .forms import UserForm
 from databaseprojet.models import Speciality, Roles
 
+def admin(request):
+    return render(request, 'admin.html')
+
+def main(request):
+    return render(request, 'main.html')
+
 def indexview(request):
     return render(request, 'index.html')
 
 def psswrdforgot(request):
     return render(request, 'psswrdforgot.html')
-
 
 def index(request):
     if request.method == 'POST':

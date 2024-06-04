@@ -7,6 +7,8 @@ urlpatterns = [
     path('login/', views.indexview, name='login'),
     path('index/', views.index, name='index'),
     path('psswrdforgot/', views.psswrdforgot, name='psswrdforgot'),
+    path('admin/', views.admin, name='admin'),
+    path('main/', views.main, name='main'),
 ]
 
 from django.urls import path
