@@ -5,6 +5,13 @@
 <link rel="stylesheet" href="{% static 'user/mainstyle.css' %}" />
 {% endblock %}
 
+{% block header-content %}
+<div id="menu-recherche">
+    <input type="text" placeholder="Rechercher...">
+    <button>Go</button>
+</div>
+{% endblock %}
+
 {% block main-content %}
 <section id="left-menu">
     <button id="menu-filter-button">Filtres</button>

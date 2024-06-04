@@ -24,10 +24,8 @@
                 <div id="logo">
                     <img src="{% static 'png/logo_resized.png' %}" alt="logo"/>
                 </div>
-                <div id="menu-recherche">
-                    <input type="text" placeholder="Rechercher...">
-                    <button>Go</button>
-                </div>
+                {% block header-content %}
+                {% endblock %}
                 <div id="profil-utilisateur">
                     <button>
                         <img src="{% static 'png/profile_photo.jpeg' %}" alt="profil"/>
