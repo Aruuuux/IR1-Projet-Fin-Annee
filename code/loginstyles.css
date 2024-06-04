@@ -5,14 +5,26 @@ body{
     width: 100vw;
     background-image: url(./png/loginimg.jpg);
     background-position: center;
-    background-repeat: no-repeat;
+    background-size: cover;
     font-family: sans-serif;
+}
+
+header{
+    color : var(--white);
+    background-color: var(--vdark-main-color);
+    padding: 5px;
+}
+
+header p{
+    font-family: sans-serif;
+    font-size: larger ;
+    padding-left:  8px;
 }
 
 .loginbox{
     max-width: 500px;
     max-height: 400px;
-    background: rgb(48, 41, 41);
+    background: var(--vdark-main-color);
     color: var(--white);
     top: 50%;
     left: 50%;
@@ -52,6 +64,7 @@ h1{
     color: var(--white);
     font-size: 16px;
 }
+
 .loginbox input[type="submit"]
 {
     border: none;
@@ -67,7 +80,7 @@ h1{
 {
     cursor: pointer;
     background: var(--light-main-color);
-    color: #000;
+    color: var(--black);
 }
 .loginbox a{
     text-decoration: none;
@@ -78,5 +91,5 @@ h1{
 
 .loginbox a:hover
 {
-    color: #927fda;
+    color: var(--white);
 }

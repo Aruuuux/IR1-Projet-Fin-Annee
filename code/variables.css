@@ -1,5 +1,8 @@
 :root {
     --white : rgb(237, 241, 242);
+    --vdark-main-color : rgb(2, 32, 38);
     --main-color : rgb(66, 150, 183);
     --light-main-color : rgb(135, 198, 224);
+    --black : rgb(10, 13, 20);
+    --grey : rgb(46, 52, 56);
 }
