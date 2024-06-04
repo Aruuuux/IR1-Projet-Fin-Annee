@@ -1,0 +1,37 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.schedule {
+    display: flex;
+}
+
+.time-column, .day-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.time-column {
+    width: 80px;
+}
+
+.time-slot {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    height: 60px; /* Taille fixe des cases */
+}
+
+.day-header {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.day-column .time-slot {
+    flex: 1;
+}
+
+.day-column {
+    flex: 1;
+    border-left: 1px solid #ddd;
+}
