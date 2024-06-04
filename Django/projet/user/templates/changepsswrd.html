@@ -1,25 +1,15 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="../css/psswrdstyle.css">
-    <link rel="stylesheet" href="../css/variables.css">
-    <title>Document Title</title>
-</head>
+{% block styles %}
+<link rel="stylesheet" href="{% static 'user/psswrdstyle.css' %}" />
+{% endblock %}
 
-<body>
-    <header>
-        <p>EduTrack</p>
-    </header>
-    <section>
-        <div class="loginbox">
-            <h1>Changer de mot de passe</h1>
-            <form>
-                <p>Ancien mot de passe</p>
-                <input type="password" name="pastpassword" placeholder="********">
-                <p>Nouveau mot de passe</p>
-                <input type="password" name="newpassword" placeholder="********">
-            </form>
-        </div>
-    </section>
+{% block main-content %}
+<div class="loginbox">
+    <h1>Changer de mot de passe</h1>
+    <form>
+        <p>Ancien mot de passe</p>
+        <input type="password" name="pastpassword" placeholder="********">
+        <p>Nouveau mot de passe</p>
+        <input type="password" name="newpassword" placeholder="********">
+    </form>
+</div>
+{% endblock %}
