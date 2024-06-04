@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'guardian', #Pour la gestion des permissions
 ]
 
-AUTHENTIFICATION_BACKENDS = (
+AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',  
     'guardian.backends.ObjectPermissionBackend',
 )
@@ -92,7 +92,7 @@ DATABASES = {
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-     {
+    {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', # le mdp doit être suffisamment différent des attributs du User
     },
     {
@@ -131,6 +131,9 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+'''
 STATICFILES_DIRS = [
     BASE_DIR / "static"
-]
+] 
+'''

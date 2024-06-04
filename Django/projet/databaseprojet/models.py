@@ -54,7 +54,7 @@ class User(models.Model):
     
     def clean(self):
         super().clean()
-        email_pattern = '^[a-zA-Z]+\.[a-zA-Z]+@uha\.fr$'
+        email_pattern = r'^[a-zA-Z]+\.[a-zA-Z]+@uha\.fr$'
         if not re.match(email_pattern, self.email):
             raise ValidationError(_('Email doit être sous la forme prenom.nom@uha.fr'))
 
@@ -96,7 +96,7 @@ class Course_type(models.Model):
 
 
 
-class absence(models.Model):
+class Absence(models.Model):
     id=models.AutoField(primary_key=True)
     course_id=models.ForeignKey(Course, on_delete=models.CASCADE)
     date=models.DateField()
