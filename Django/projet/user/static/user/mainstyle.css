@@ -128,6 +128,8 @@ header {
     cursor: pointer;
     background-color: #005c99;
     color: white;
+    border-radius: 5px;
+    padding:5px;
 }
 
 .title-filter {
@@ -171,7 +173,7 @@ header {
 
 #main-content {
     width:100%;
-    background-color: #f0f0f059;
+    background-color: #9ab1ee;
     height: calc(100vh - 70px);
     box-sizing: border-box;
 }
@@ -242,6 +244,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-left: 16%;
+    
 }
 
 th, td {
