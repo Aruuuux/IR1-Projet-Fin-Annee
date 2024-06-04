@@ -10,6 +10,7 @@ header {
     background-color: rgb(22,49,70);
     height: 6%;
 }
+
 .menu {
     display: flex;
     justify-content: space-between;
@@ -19,6 +20,7 @@ header {
     height:100%;
     box-sizing: 0 5px 25px rgba(0,0,0,0.2);
 }
+
 .menu ::before {
     content: "";
     position: absolute;
@@ -31,17 +33,18 @@ header {
     z-index: -1;
 }
 
-
 #menu-top {
     display:flex;
     justify-content: space-between;
     align-items: center;
     height:100%;
 }
+
 #logo {
     width:10%;
     height:100%;
 }
+
 #logo img {
     height: 100%;
     width: auto;
@@ -93,42 +96,28 @@ header {
     border-radius: 50%;
 }
 
-#menu-left {
+#left-menu {
     background-color: #3d3d3d;
     width: 200px;
     height: auto;
-    float: left; 
+    float: left;
     color: white;
     box-sizing: border-box;
     padding: 3px 5px 3px 5px;
     border-radius: 0px 0px 5px 0px;
     z-index: 1;
 }
-#top-bar {
-    background-color: #242323;
-    width:100%;
-    align-items: center;
-    display: flex; /* Ajoutez cette ligne pour centrer le bouton */
-    justify-content: center; /* Ajoutez cette ligne pour centrer le bouton */
-    
-}
 
-#top-bar button {
+#menu-filter-button {
     font-size: 18px;
-    margin: 0;
+    width:100%;
     border: none;
     cursor: pointer;
-    background-color: transparent; /* Ajoutez cette ligne pour supprimer le fond du bouton */
+    background-color: #242323;
     color: white; /* Ajoutez cette ligne pour changer la couleur du texte du bouton */
 }
 
-.filtre {
-    position: relative;
-    width: 100%;
-       
-}
-
-.filtre-titre {
+.title-filter {
     background-color: rgb(92, 91, 91);
     color: white;
     padding: 10px;
@@ -138,7 +127,6 @@ header {
     width: 100%;
     text-align: center;
     border-radius: 5px;
-    
 }
 
 .dropdown-content {
@@ -148,7 +136,6 @@ header {
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     border-radius: 5px;
-    
 }
 
 .dropdown-content label {
@@ -167,15 +154,15 @@ header {
 .dropdown-content input {
     margin-right: 10px;
     z-index: 1;
-    
 }
 
-#main {
+#main-content {
     width:100%;
     background-color: #f1f0f0ad;
     height: calc(100vh - 70px);
     box-sizing: border-box;
 }
+
 #dropdown-menu {
     display: none;
     position: absolute;
@@ -189,13 +176,14 @@ header {
     background-color: #333; /* Couleur de fond sombre */
     font-family: Arial, sans-serif; /* Police simple et propre */
     padding: 10px;
-    
 }
+
 #dropdown-menu.show {
     display: block;
     opacity: 1;
     right:0;
 }
+
 #dropdown-menu p {
     color: rgb(203, 197, 197);
     padding: 12px 16px;
@@ -205,23 +193,27 @@ header {
     font-size: 16px;
     text-align: center;
 }
+
 #dropdown-menu p:hover {
     background-color: #555; /* Couleur de fond plus claire lors du survol */
-    cursor: pointer; /* Change le curseur en main lors du survol */
+    cursor: pointer; /* Change le curseur en main-content lors du survol */
 }
+
 #profil-utilisateur button {
     background: none;
     border: none;
     cursor: pointer;
 }
-#filtres-menu {
+
+#menu-filter {
     display: none; /* Le menu est initialement fermé */
     z-index: 1;
+    position: relative;
+    width: 100%;
 }
 
-#filtres-menu.open {
+#menu-filter.open {
     display: block; /* Le menu s'ouvre lorsque la classe 'open' est ajoutée */
-    z-index: 1;
 }
 
 #tableau {
@@ -230,8 +222,9 @@ header {
     width: calc(100% - 300px);
     height: 100vh;
     overflow: auto;
-    z-index: 0; /* Cela place #tableau en dessous de #menu-left */
+    z-index: 0; /* Cela place #tableau en dessous de #left-menu */
 }
+
 table {
     width: 100%;
     border-collapse: collapse;

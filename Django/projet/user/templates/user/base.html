@@ -1,0 +1,57 @@
+<!doctype html>
+{% load static %}
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Edutrack</title>
+        {% block styles %}
+            <link rel="stylesheet" href="{% static 'user/mainstyle.css' %}" />
+            <link rel="stylesheet" href="{% static 'user/variables.css' %}" />
+            <link rel="icon" type="image/ico" href="{% static '/.ico' %}">
+        {% endblock %}
+    </head>
+
+    <body>
+        {% block jquery %}
+            <!-- Script jquery -->
+            <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+                    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+                    crossorigin="anonymous"></script>
+        {% endblock %}
+        <header>
+            <section id="menu-top">
+                <div id="logo">
+                    <img src="{% static 'png/logo_resized.png' %}" alt="logo"/>
+                </div>
+                <div id="menu-recherche">
+                    <input type="text" placeholder="Rechercher...">
+                    <button>Go</button>
+                </div>
+                <div id="profil-utilisateur">
+                    <button>
+                        <img src="{% static 'png/profile_photo.jpeg' %}" alt="profil"/>
+
+                    </button>
+                    <div id="dropdown-menu">
+                        <p>Mon profil</p>
+                        <p>Mes cours</p>
+                        <p>Déconnexion</p>
+                    </div>
+                </div>
+            </section>
+        </header>
+
+        <section id="main-content">
+            {% block main-content %} {% endblock %}
+        </section>
+
+        <footer>
+            <p>Edutrack - 2024</p>
+        </footer>
+
+        {% block js %}
+            <script type="text/javascript" src="{% static 'user/script.js' %}"></script>
+        {% endblock %}
+    </body>
+</html>
