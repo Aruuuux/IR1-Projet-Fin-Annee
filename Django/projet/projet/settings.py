@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'databaseprojet',
-    'guardian', #Pour la gestion des permissions
+    'user'
+    # 'guardian', #Pour la gestion des permissions
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -61,7 +62,7 @@ ROOT_URLCONF = "projet.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, 'database', 'templates')],
+        'DIRS': [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -125,15 +126,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-'''
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 STATICFILES_DIRS = [
-    BASE_DIR / "static"
-] 
-'''
+    BASE_DIR / "user" / "static",
+]

@@ -6,12 +6,11 @@ from django.utils.translation import gettext_lazy as _
 
 class Roles(models.Model):
     ROLES = [
-        (1, 'Student'),
-        (2, 'Teacher'),
-        (3, 'Supervisor'),
+        ('Student', 'Student'),
+        ('Teacher', 'Teacher'),
+        ('Supervisor', 'Supervisor'),
     ]
-    id = models.AutoField(primary_key=True)
-    name = models.IntegerField(choices=ROLES, unique=True)
+    name = models.CharField(max_length=50, choices=ROLES, unique=True)
 
     def __str__(self):
         return self.get_name_display()
@@ -56,8 +55,6 @@ class User(models.Model):
         if not re.match(email_pattern, self.email):
             raise ValidationError(_('Email doit être sous la forme prenom.nom@uha.fr'))
 
-
-    
 class Module(models.Model):
     id=models.AutoField(primary_key=True)
     speciality_id = models.ForeignKey(Speciality, on_delete=models.CASCADE)
