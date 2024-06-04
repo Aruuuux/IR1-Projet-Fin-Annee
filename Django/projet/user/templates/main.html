@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Edutrack</title>
+    <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+    <header>
+        <section id="menu-top">
+            <div id="logo">
+                <img src="images/logo_resized.png" alt="logo"/>
+            </div>
+            <div id="menu-recherche">
+                <input type="text" placeholder="Rechercher...">
+                <button>Go</button>
+            </div>
+            <div id="profil-utilisateur">
+                <button>
+                    <img src="images/profile_photo.jpeg" alt="profil"/>
+                
+                </button>
+                <div id="dropdown-menu">
+                    <p>Mon profil</p>
+                    <p>Mes cours</p>
+                    <p>Déconnexion</p>
+                </div>
+            </div>
+        </section>
+    </header>
+    
+    <section id="main">
+        <section id="menu-left">
+            <div id="top-bar">
+                <button id="filtres-button">Filtres</button>
+            </div>
+            <div id="filtres-menu" class="filtre">
+                <div class="filtre-annee">
+                    <button class="filtre-titre" onclick="toggleDropdown('annee-dropdown')">Année</button>
+                    <div class="dropdown-content" id="annee-dropdown">
+                        <label><input type="checkbox" name="annee" value="1"> 1ère année</label>
+                        <label><input type="checkbox" name="annee" value="2"> 2e année</label>
+                        <label><input type="checkbox" name="annee" value="3"> 3e année</label>
+                    </div>
+                </div>
+                <div class="filtre-matiere">
+                    <button class="filtre-titre" onclick="toggleDropdown('matiere-dropdown')">Matière</button>
+                    <div class="dropdown-content" id="matiere-dropdown">
+                        <label><input type="checkbox" name="matiere" value="1"> ANCS</label>
+                        <label><input type="checkbox" name="matiere" value="2"> Java</label>
+                        <label><input type="checkbox" name="matiere" value="3"> HTML & CSS</label>
+                    </div>
+                </div>
+                <div class="filtre-matiere">
+                    <button class="filtre-titre" onclick="toggleDropdown('filiere-dropdown')">Filière</button>
+                    <div class="dropdown-content" id="filiere-dropdown">
+                        <label><input type="checkbox" name="filiere" value="1"> IR</label>
+                        <label><input type="checkbox" name="filiere" value="2"> Textile</label>
+                        <label><input type="checkbox" name="filiere" value="3"> GI</label>
+                        <label><input type="checkbox" name="filiere" value="4"> ASE</label>
+                        <label><input type="checkbox" name="filiere" value="5"> MECA</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="tableau">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Prenom</th>
+                        <th>Nom</th>
+                        <th>Id</th>
+                        <th>Note</th>
+                        <th>Abs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Jean</td>
+                        <td>Dupont</td>
+                        <td>1</td>
+                        <td>15</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>Marie</td>
+                        <td>Curie</td>
+                        <td>2</td>
+                        <td>18</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Albert</td>
+                        <td>Einstein</td>
+                        <td>3</td>
+                        <td>20</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>Isaac</td>
+                        <td>Newton</td>
+                        <td>4</td>
+                        <td>17</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>Nikola</td>
+                        <td>Tesla</td>
+                        <td>5</td>
+                        <td>19</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>
