@@ -12,12 +12,13 @@
 </div>
 {% endblock %}
 
+
 {% block main-content %}
 <section id="left-menu">
     <button id="menu-filter-button">Filtres</button>
     <div id="menu-filter">
         <div class="filter-components">
-            <button class="title-filter" onclick="toggleDropdown('year-dropdown')">Année</button>
+            <button class="title-filter" onclick="toggleDropdown('year-dropdown')">Année  <i id="year-filter-icon" class="fas fa-caret-right"></i></button>
             <div class="dropdown-content" id="year-dropdown">
                 <label><input type="checkbox" name="year" value="1"> 1ère année</label>
                 <label><input type="checkbox" name="year" value="2"> 2e année</label>
@@ -25,7 +26,7 @@
             </div>
         </div>
         <div class="filter-components">
-            <button class="title-filter" onclick="toggleDropdown('lesson-dropdown')">Matière</button>
+            <button class="title-filter" onclick="toggleDropdown('lesson-dropdown')">Matière  <i id="lesson-filter-icon" class="fas fa-caret-right"></i></button>
             <div class="dropdown-content" id="lesson-dropdown">
                 <label><input type="checkbox" name="lesson" value="1"> ANCS</label>
                 <label><input type="checkbox" name="lesson" value="2"> Java</label>
@@ -33,7 +34,7 @@
             </div>
         </div>
         <div class="filter-components">
-            <button class="title-filter" onclick="toggleDropdown('cursus-dropdown')">Filière</button>
+            <button class="title-filter" onclick="toggleDropdown('cursus-dropdown')">Filière  <i id="cursus-filter-icon" class="fas fa-caret-right"></i></button>
             <div class="dropdown-content" id="cursus-dropdown">
                 <label><input type="checkbox" name="cursus" value="1"> IR</label>
                 <label><input type="checkbox" name="cursus" value="2"> Textile</label>
@@ -42,6 +43,7 @@
                 <label><input type="checkbox" name="cursus" value="5"> MECA</label>
             </div>
         </div>
+        <button id="reset-button">Reset</button>
     </div>
 </section>
 <section id="tableau">
@@ -94,4 +96,6 @@
         </tbody>
     </table>
 </section>
+
 {% endblock %}
+
