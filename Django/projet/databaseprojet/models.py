@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from django.utils import timezone 
 
+'''
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -25,7 +26,7 @@ class UserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True.')
 
         return self.create_user(email, password, **extra_fields)
-
+'''
 
 class Roles(models.Model):
     ROLES = [
@@ -55,8 +56,8 @@ class Speciality(models.Model):
     def __str__(self):
         return dict(self.SPECIALITY_CHOICES).get(self.speciality_id, 'Unknown')
 
-
-class User(AbstractBaseUser, PermissionsMixin):
+#class User(AbstractBaseUser, PermissionsMixin):
+class User(models.Model):
     id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
@@ -67,29 +68,32 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     student_id = models.IntegerField(unique=True)
     year = models.IntegerField()
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    date_joined = models.DateTimeField(default=timezone.now)
+    #is_active = models.BooleanField(default=True)
+    #is_staff = models.BooleanField(default=False)
+    #date_joined = models.DateTimeField(default=timezone.now)
 
-    objects = UserManager()
+    #objects = UserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    #USERNAME_FIELD = 'email'
+    #REQUIRED_FIELDS = ['first_name', 'last_name']
 
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
-
-    def save(self, *args, **kwargs):
-        if self.pk is None:  # Si l'utilisateur est nouveau
-            self.set_password(self.password)  # Hachage du mot de passe
-        super().save(*args, **kwargs)
     
     def clean(self):
         super().clean()
         email_pattern = r'^[a-zA-Z]+\.[a-zA-Z]+@uha\.fr$'
         if not re.match(email_pattern, self.email):
             raise ValidationError(_('Email doit être sous la forme prenom.nom@uha.fr'))
+'''
+    def save(self, *args, **kwargs):
+        if self.pk is None:  # Si l'utilisateur est nouveau
+            self.set_password(self.password)  # Hachage du mot de passe
+        super().save(*args, **kwargs)
+'''
+
+    
 
 class Module(models.Model):
     id=models.AutoField(primary_key=True)
