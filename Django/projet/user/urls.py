@@ -9,6 +9,7 @@ urlpatterns = [
     path('edituser/<int:user_id>/', views.edituser, name='edituser'),
     path('deleteuser/<int:user_id>/', views.deleteuser, name='deleteuser'),
     path('psswrdforgot/', views.psswrdforgot, name='psswrdforgot'),
+    path('userslist/', views.userslist, name='userslist'),
 ]
 
 from django.urls import path
