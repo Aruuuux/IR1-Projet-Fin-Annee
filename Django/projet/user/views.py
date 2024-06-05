@@ -9,12 +9,6 @@ def admin(request):
 def main(request):
     return render(request, 'main.html')
 
-def admin(request):
-    return render(request, 'admin.html')
-
-def main(request):
-    return render(request, 'main.html')
-
 def indexview(request):
     return render(request, 'index.html')
 
