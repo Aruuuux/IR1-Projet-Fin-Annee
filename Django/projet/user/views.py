@@ -3,6 +3,18 @@ from .forms import UserForm
 from databaseprojet.models import Speciality, Roles, User
 import random
 
+def admin(request):
+    return render(request, 'admin.html')
+
+def main(request):
+    return render(request, 'main.html')
+
+def admin(request):
+    return render(request, 'admin.html')
+
+def main(request):
+    return render(request, 'main.html')
+
 def indexview(request):
     return render(request, 'index.html')
 

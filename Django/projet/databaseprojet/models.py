@@ -43,7 +43,7 @@ class User(models.Model):
     photo = models.ImageField(upload_to='user_photos/')
     email = models.EmailField(unique=True)
     password = models.TextField(max_length=255)
-    student_id = models.IntegerField(unique=True)
+    student_id = models.IntegerField(unique=True) # C'est pour les étudiants, les profs et les superviseurs
     year = models.IntegerField()
 
     def __str__(self):

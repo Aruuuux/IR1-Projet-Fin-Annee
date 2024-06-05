@@ -1,0 +1,294 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    width:100%;
+    background-color: #f0f0f0; /* Ajoutez cette ligne pour une couleur de fond gris clair */
+}
+
+header {
+    background-color: #003366;
+    height: 6%;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color: #00336698;
+    height:100%;
+    box-sizing: 0 5px 25px rgba(0,0,0,0.2);
+}
+
+.menu ::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #3d3d3d;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    z-index: -1;
+}
+
+#menu-top {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    height:100%;
+}
+
+#logo {
+    width:10%;
+    height:100%;
+}
+
+#logo img {
+    height: 100%;
+    width: auto;
+}
+
+#menu-recherche-container {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+#menu-recherche {
+    display: flex;
+    align-items: center;
+    width: 60%;
+    max-width: 400px; /* Ajustez cette largeur selon vos besoins */
+    margin: 0 auto;
+}
+
+#menu-recherche input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    box-sizing: border-box;
+    height: 40px; /* Assurez-vous que la hauteur est la même pour les deux éléments */
+}
+
+#menu-recherche button {
+    background-color: #aaa;
+    border: none;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+    height: 40px; /* Assurez-vous que la hauteur est la même pour les deux éléments */
+    box-sizing: border-box;
+}
+
+#menu-recherche button img {
+    height: 20px;
+}
+
+#profil-utilisateur button {
+    height: 50px;
+    padding-right: 50px;
+
+}
+
+#left-menu {
+    background-color: transparent;
+    width: 200px;
+    height: auto;
+    float: left;
+    color: white;
+    box-sizing: border-box;
+    padding: 3px 5px 4px 5px;
+    border-radius: 0px 0px 5px 0px;
+    z-index: 1;
+}
+#reset-button, #applied-button {
+    background-color:  #3399cc;
+    color: white;
+    font-size: 13px;
+    border: 1px solid #333;
+    cursor: pointer;
+    width: 50%;
+    border-radius: 5px;
+    display: flex;
+}
+#button-container {
+    display: flex;
+    justify-content: space-between; /* Si vous voulez un espace entre les boutons */
+}
+#menu-filter-button {
+    box-sizing: border-box; /* Ajoutez cette ligne */
+    font-size: 18px;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    background-color: #005c99;
+    color: white;
+    border-radius: 5px;
+    padding:5px;
+}
+
+.title-filter {
+    background-color: #005c99;
+    color: white;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #333;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.dropdown-content {
+    display: none;
+    background-color: rgb(19, 92, 141);
+    min-width: 100%;
+    box-shadow: 0px 8px 16px 0px #3399cc;
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.dropdown-content label {
+    color: white;
+    padding: 10px;
+    display: block;
+    border-radius:5px;
+    z-index: 1;
+}
+
+.dropdown-content label:hover {
+    background-color: #1399f3b9;
+    z-index: 1;
+}
+
+.dropdown-content input {
+    margin-right: 10px;
+    z-index: 1;
+}
+
+#main-content {
+    width:100%;
+    background-color: #9ab1ee;
+    height: calc(100vh - 70px);
+    box-sizing: border-box;
+    display:flex;
+}
+
+#dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 10px; /* Positionner le menu à droite de l'élément parent */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    background-color: #0f70df; /* Couleur de fond sombre */
+    font-family: Arial, sans-serif; /* Police simple et propre */
+    padding: 10px;
+}
+
+#dropdown-menu.show {
+    display: block;
+    opacity: 1;
+    right:0;
+}
+
+#dropdown-menu p {
+    color: rgb(203, 197, 197);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    margin: 5px 0;
+    font-size: 16px;
+    text-align: center;
+}
+
+#dropdown-menu p:hover {
+    background-color: #1399f3b9; /* Couleur de fond plus claire lors du survol */
+    cursor: pointer; /* Change le curseur en main-content lors du survol */
+}
+
+#profil-utilisateur button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+#menu-filter {
+    display: none; /* Le menu est initialement fermé */
+    z-index: 1;
+    position: relative;
+    width: 100%;
+}
+
+#menu-filter.open {
+    display: block; /* Le menu s'ouvre lorsque la classe 'open' est ajoutée */
+}
+
+#tableau {
+    position:absolute;
+    margin-top:6%;
+    width: calc(100% - 300px);
+    height: 500px;
+    flex-grow:1;
+    overflow: scroll; /* Force la barre de défilement à être toujours visible */
+    z-index: 0; /* Cela place #tableau en dessous de #left-menu */
+}
+#tableau-wrapper {
+    overflow-x: auto; /* Ajoute une barre de défilement horizontale si nécessaire */
+    width: 100%;
+    height: 500px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-left: 5%;
+    min-width: 1000px;
+    min-height: 400px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #3250f8;
+    font-weight: bold;
+    position: sticky;
+    top:0;
+    border: 1px solid #000000;
+    transform: translate3d(0, 0, 0); /* Ajoute une transformation de traduction 3D */
+}
+
+tr:nth-child(even) {
+    background-color: #1c8ef8a1;
+}
+tr:nth-child(odd) {
+    background-color: #aacef0ef;
+}
+tr:hover {
+    background-color: #91daf0e3;
+}
+
+th, td {
+    min-width: 100px;
+    box-sizing: border-box;
+    border: 2px solid #000000;
+}
+
+.filter-icon {
+    margin-right: 10px;
+}
+
