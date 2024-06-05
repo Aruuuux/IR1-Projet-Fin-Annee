@@ -26,13 +26,12 @@
                 </div>
                 <div id="profil-utilisateur">
                     <button>
-                        <img src="{% static 'png/profile_photo.jpeg' %}" alt="profil"/>
-
+                        <i class="fas fa-user fa-3x"></i>
                     </button>
                     <div id="dropdown-menu">
-                        <p>Mon profil</p>
-                        <p>Mes cours</p>
-                        <p>Déconnexion</p>
+                        <p><i class="fas fa-user"></i>  Mon profil</p>
+                        <p><i class="fas fa-calendar"></i>   Mes cours</p>
+                        <p><i class="fas fa-sign-out-alt"></i>  Déconnexion</p>
                     </div>
                 </div>
             </section>
@@ -46,8 +45,9 @@
             <p>Edutrack - 2024</p>
         </footer>
 
+
+        <script type="text/javascript" src="{% static 'user/script.js' %}"></script>
         {% block js %}
-            <script type="text/javascript" src="{% static 'user/script.js' %}"></script>
         {% endblock %}
     </body>
 </html>
