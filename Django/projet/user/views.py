@@ -67,3 +67,7 @@ def generate_student_id():
         student_id = random.randint(22300000, 23300000)
         if not User.objects.filter(student_id=student_id).exists():
             return student_id
+def profile(request):
+    return render(request, 'user/profile.html')
+def parametre(request):
+    return render(request, 'user/parametre.html')

@@ -66,6 +66,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     user_permissions = models.ManyToManyField(Permission, related_name='databaseprojet_user_permissions_set', blank=True)
     
     objects = UserManager() # Pour assigner le gestionnaire personnalisé 'UseManager' à ce modèle
+    password = models.TextField(max_length=255)
     #is_active = models.BooleanField(default=True)
     #is_staff = models.BooleanField(default=False)
     #date_joined = models.DateTimeField(default=timezone.now)

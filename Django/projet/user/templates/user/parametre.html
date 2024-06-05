@@ -1,0 +1,30 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'user/parametre.css' %}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}
+
+{% block header-content %}
+<div id="menu-recherche">
+    <input type="text" placeholder="Rechercher...">
+    <button>Go</button>
+</div>
+{% endblock %}
+
+{% block main-content %}
+<i class="fas fa-cog"></i>
+<section id="main-paramètre">
+    <h2>Affichage</h2>
+    <div id="affichage">
+       <button id="change-theme"> <i class="fas fa-moon"></i>  Thème sombre</button>
+       <button id="mode-daltonien"><i class="fas fa-low-vision"></i>  Mode daltonien</button>
+    </div>
+    <h2>Sécurité</h2>
+    <div id="securite">
+        <button><i class="fas fa-lock" alt="icone d'un cadena"></i> Changer de mot de passe</button>
+    </div>
+</section>
+{% endblock %}
+

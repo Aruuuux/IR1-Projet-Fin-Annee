@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emploi du Temps</title>
+    <link rel="stylesheet" href="edt.css">
+</head>
+<body>
+    <div class="header">
+        <button id="prevWeek" onclick="changeWeek(-1)">Semaine Précédente</button>
+        <span id="weekLabel">Semaine du 01/01/2024</span>
+        <button id="nextWeek" onclick="changeWeek(1)">Semaine Suivante</button>
+    </div>
+    <div id="main">
+        <section id="menu-left">
+            <div id="search-bar">
+                <input type="text" id="searchInput" placeholder="Rechercher..." oninput="filterSchedule()">
+            </div>
+            <div id="top-bar">
+                <button id="filtres-button" onclick="toggleFiltres()">Filtres</button>
+            </div>
+            <div id="filtres-menu" class="filtre">
+                <div class="filtre-annee">
+                    <button class="filtre-titre" onclick="toggleDropdown('annee-dropdown')">Année</button>
+                    <div class="dropdown-content" id="annee-dropdown">
+                        <label><input type="checkbox" name="annee" value="1"> 1ère année</label>
+                        <label><input type="checkbox" name="annee" value="2"> 2e année</label>
+                        <label><input type="checkbox" name="annee" value="3"> 3e année</label>
+                    </div>
+                </div>
+                <div class="filtre-matiere">
+                    <button class="filtre-titre" onclick="toggleDropdown('matiere-dropdown')">Matière</button>
+                    <div class="dropdown-content" id="matiere-dropdown">
+                        <label><input type="checkbox" name="matiere" value="1"> ANCS</label>
+                        <label><input type="checkbox" name="matiere" value="2"> Java</label>
+                        <label><input type="checkbox" name="matiere" value="3"> HTML & CSS</label>
+                    </div>
+                </div>
+                <div class="filtre-matiere">
+                    <button class="filtre-titre" onclick="toggleDropdown('filiere-dropdown')">Filière</button>
+                    <div class="dropdown-content" id="filiere-dropdown">
+                        <label><input type="checkbox" name="filiere" value="1"> IR</label>
+                        <label><input type="checkbox" name="filiere" value="2"> Textile</label>
+                        <label><input type="checkbox" name="filiere" value="3"> GI</label>
+                        <label><input type="checkbox" name="filiere" value="4"> ASE</label>
+                        <label><input type="checkbox" name="filiere" value="5"> MECA</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="schedule">
+            <div class="time-column">
+                <div class="time-slot">8:00 - 10:00</div>
+                <div class="time-slot">10:00 - 12:00</div>
+                <div class="time-slot">12:00 - 14:00</div>
+                <div class="time-slot">14:00 - 16:00</div>
+                <div class="time-slot">16:00 - 18:00</div>
+            </div>
+            <div class="day-column">
+                <div class="day-header">Lundi</div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+            </div>
+            <div class="day-column">
+                <div class="day-header">Mardi</div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+            </div>
+            <div class="day-column">
+                <div class="day-header">Mercredi</div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+            </div>
+            <div class="day-column">
+                <div class="day-header">Jeudi</div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+            </div>
+            <div class="day-column">
+                <div class="day-header">Vendredi</div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+                <div class="time-slot"></div>
+            </div>
+        </div>
+    </div>
+    <script src="edt.js"></script>
+</body>
+</html>
