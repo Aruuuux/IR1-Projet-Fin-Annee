@@ -1,0 +1,15 @@
+{% block styles %}
+<link rel="stylesheet" href="{% static 'user/styles.css' %}" />
+{% endblock %}
+
+{% block main-content %}
+<div class="loginbox">
+    <h1>Mot de passe oublié ?</h1>
+    <form>
+        <p style="margin: 0;">E-mail</p>
+        <input type="text" name="username" placeholder="youremail@uha.fr">
+        <input type="submit" name="send" value="OK"><br>
+        <a href="index.html">Actually, I remember it !</a><br>
+    </form>
+</div>
+{% endblock %}

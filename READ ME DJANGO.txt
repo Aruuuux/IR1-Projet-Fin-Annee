@@ -1,0 +1,6 @@
+aller dans le repertoire \projet\ et faire "py manage.py runserver 8080"
+si ça marche pas verifiez que vous avez django d'installé avec "py -m django --version"
+
+faire les commandes dans la console (depuis la racine du projet) pour supprimer les fichiers inutiles de git:
+git rm --cached *.pyc
+git rm --cached ./Django/projet/db.sqlite3

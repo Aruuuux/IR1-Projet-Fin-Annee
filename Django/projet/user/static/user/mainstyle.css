@@ -1,0 +1,256 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    width:100%;
+}
+
+header {
+    background-color: rgb(22,49,70);
+    height: 6%;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color: #3d3d3d;
+    height:100%;
+    box-sizing: 0 5px 25px rgba(0,0,0,0.2);
+}
+
+.menu ::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #3d3d3d;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    z-index: -1;
+}
+
+#menu-top {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    height:100%;
+}
+
+#logo {
+    width:10%;
+    height:100%;
+}
+
+#logo img {
+    height: 100%;
+    width: auto;
+}
+
+#menu-recherche-container {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+#menu-recherche {
+    display: flex;
+    align-items: center;
+    width: 60%;
+    max-width: 400px; /* Ajustez cette largeur selon vos besoins */
+    margin: 0 auto;
+}
+
+#menu-recherche input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    box-sizing: border-box;
+    height: 40px; /* Assurez-vous que la hauteur est la même pour les deux éléments */
+}
+
+#menu-recherche button {
+    background-color: #aaa;
+    border: none;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+    height: 40px; /* Assurez-vous que la hauteur est la même pour les deux éléments */
+    box-sizing: border-box;
+}
+
+#menu-recherche button img {
+    height: 20px;
+}
+
+#profil-utilisateur img {
+    height: 50px;
+    border-radius: 50%;
+}
+
+#left-menu {
+    background-color: #3d3d3d;
+    width: 200px;
+    height: auto;
+    float: left;
+    color: white;
+    box-sizing: border-box;
+    padding: 3px 5px 3px 5px;
+    border-radius: 0px 0px 5px 0px;
+    z-index: 1;
+}
+
+#menu-filter-button {
+    font-size: 18px;
+    width:100%;
+    border: none;
+    cursor: pointer;
+    background-color: #242323;
+    color: white; /* Ajoutez cette ligne pour changer la couleur du texte du bouton */
+}
+
+.title-filter {
+    background-color: rgb(92, 91, 91);
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #333;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.dropdown-content {
+    display: none;
+    background-color: grey;
+    min-width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.dropdown-content label {
+    color: white;
+    padding: 10px;
+    display: block;
+    border-radius:5px;
+    z-index: 1;
+}
+
+.dropdown-content label:hover {
+    background-color: #747373;
+    z-index: 1;
+}
+
+.dropdown-content input {
+    margin-right: 10px;
+    z-index: 1;
+}
+
+#main-content {
+    width:100%;
+    background-color: #f1f0f0ad;
+    height: calc(100vh - 70px);
+    box-sizing: border-box;
+}
+
+#dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 10px; /* Positionner le menu à droite de l'élément parent */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    background-color: #333; /* Couleur de fond sombre */
+    font-family: Arial, sans-serif; /* Police simple et propre */
+    padding: 10px;
+}
+
+#dropdown-menu.show {
+    display: block;
+    opacity: 1;
+    right:0;
+}
+
+#dropdown-menu p {
+    color: rgb(203, 197, 197);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    margin: 5px 0;
+    font-size: 16px;
+    text-align: center;
+}
+
+#dropdown-menu p:hover {
+    background-color: #555; /* Couleur de fond plus claire lors du survol */
+    cursor: pointer; /* Change le curseur en main-content lors du survol */
+}
+
+#profil-utilisateur button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+#menu-filter {
+    display: none; /* Le menu est initialement fermé */
+    z-index: 1;
+    position: relative;
+    width: 100%;
+}
+
+#menu-filter.open {
+    display: block; /* Le menu s'ouvre lorsque la classe 'open' est ajoutée */
+}
+
+#tableau {
+    position: fixed;
+    margin-top:2%;
+    width: calc(100% - 300px);
+    height: 100vh;
+    overflow: auto;
+    z-index: 0; /* Cela place #tableau en dessous de #left-menu */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-left: 16%;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #7c7777;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #9c959589;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+th, td {
+    min-width: 100px;
+    box-sizing: border-box;
+}

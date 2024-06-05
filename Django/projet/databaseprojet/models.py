@@ -2,16 +2,39 @@ from django.db import models
 import re
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+from django.utils import timezone 
 
+'''
+class UserManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError('The Email field must be set')
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)  # Hachage du mot de passe
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+
+        return self.create_user(email, password, **extra_fields)
+'''
 
 class Roles(models.Model):
     ROLES = [
-        (1, 'Student'),
-        (2, 'Teacher'),
-        (3, 'Supervisor'),
+        ('Student', 'Student'),
+        ('Teacher', 'Teacher'),
+        ('Supervisor', 'Supervisor'),
     ]
-    id = models.AutoField(primary_key=True)
-    name = models.IntegerField(choices=ROLES, unique=True)
+    name = models.CharField(max_length=50, choices=ROLES, unique=True)
 
     def __str__(self):
         return self.get_name_display()
@@ -33,19 +56,27 @@ class Speciality(models.Model):
     def __str__(self):
         return dict(self.SPECIALITY_CHOICES).get(self.speciality_id, 'Unknown')
 
-
+#class User(AbstractBaseUser, PermissionsMixin):
 class User(models.Model):
     id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    roles = models.ForeignKey(Roles, on_delete=models.CASCADE)
+    roles = models.ForeignKey('Roles', on_delete=models.CASCADE)
     date_of_birth = models.DateField()
-    speciality_id = models.ForeignKey(Speciality, on_delete=models.CASCADE)
+    speciality_id = models.ForeignKey('Speciality', on_delete=models.CASCADE)
     photo = models.ImageField(upload_to='../Media/photos/')
     email = models.EmailField(unique=True)
-    password = models.TextField(max_length=255)
-    student_id = models.IntegerField(unique=True) # C'est pour les étudiants, les profs et les superviseurs
+    student_id = models.IntegerField(unique=True)
     year = models.IntegerField()
+    #is_active = models.BooleanField(default=True)
+    #is_staff = models.BooleanField(default=False)
+    #date_joined = models.DateTimeField(default=timezone.now)
+
+    #objects = UserManager()
+
+    #USERNAME_FIELD = 'email'
+    #REQUIRED_FIELDS = ['first_name', 'last_name']
+
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -55,9 +86,15 @@ class User(models.Model):
         email_pattern = r'^[a-zA-Z]+\.[a-zA-Z]+@uha\.fr$'
         if not re.match(email_pattern, self.email):
             raise ValidationError(_('Email doit être sous la forme prenom.nom@uha.fr'))
-
+'''
+    def save(self, *args, **kwargs):
+        if self.pk is None:  # Si l'utilisateur est nouveau
+            self.set_password(self.password)  # Hachage du mot de passe
+        super().save(*args, **kwargs)
+'''
 
     
+
 class Module(models.Model):
     id=models.AutoField(primary_key=True)
     speciality_id = models.ForeignKey(Speciality, on_delete=models.CASCADE)
