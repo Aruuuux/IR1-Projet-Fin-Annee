@@ -155,7 +155,7 @@ header {
 #menu-filter-button.open, .title-filter.open {
     background-color: #03436e; /* Changez ceci à la couleur que vous voulez */
 }
-#menu-filter-button.open:hover, .title-filter.open:hover {
+#left-menu button:hover {
     background-color: #4486b2; /* Changez ceci à la couleur que vous voulez */
 }
 .dropdown-content {
@@ -259,6 +259,7 @@ header {
     overflow-x: auto; /* Ajoute une barre de défilement horizontale si nécessaire */
     width: 100%;
     height: 500px;
+    margin-top:2%;
 }
 table {
     width: 100%;
@@ -281,6 +282,7 @@ th {
     top:0;
     border: 1px solid #000000;
     transform: translate3d(0, 0, 0); /* Ajoute une transformation de traduction 3D */
+    color: #d8d3d3;
 }
 
 tr:nth-child(even) {
