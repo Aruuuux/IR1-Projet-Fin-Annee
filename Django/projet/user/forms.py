@@ -15,3 +15,6 @@ class UserForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
         self.fields['photo'].required = False
+        self.fields['first_name'].initial = ''
+        self.fields['last_name'].initial = ''
+        self.fields['email'].initial = ''
