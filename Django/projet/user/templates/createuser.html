@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create User</title>
+    <!-- Link to Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data" class="form-horizontal">
+        {% csrf_token %}
+        
+        <!-- First Name -->
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="id_first_name">First Name</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="id_first_name" name="first_name" value="{{ form.first_name.value }}" required>
+            </div>
+        </div>
+        
+        <!-- Last Name -->
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="id_last_name">Last Name</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="id_last_name" name="last_name" value="{{ form.last_name.value }}" required>
+            </div>
+        </div>
+        
+        <!-- Role -->
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="id_role">Role</label>
+            <div class="col-sm-4">
+                <select name="roles" id="id_role" class="form-control">
+                    {% for role in roles %}
+                    <option value="{{ role.id }}">{{ role.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="id_date_of_birth">Date of Birth</label>
+            <div class="col-sm-4">
+                <input type="date" class="form-control" id="id_date_of_birth" name="date_of_birth" value="{{ form.date_of_birth.value }}" required>
+            </div>
+        </div>
+        
+        <!-- Speciality -->
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="id_speciality">Speciality</label>
+            <div class="col-sm-4">
+                <select name="speciality_id" id="id_speciality" class="form-control">
+                    {% for speciality in specialities %}
+                    <option value="{{ speciality.id }}">{{ speciality.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        
+        <!-- Photo -->
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="id_photo">Photo</label>
+            <div class="col-sm-4">
+                <input type="file" class="form-control-file" id="id_photo" name="photo" accept=".jpg, .jpeg, .png">
+            </div>
+        </div>
+        
+        <!-- Email -->
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="id_email">Email</label>
+            <div class="col-sm-4">
+                <input type="email" class="form-control" id="id_email" name="email" value="{{ form.email.value }}" required>
+            </div>
+        </div>
+        
+        <!-- Password -->
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="id_password">Password</label>
+            <div class="col-sm-4">
+                <input type="password" class="form-control" id="id_password" name="password" required>
+            </div>
+        </div>
+        
+        <!-- Year -->
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="id_year">Year</label>
+            <div class="col-sm-4">
+                <select name="year" id="id_year" class="form-control">
+                    <option value="1">Year 1</option>
+                    <option value="2">Year 2</option>
+                    <option value="3">Year 3</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Submit Button -->
+        <div class="form-group row">
+            <div class="col-sm-4 offset-sm-2">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Table of Users -->
+    <div class="container mt-5">
+        <h2>Users List</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Photo</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Student ID</th>
+                    <th>Date of Birth</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Speciality</th>
+                    <th>Year</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>
+                        {% comment %} <img src="{{ user.photo.url }}" alt="Photo" width="50"> {% endcomment %}
+                    </td>
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.last_name }}</td>
+                    <td>{{ user.student_id }}</td>
+                    <td>{{ user.date_of_birth }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.roles.name }}</td>
+                    <td>{{ user.speciality_id.name }}</td>
+                    <td>{{ user.year }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

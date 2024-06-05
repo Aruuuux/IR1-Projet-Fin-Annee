@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     path('', views.indexview, name='login'),  # login view URL pattern
     path('login/', views.indexview, name='login'),
-    path('index/', views.index, name='index'),
+    path('createuser/', views.createuser, name='createuser'),
     path('psswrdforgot/', views.psswrdforgot, name='psswrdforgot'),
 ]
 
