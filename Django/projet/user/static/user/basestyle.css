@@ -16,6 +16,13 @@ header {
     backdrop-filter: blur(2px);
 }
 
+#menu-top {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    height:100%;
+}
+
 #logo {
     width:10%;
     height:100%;
@@ -24,4 +31,11 @@ header {
 #logo img {
     height: 100%;
     width: auto;
+}
+
+footer {
+    bottom: 0px;
+    color: var(--white);
+    position: absolute;
+    width: 100vw;
 }
