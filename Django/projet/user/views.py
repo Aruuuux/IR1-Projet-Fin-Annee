@@ -52,3 +52,5 @@ def generate_student_id():
             return student_id
 def profile(request):
     return render(request, 'user/profile.html')
+def parametre(request):
+    return render(request, 'user/parametre.html')
