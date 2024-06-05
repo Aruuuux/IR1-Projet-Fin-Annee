@@ -18,6 +18,9 @@ def psswrdforgot(request):
 def profile(request):
     return render(request, 'profile.html')
 
+def parametre(request):
+    return render(request, 'user/parametre.html')
+
 def createuser(request):
     if request.method == 'POST':
         form = UserForm(request.POST, request.FILES)

@@ -11,6 +11,7 @@ urlpatterns = [
     path('psswrdforgot/', views.psswrdforgot, name='psswrdforgot'),
     path('main/', views.main, name='main'),
     path('profile/', views.profile, name='profile'),
+    path('parametre/', views.parametre, name='parametre'),
 ]
 
 from django.urls import path
