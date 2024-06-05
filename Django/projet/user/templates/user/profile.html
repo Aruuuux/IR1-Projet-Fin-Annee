@@ -2,32 +2,13 @@
 {% load static %}
 
 {% block styles %}
-<link rel="stylesheet" href="profil.css"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
- {% endblock %}
-    
-
-
+<link rel="stylesheet" href="{% static 'user/styles.css' %}" />
+{% endblock %}
 
 {% block main-content %}
-    <section id = "top-bar">
-        <div id = "logo">
-            <img src="logo.png" alt="logo"/>
-        </div>
-        <div id = "information">
-            <button><i class="fas fa-question"></i></button>
-            <button><i class="fas fa-home"></i></button>
-        </div>
-    </section>
-    <section id= "profil">
-        <div id = "profil-picture">
-            <img src="profil-picture.png" alt="profil-picture"/>
-        </div>
-        <div id = "profil-information">
-            <h1>Prénom Nom</h1>
-            <p>N° Etudiant</p>
-            <p>Classe</p>
-            
-        </div>
-    </section>
+<div class="loginbox">
+    <h1>Nom Prenom</h1>
+    <p>N° Etudiant</p>
+    <p>Classe</p>
+</div>
 {% endblock %}
