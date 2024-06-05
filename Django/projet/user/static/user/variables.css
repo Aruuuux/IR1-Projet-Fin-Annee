@@ -4,8 +4,10 @@
     --darker-main-color : #013538;
     --dark-main-color : #00575C;
     --main-color : #0A878E;
-    --lighter-main-color :#01A3AD;
-    --light-main-color : rgb(135, 198, 224);
+    --lighter-main-color :#23a7ae;
+    --clair-main-color : #319ac3;
+    --light-main-color : #6cb2e0;
+    --vlight-main-color : rgb(193, 228, 232);
     --black : rgb(10, 13, 20);
     --grey : rgb(46, 52, 56);
 }
