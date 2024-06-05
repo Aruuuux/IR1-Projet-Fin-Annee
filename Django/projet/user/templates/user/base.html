@@ -7,11 +7,9 @@
         <title>Edutrack</title>
             <link rel="stylesheet" href="{% static 'user/mainstyle.css' %}" />
             <link rel="stylesheet" href="{% static 'user/variables.css' %}" />
-            <link rel="icon" type="image/ico" href="{% static '/.ico' %}"> <!--- à rajouter -->
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-            <!--<link rel="icon" type="image/ico" href="{% static '/.ico' %}">  à rajouter -->
-        {% block styles %}
-        {% endblock %}
+            <!-- <link rel="icon" type="image/ico" href="{% static '/.ico' %}">  à rajouter -->
+            {% block styles %}
+            {% endblock %}
     </head>
 
     <body>
@@ -26,8 +24,6 @@
                 <div id="logo">
                     <img src="{% static 'png/logo_resized.png' %}" alt="logo"/>
                 </div>
-                {% block header-content %}
-                {% endblock %}
                 <div id="profil-utilisateur">
                     <button>
                         <i class="fas fa-user fa-3x"></i>
