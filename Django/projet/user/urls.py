@@ -10,6 +10,7 @@ urlpatterns = [
     path('deleteuser/<int:user_id>/', views.deleteuser, name='deleteuser'),
     path('psswrdforgot/', views.psswrdforgot, name='psswrdforgot'),
     path('userslist/', views.userslist, name='userslist'),
+    path('importusers/', views.importusers, name='importusers'),
 ]
 
 from django.urls import path
