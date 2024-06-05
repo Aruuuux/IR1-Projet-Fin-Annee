@@ -87,7 +87,9 @@ header {
     height: 40px; /* Assurez-vous que la hauteur est la même pour les deux éléments */
     box-sizing: border-box;
 }
-
+#menu-recherche button:hover {
+    background-color: #7c7c7c;
+}
 #menu-recherche button img {
     height: 20px;
 }
@@ -119,6 +121,10 @@ header {
     border-radius: 5px;
     display: flex;
 }
+#reset-button:hover, #applied-button:hover {
+    background-color:  #2a7195;
+    
+}
 #button-container {
     display: flex;
     justify-content: space-between; /* Si vous voulez un espace entre les boutons */
@@ -136,7 +142,7 @@ header {
 }
 
 .title-filter {
-    background-color: #005c99;
+    background-color: #106dab;
     color: white;
     padding: 8px;
     font-size: 16px;
@@ -146,7 +152,12 @@ header {
     text-align: center;
     border-radius: 5px;
 }
-
+#menu-filter-button.open, .title-filter.open {
+    background-color: #03436e; /* Changez ceci à la couleur que vous voulez */
+}
+#menu-filter-button.open:hover, .title-filter.open:hover {
+    background-color: #4486b2; /* Changez ceci à la couleur que vous voulez */
+}
 .dropdown-content {
     display: none;
     background-color: rgb(19, 92, 141);
@@ -264,7 +275,7 @@ th, td {
 }
 
 th {
-    background-color: #3250f8;
+    background-color: #03436e;
     font-weight: bold;
     position: sticky;
     top:0;
@@ -291,4 +302,3 @@ th, td {
 .filter-icon {
     margin-right: 10px;
 }
-
