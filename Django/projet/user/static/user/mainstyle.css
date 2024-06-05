@@ -7,8 +7,13 @@ html, body {
 }
 
 header {
-    background-color: rgb(22,49,70);
+    background-color: var(--vdark-main-color);
     height: 6%;
+    color : var(--white);
+    background-color: var(--vdarker-main-color);
+    padding: 5px;
+    opacity: 0.8;
+    backdrop-filter: blur(2px);
 }
 
 .menu {
