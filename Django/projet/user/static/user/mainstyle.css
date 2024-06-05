@@ -4,10 +4,11 @@ html, body {
     padding: 0;
     font-family: Arial, sans-serif;
     width:100%;
+    background-color: #f0f0f0; /* Ajoutez cette ligne pour une couleur de fond gris clair */
 }
 
 header {
-    background-color: rgb(22,49,70);
+    background-color: #003366;
     height: 6%;
 }
 
@@ -16,7 +17,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
-    background-color: #3d3d3d;
+    background-color: #00336698;
     height:100%;
     box-sizing: 0 5px 25px rgba(0,0,0,0.2);
 }
@@ -91,36 +92,53 @@ header {
     height: 20px;
 }
 
-#profil-utilisateur img {
+#profil-utilisateur button {
     height: 50px;
-    border-radius: 50%;
+    padding-right: 50px;
+
 }
 
 #left-menu {
-    background-color: #3d3d3d;
+    background-color: transparent;
     width: 200px;
     height: auto;
     float: left;
     color: white;
     box-sizing: border-box;
-    padding: 3px 5px 3px 5px;
+    padding: 3px 5px 4px 5px;
     border-radius: 0px 0px 5px 0px;
     z-index: 1;
 }
-
+#reset-button, #applied-button {
+    background-color:  #3399cc;
+    color: white;
+    font-size: 13px;
+    border: 1px solid #333;
+    cursor: pointer;
+    width: 50%;
+    border-radius: 5px;
+    display: flex;
+}
+#button-container {
+    display: flex;
+    justify-content: space-between; /* Si vous voulez un espace entre les boutons */
+}
 #menu-filter-button {
+    box-sizing: border-box; /* Ajoutez cette ligne */
     font-size: 18px;
-    width:100%;
+    width: 100%;
     border: none;
     cursor: pointer;
-    background-color: #242323;
-    color: white; /* Ajoutez cette ligne pour changer la couleur du texte du bouton */
+    background-color: #005c99;
+    color: white;
+    border-radius: 5px;
+    padding:5px;
 }
 
 .title-filter {
-    background-color: rgb(92, 91, 91);
+    background-color: #005c99;
     color: white;
-    padding: 10px;
+    padding: 8px;
     font-size: 16px;
     border: 1px solid #333;
     cursor: pointer;
@@ -131,9 +149,9 @@ header {
 
 .dropdown-content {
     display: none;
-    background-color: grey;
+    background-color: rgb(19, 92, 141);
     min-width: 100%;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px #3399cc;
     z-index: 1;
     border-radius: 5px;
 }
@@ -147,7 +165,7 @@ header {
 }
 
 .dropdown-content label:hover {
-    background-color: #747373;
+    background-color: #1399f3b9;
     z-index: 1;
 }
 
@@ -158,9 +176,10 @@ header {
 
 #main-content {
     width:100%;
-    background-color: #f1f0f0ad;
+    background-color: #9ab1ee;
     height: calc(100vh - 70px);
     box-sizing: border-box;
+    display:flex;
 }
 
 #dropdown-menu {
@@ -173,7 +192,7 @@ header {
     border-radius: 5px;
     transition: opacity 0.3s ease;
     opacity: 0;
-    background-color: #333; /* Couleur de fond sombre */
+    background-color: #0f70df; /* Couleur de fond sombre */
     font-family: Arial, sans-serif; /* Police simple et propre */
     padding: 10px;
 }
@@ -195,7 +214,7 @@ header {
 }
 
 #dropdown-menu p:hover {
-    background-color: #555; /* Couleur de fond plus claire lors du survol */
+    background-color: #1399f3b9; /* Couleur de fond plus claire lors du survol */
     cursor: pointer; /* Change le curseur en main-content lors du survol */
 }
 
@@ -217,18 +236,25 @@ header {
 }
 
 #tableau {
-    position: fixed;
-    margin-top:2%;
+    position:absolute;
+    margin-top:6%;
     width: calc(100% - 300px);
-    height: 100vh;
-    overflow: auto;
+    height: 500px;
+    flex-grow:1;
+    overflow: scroll; /* Force la barre de défilement à être toujours visible */
     z-index: 0; /* Cela place #tableau en dessous de #left-menu */
 }
-
+#tableau-wrapper {
+    overflow-x: auto; /* Ajoute une barre de défilement horizontale si nécessaire */
+    width: 100%;
+    height: 500px;
+}
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-left: 16%;
+    margin-left: 5%;
+    min-width: 1000px;
+    min-height: 400px;
 }
 
 th, td {
@@ -238,19 +264,31 @@ th, td {
 }
 
 th {
-    background-color: #7c7777;
+    background-color: #3250f8;
     font-weight: bold;
+    position: sticky;
+    top:0;
+    border: 1px solid #000000;
+    transform: translate3d(0, 0, 0); /* Ajoute une transformation de traduction 3D */
 }
 
 tr:nth-child(even) {
-    background-color: #9c959589;
+    background-color: #1c8ef8a1;
 }
-
+tr:nth-child(odd) {
+    background-color: #aacef0ef;
+}
 tr:hover {
-    background-color: #ddd;
+    background-color: #91daf0e3;
 }
 
 th, td {
     min-width: 100px;
     box-sizing: border-box;
+    border: 2px solid #000000;
 }
+
+.filter-icon {
+    margin-right: 10px;
+}
+

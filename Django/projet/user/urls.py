@@ -5,9 +5,11 @@ from . import views
 urlpatterns = [
     path('', views.indexview, name='login'),  # login view URL pattern
     path('login/', views.indexview, name='login'),
-    path('index/', views.index, name='index'),
+    path('createuser/', views.createuser, name='createuser'),
+    path('edituser/<int:user_id>/', views.edituser, name='edituser'),
+    path('deleteuser/<int:user_id>/', views.deleteuser, name='deleteuser'),
     path('psswrdforgot/', views.psswrdforgot, name='psswrdforgot'),
-    path('admin/', views.admin, name='admin'),
+    
     path('main/', views.main, name='main'),
 ]
 
