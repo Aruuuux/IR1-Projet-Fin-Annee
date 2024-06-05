@@ -1,0 +1,15 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'user/styles.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <h1>Book List</h1>
+  <ul>
+    {% for book in books %}
+      <li>{{ book.title }} by {{ book.author }} - ${{ book.price }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

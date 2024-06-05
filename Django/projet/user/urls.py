@@ -9,6 +9,7 @@ urlpatterns = [
     path('psswrdforgot/', views.psswrdforgot, name='psswrdforgot'),
     path('admin/', views.admin, name='admin'),
     path('main/', views.main, name='main'),
+    path('BDDviewer/', views.BDDviewer, main='BDDviewer')
 ]
 
 from django.urls import path
