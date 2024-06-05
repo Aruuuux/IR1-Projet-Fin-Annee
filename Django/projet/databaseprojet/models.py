@@ -56,6 +56,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     speciality_id = models.ForeignKey('Speciality', on_delete=models.CASCADE)
     photo = models.ImageField(upload_to='../Media/photos/', blank=True, null=True)
     email = models.EmailField(unique=True)
+    password = models.TextField(max_length=255)
     student_id = models.IntegerField(unique=True)
     year = models.IntegerField()
     is_active = models.BooleanField(default=True) # Statut de l'utilisateur
@@ -65,6 +66,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     user_permissions = models.ManyToManyField(Permission, related_name='databaseprojet_user_permissions_set', blank=True)
     
     objects = UserManager() # Pour assigner le gestionnaire personnalisé 'UseManager' à ce modèle
+    #is_active = models.BooleanField(default=True)
+    #is_staff = models.BooleanField(default=False)
+    #date_joined = models.DateTimeField(default=timezone.now)
+
+    #objects = UserManager()
+
+    #USERNAME_FIELD = 'email'
+    #REQUIRED_FIELDS = ['first_name', 'last_name']
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'roles', 'date_of_birth', 'speciality_id', 'student_id', 'year']

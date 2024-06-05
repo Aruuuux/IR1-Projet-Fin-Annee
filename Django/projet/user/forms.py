@@ -11,7 +11,7 @@ class UserForm(forms.ModelForm):
         model = User
         fields = [
             'first_name', 'last_name', 'roles', 'date_of_birth',
-            'speciality_id', 'photo', 'email', 'password', 'student_id', 'year'
+            'speciality_id', 'photo', 'email', 'password','student_id', 'year'
         ]
 
     def clean_email(self):

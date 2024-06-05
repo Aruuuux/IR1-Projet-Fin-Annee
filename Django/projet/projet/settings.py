@@ -141,3 +141,5 @@ STATICFILES_DIRS = [
 
 # Pour indiquer à Django d'utiliser notre modèle User personnalisé par défaut
 AUTH_USER_MODEL = 'databaseprojet.User'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
