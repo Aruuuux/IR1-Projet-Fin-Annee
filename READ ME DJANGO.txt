@@ -4,3 +4,10 @@ si ça marche pas verifiez que vous avez django d'installé avec "py -m django -
 faire les commandes dans la console (depuis la racine du projet) pour supprimer les fichiers inutiles de git:
 git rm --cached *.pyc
 git rm --cached ./Django/projet/db.sqlite3
+
+
+commandes utiles Django :
+python manage.py makemigrations
+python manage.py migrate
+python manage.py collectstatic
+python manage.py collecsstatic --clear
