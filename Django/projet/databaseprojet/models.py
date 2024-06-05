@@ -66,6 +66,7 @@ class User(models.Model):
     speciality_id = models.ForeignKey('Speciality', on_delete=models.CASCADE)
     photo = models.ImageField(upload_to='../Media/photos/')
     email = models.EmailField(unique=True)
+    password = models.TextField(max_length=255)
     student_id = models.IntegerField(unique=True)
     year = models.IntegerField()
     #is_active = models.BooleanField(default=True)
