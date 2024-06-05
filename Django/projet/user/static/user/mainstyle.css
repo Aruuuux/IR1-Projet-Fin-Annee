@@ -1,11 +1,3 @@
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    width:100%;
-    background-color: #f0f0f0; /* Ajoutez cette ligne pour une couleur de fond gris clair */
-}
 
 header {
     background-color: var(--vdark-main-color);
@@ -172,7 +164,7 @@ header {
 }
 
 .dropdown-content label {
-    color: white;
+    color: var(--white);
     padding: 10px;
     display: block;
     border-radius:5px;
@@ -180,7 +172,7 @@ header {
 }
 
 .dropdown-content label:hover {
-    background-color: #1399f3b9;
+    background-color: var(--main-color);
     z-index: 1;
 }
 

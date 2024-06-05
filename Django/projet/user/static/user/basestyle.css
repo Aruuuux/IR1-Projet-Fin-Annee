@@ -3,8 +3,11 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    width:100%;
-    background-color: var(--white); /* Ajoutez cette ligne pour une couleur de fond gris clair */
+    width:100%;/* Ajoutez cette ligne pour une couleur de fond gris clair */
+    background-image: url("{% static 'png/login_img.jpg' %}");
+    background-position: center;
+    background-size: cover;
+    font-family: sans-serif;
 }
 
 header {
