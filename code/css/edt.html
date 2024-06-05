@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emploi du Temps</title>
     <link rel="stylesheet" href="edt.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <div class="header">
@@ -13,92 +14,96 @@
         <button id="nextWeek" onclick="changeWeek(1)">Semaine Suivante</button>
     </div>
     <div id="main">
-        <section id="menu-left">
-            <div id="search-bar">
-                <input type="text" id="searchInput" placeholder="Rechercher..." oninput="filterSchedule()">
-            </div>
-            <div id="top-bar">
-                <button id="filtres-button" onclick="toggleFiltres()">Filtres</button>
-            </div>
-            <div id="filtres-menu" class="filtre">
-                <div class="filtre-annee">
-                    <button class="filtre-titre" onclick="toggleDropdown('annee-dropdown')">Année</button>
-                    <div class="dropdown-content" id="annee-dropdown">
-                        <label><input type="checkbox" name="annee" value="1"> 1ère année</label>
-                        <label><input type="checkbox" name="annee" value="2"> 2e année</label>
-                        <label><input type="checkbox" name="annee" value="3"> 3e année</label>
+        <section id="left-menu">
+            <button id="menu-filter-button"><i class="fas fa-filter fa-sm"></i> Filtres <i id="title-filter-icon" class="fas fa-caret-right"></i></button>
+            <div id="menu-filter">
+                <div class="filter-components">
+                    <button class="title-filter" onclick="toggleDropdown('year-dropdown')">Année <i id="year-filter-icon" class="fas fa-caret-right"></i></button>
+                    <div class="dropdown-content" id="year-dropdown">
+                        <label><input type="checkbox" name="year" value="1"> 1ère année</label>
+                        <label><input type="checkbox" name="year" value="2"> 2e année</label>
+                        <label><input type="checkbox" name="year" value="3"> 3e année</label>
                     </div>
                 </div>
-                <div class="filtre-matiere">
-                    <button class="filtre-titre" onclick="toggleDropdown('matiere-dropdown')">Matière</button>
-                    <div class="dropdown-content" id="matiere-dropdown">
-                        <label><input type="checkbox" name="matiere" value="1"> ANCS</label>
-                        <label><input type="checkbox" name="matiere" value="2"> Java</label>
-                        <label><input type="checkbox" name="matiere" value="3"> HTML & CSS</label>
+                <div class="filter-components">
+                    <button class="title-filter" onclick="toggleDropdown('lesson-dropdown')">Matière <i id="lesson-filter-icon" class="fas fa-caret-right"></i></button>
+                    <div class="dropdown-content" id="lesson-dropdown">
+                        <label><input type="checkbox" name="lesson" value="1"> ANCS</label>
+                        <label><input type="checkbox" name="lesson" value="2"> Java</label>
+                        <label><input type="checkbox" name="lesson" value="3"> HTML & CSS</label>
                     </div>
                 </div>
-                <div class="filtre-matiere">
-                    <button class="filtre-titre" onclick="toggleDropdown('filiere-dropdown')">Filière</button>
-                    <div class="dropdown-content" id="filiere-dropdown">
-                        <label><input type="checkbox" name="filiere" value="1"> IR</label>
-                        <label><input type="checkbox" name="filiere" value="2"> Textile</label>
-                        <label><input type="checkbox" name="filiere" value="3"> GI</label>
-                        <label><input type="checkbox" name="filiere" value="4"> ASE</label>
-                        <label><input type="checkbox" name="filiere" value="5"> MECA</label>
+                <div class="filter-components">
+                    <button class="title-filter" onclick="toggleDropdown('cursus-dropdown')">Filière <i id="cursus-filter-icon" class="fas fa-caret-right"></i></button>
+                    <div class="dropdown-content" id="cursus-dropdown">
+                        <label><input type="checkbox" name="cursus" value="1"> IR</label>
+                        <label><input type="checkbox" name="cursus" value="2"> Textile</label>
+                        <label><input type="checkbox" name="cursus" value="3"> GI</label>
+                        <label><input type="checkbox" name="cursus" value="4"> ASE</label>
+                        <label><input type="checkbox" name="cursus" value="5"> MECA</label>
                     </div>
+                </div>
+                <div id="button-container">
+                    <button id="reset-button">Reset</button>
+                    <button id="applied-button">Apply</button>
                 </div>
             </div>
         </section>
-        <div class="schedule">
-            <div class="time-column">
-                <div class="time-slot">8:00 - 10:00</div>
-                <div class="time-slot">10:00 - 12:00</div>
-                <div class="time-slot">12:00 - 14:00</div>
-                <div class="time-slot">14:00 - 16:00</div>
-                <div class="time-slot">16:00 - 18:00</div>
+        <section class="edt">
+            <div class="container">
+                <h2 class="section-title">Semaine du 12/06/2023 au 18/06/2023</h2>
+                <table class="schedule">
+                    <thead>
+                        <tr>
+                            <th>Heure</th>
+                            <th>Lundi</th>
+                            <th>Mardi</th>
+                            <th>Mercredi</th>
+                            <th>Jeudi</th>
+                            <th>Vendredi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>8:00 - 10:00</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>10:00 - 12:00</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>12:00 - 14:00</td>
+                            <td colspan="5" class="break">Pause Déjeuner</td>
+                        </tr>
+                        <tr>
+                            <td>14:00 - 16:00</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>16:00 - 18:00</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="day-column">
-                <div class="day-header">Lundi</div>
-                <div class="time-slot"></div>
-                <div class="time-slot"></div>
-                <div class="time-slot"></div>
-                <div class="time-slot"></div>
-                <div class="time-slot"></div>
-            </div>
-            <div class="day-column">
-                <div class="day-header">Mardi</div>
-                <div class="time-slot"></div>
-                <div class="time-slot"></div>
-                <div class="time-slot"></div>
-                <div class="time-slot"></div>
-                <div class="time-slot"></div>
-            </div>
-            <div class="day-column">
-                <div class="day-header">Mercredi</div>
-                <div class="time-slot"></div>
-                <div class="time-slot"></div>
-                <div class="time-slot"></div>
-                <div class="time-slot"></div>
-                <div class="time-slot"></div>
-            </div>
-            <div class="day-column">
-                <div class="day-header">Jeudi</div>
-                <div class="time-slot"></div>
-                <div class="time-slot"></div>
-                <div class="time-slot"></div>
-                <div class="time-slot"></div>
-                <div class="time-slot"></div>
-            </div>
-            <div class="day-column">
-                <div class="day-header">Vendredi</div>
-                <div class="time-slot"></div>
-                <div class="time-slot"></div>
-                <div class="time-slot"></div>
-                <div class="time-slot"></div>
-                <div class="time-slot"></div>
-            </div>
-        </div>
-    </div>
+        </section>
     <script src="edt.js"></script>
 </body>
 </html>

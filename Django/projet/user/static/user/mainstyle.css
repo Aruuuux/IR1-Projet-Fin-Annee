@@ -19,6 +19,41 @@
     box-shadow: 0 5px 25px rgba(0,0,0,0.2);
     z-index: -1;
 }
+.menu-content {
+    display: block;
+    position: static;
+    background-color: #194fcd;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 5px 0;
+    border-radius:5px;
+    z-index: 1;
+}
+.menu-content label {
+    display: block;
+    width: 100%;
+}
+
+.menu-content label:hover {
+    background-color: #ac19cd;
+    border-radius:5px;
+}
+#menu-top {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    height:100%;
+}
+
+#logo {
+    width:10%;
+    height:100%;
+}
+
+#logo img {
+    height: 100%;
+    width: auto;
+}
 
 #menu-recherche-container {
     display: flex;
@@ -74,6 +109,7 @@
     padding: 3px 5px 4px 5px;
     border-radius: 0px 0px 5px 0px;
     z-index: 1;
+    display: block;
 }
 #reset-button, #applied-button {
     background-color:  #3399cc;
@@ -169,6 +205,10 @@
     width: 100%;
 }
 
+#lesson-dropdown {
+    max-height: 100px;
+    overflow-y: auto;
+}
 #menu-filter.open {
     display: block; /* Le menu s'ouvre lorsque la classe 'open' est ajoutée */
 }
