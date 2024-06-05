@@ -158,7 +158,6 @@ header {
 
 #main-content {
     width:100%;
-    background-color: #f1f0f0ad;
     height: calc(100vh - 70px);
     box-sizing: border-box;
 }
