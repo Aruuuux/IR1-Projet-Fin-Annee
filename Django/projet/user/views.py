@@ -9,6 +9,24 @@ def admin(request):
 def main(request):
     return render(request, 'main.html')
 
+def tableau_list(request):
+    students = Student.objects.all()
+
+    # Handle filters
+    if request.method == 'POST':
+        year = request.POST.getlist('year')
+        lesson = request.POST.getlist('lesson')
+        cursus = request.POST.getlist('cursus')
+
+        if year:
+            students = students.filter(year__in=year)
+        if lesson:
+            students = students.filter(lesson__in=lesson)
+        if cursus:
+            students = students.filter(cursus__in=cursus)
+
+    return render(request, 'student_list.html', {'students': students})
+
 def indexview(request):
     return render(request, 'index.html')
 
