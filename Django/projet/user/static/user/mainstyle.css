@@ -99,7 +99,7 @@ header {
 }
 
 #left-menu {
-    background-color: #3580cc;
+    background-color: transparent;
     width: 200px;
     height: auto;
     float: left;
@@ -109,17 +109,20 @@ header {
     border-radius: 0px 0px 5px 0px;
     z-index: 1;
 }
-#reset-button {
+#reset-button, #applied-button {
     background-color:  #3399cc;
     color: white;
     font-size: 13px;
     border: 1px solid #333;
     cursor: pointer;
     width: 50%;
-    text-align: center;
     border-radius: 5px;
+    display: flex;
 }
-
+#button-container {
+    display: flex;
+    justify-content: space-between; /* Si vous voulez un espace entre les boutons */
+}
 #menu-filter-button {
     box-sizing: border-box; /* Ajoutez cette ligne */
     font-size: 18px;
@@ -176,6 +179,7 @@ header {
     background-color: #9ab1ee;
     height: calc(100vh - 70px);
     box-sizing: border-box;
+    display:flex;
 }
 
 #dropdown-menu {
@@ -232,19 +236,25 @@ header {
 }
 
 #tableau {
-    position: fixed;
-    margin-top:2%;
+    position:absolute;
+    margin-top:6%;
     width: calc(100% - 300px);
-    height: 100vh;
-    overflow: auto;
+    height: 500px;
+    flex-grow:1;
+    overflow: scroll; /* Force la barre de défilement à être toujours visible */
     z-index: 0; /* Cela place #tableau en dessous de #left-menu */
 }
-
+#tableau-wrapper {
+    overflow-x: auto; /* Ajoute une barre de défilement horizontale si nécessaire */
+    width: 100%;
+    height: 500px;
+}
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-left: 16%;
-    
+    margin-left: 5%;
+    min-width: 1000px;
+    min-height: 400px;
 }
 
 th, td {
@@ -256,6 +266,10 @@ th, td {
 th {
     background-color: #3250f8;
     font-weight: bold;
+    position: sticky;
+    top:0;
+    border: 1px solid #000000;
+    transform: translate3d(0, 0, 0); /* Ajoute une transformation de traduction 3D */
 }
 
 tr:nth-child(even) {
@@ -271,8 +285,10 @@ tr:hover {
 th, td {
     min-width: 100px;
     box-sizing: border-box;
+    border: 2px solid #000000;
 }
 
 .filter-icon {
     margin-right: 10px;
 }
+

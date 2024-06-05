@@ -2,7 +2,7 @@ function toggleDropdown(dropdownId) {
     var dropdown = document.getElementById(dropdownId);
     var iconId = dropdownId.replace('dropdown', 'filter-icon');
     var icon = document.getElementById(iconId);
-    if (dropdown.style.display === "none") {
+    if (dropdown.style.display === "" || dropdown.style.display === "none") {
         dropdown.style.display = "block";
         icon.className = "fas fa-caret-down";
     } else {

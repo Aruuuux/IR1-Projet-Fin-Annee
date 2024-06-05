@@ -9,7 +9,7 @@
 
 {% block main-content %}
 <section id="left-menu">
-    <button id="menu-filter-button"><i class="fas fa-filter fa-sm"></i>    Filtres</button>
+    <button id="menu-filter-button"><i class="fas fa-filter fa-sm"></i>    Filtres  <i id="title-filter-icon" class="fas fa-caret-right"></i></button>
     <div id="menu-filter">
         <div class="filter-components">
             <button class="title-filter" onclick="toggleDropdown('year-dropdown')">Année  <i id="year-filter-icon" class="fas fa-caret-right"></i></button>
@@ -37,9 +37,13 @@
                 <label><input type="checkbox" name="cursus" value="5"> MECA</label>
             </div>
         </div>
-        <button id="reset-button">Reset</button>
+        <div id="button-container">
+            <button id="reset-button">Reset</button>
+            <button id="applied-button">Apply</button>
+        </div>
     </div>
 </section>
+<div id="tableau-wrapper">
 <section id="tableau">
     <table>
         <thead>
@@ -87,8 +91,212 @@
                 <td>19</td>
                 <td>1</td>
             </tr>
+            <tr>
+                <td>Albert</td>
+                <td>Einstein</td>
+                <td>3</td>
+                <td>20</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>Isaac</td>
+                <td>Newton</td>
+                <td>4</td>
+                <td>17</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>Nikola</td>
+                <td>Tesla</td>
+                <td>5</td>
+                <td>19</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Albert</td>
+                <td>Einstein</td>
+                <td>3</td>
+                <td>20</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>Isaac</td>
+                <td>Newton</td>
+                <td>4</td>
+                <td>17</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>Nikola</td>
+                <td>Tesla</td>
+                <td>5</td>
+                <td>19</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Albert</td>
+                <td>Einstein</td>
+                <td>3</td>
+                <td>20</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>Isaac</td>
+                <td>Newton</td>
+                <td>4</td>
+                <td>17</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>Nikola</td>
+                <td>Tesla</td>
+                <td>5</td>
+                <td>19</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Isaac</td>
+                <td>Newton</td>
+                <td>4</td>
+                <td>17</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>Nikola</td>
+                <td>Tesla</td>
+                <td>5</td>
+                <td>19</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Albert</td>
+                <td>Einstein</td>
+                <td>3</td>
+                <td>20</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>Isaac</td>
+                <td>Newton</td>
+                <td>4</td>
+                <td>17</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>Nikola</td>
+                <td>Tesla</td>
+                <td>5</td>
+                <td>19</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Isaac</td>
+                <td>Newton</td>
+                <td>4</td>
+                <td>17</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>Nikola</td>
+                <td>Tesla</td>
+                <td>5</td>
+                <td>19</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Albert</td>
+                <td>Einstein</td>
+                <td>3</td>
+                <td>20</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>Isaac</td>
+                <td>Newton</td>
+                <td>4</td>
+                <td>17</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>Nikola</td>
+                <td>Tesla</td>
+                <td>5</td>
+                <td>19</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Isaac</td>
+                <td>Newton</td>
+                <td>4</td>
+                <td>17</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>Nikola</td>
+                <td>Tesla</td>
+                <td>5</td>
+                <td>19</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Albert</td>
+                <td>Einstein</td>
+                <td>3</td>
+                <td>20</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>Isaac</td>
+                <td>Newton</td>
+                <td>4</td>
+                <td>17</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>Nikola</td>
+                <td>Tesla</td>
+                <td>5</td>
+                <td>19</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Isaac</td>
+                <td>Newton</td>
+                <td>4</td>
+                <td>17</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>Nikola</td>
+                <td>Tesla</td>
+                <td>5</td>
+                <td>19</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Albert</td>
+                <td>Einstein</td>
+                <td>3</td>
+                <td>20</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>Isaac</td>
+                <td>Newton</td>
+                <td>4</td>
+                <td>17</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>Nikola</td>
+                <td>Tesla</td>
+                <td>5</td>
+                <td>19</td>
+                <td>1</td>
+            </tr>
         </tbody>
     </table>
+</div>
 </section>
 
 {% endblock %}
