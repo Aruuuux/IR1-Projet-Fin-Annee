@@ -109,7 +109,7 @@ header {
     width: 200px;
     height: auto;
     float: left;
-    color: white;
+    color: var(--white);
     box-sizing: border-box;
     padding: 3px 5px 4px 5px;
     border-radius: 0px 0px 5px 0px;
@@ -117,9 +117,9 @@ header {
 }
 #reset-button, #applied-button {
     background-color:  #3399cc;
-    color: white;
+    color: var(--white);
     font-size: 13px;
-    border: 1px solid #333;
+    border: 1px solid var(--black);
     cursor: pointer;
     width: 50%;
     border-radius: 5px;

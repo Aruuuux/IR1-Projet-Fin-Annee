@@ -16,6 +16,11 @@ header {
     backdrop-filter: blur(2px);
 }
 
+.profil-utilisateur{
+    height: 50px;
+    padding-right: 50px;
+}
+
 #menu-top {
     display:flex;
     justify-content: space-between;
