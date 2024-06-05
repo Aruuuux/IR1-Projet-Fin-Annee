@@ -36,7 +36,7 @@ def createuser(request):
     roles = Roles.objects.all()
     specialities = Speciality.objects.all()
     users = User.objects.all()
-    return render(request, 'admin.html', {'form': form, 'roles': roles, 'specialities': specialities, 'users': users})
+    return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'users': users})
 
 def edituser(request, user_id):
    return render(request, 'index.html')
