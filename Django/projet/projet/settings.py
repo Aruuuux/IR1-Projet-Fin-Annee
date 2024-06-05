@@ -138,3 +138,6 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
     BASE_DIR / "user" / "static",
 ]
+
+# Pour indiquer à Django d'utiliser notre modèle User personnalisé par défaut
+AUTH_USER_MODEL = 'databaseprojet.User'
