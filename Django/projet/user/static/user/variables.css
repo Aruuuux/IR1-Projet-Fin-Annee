@@ -1,7 +1,10 @@
 :root {
     --white : rgb(237, 241, 242);
-    --vdark-main-color : rgb(2, 32, 38);
-    --main-color : rgb(66, 150, 183);
+    --vdark-main-color : #001317;
+    --darker-main-color : #013538;
+    --dark-main-color : #00575C;
+    --main-color : #0A878E;
+    --lighter-main-color :#01A3AD;
     --light-main-color : rgb(135, 198, 224);
     --black : rgb(10, 13, 20);
     --grey : rgb(46, 52, 56);
