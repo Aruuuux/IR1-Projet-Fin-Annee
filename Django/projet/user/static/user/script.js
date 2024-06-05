@@ -43,7 +43,6 @@ document.getElementById('menu-filter-button').addEventListener('click', function
     }
 });
 
-
 document.getElementById('reset-button').addEventListener('click', function() {
     var checkboxes = document.querySelectorAll('#menu-filter input[type="checkbox"]');
     checkboxes.forEach(function(checkbox) {

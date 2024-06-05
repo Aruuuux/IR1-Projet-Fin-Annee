@@ -15,32 +15,46 @@
 
 {% block main-content %}
 <section id="left-menu">
-    <button id="menu-filter-button"><i class="fas fa-filter fa-sm"></i>    Filtres  <i id="title-filter-icon" class="fas fa-caret-right"></i></button>
-    <div id="menu-filter">
+    <button id="menu-filter-button"><i class="fas fa-filter fa-sm"></i>    Filtres  <i id="title-filter-icon" class="fas fa-caret-down"></i></button>
+    <div id="menu-filter" class="open">
         <div class="filter-components">
-            <button class="title-filter" onclick="toggleDropdown('year-dropdown')">Année  <i id="year-filter-icon" class="fas fa-caret-right"></i></button>
-            <div class="dropdown-content" id="year-dropdown">
-                <label><input type="checkbox" name="year" value="1"> 1ère année</label>
-                <label><input type="checkbox" name="year" value="2"> 2e année</label>
-                <label><input type="checkbox" name="year" value="3"> 3e année</label>
+            <button class="title-filter">Année  </button>
+            <div class="menu-content" id="year-dropdown">
+                <div><label><input type="checkbox" name="year" value="1"> 1ère année</label></div>
+                <div><label><input type="checkbox" name="year" value="2"> 2e année</label></div>
+                <div><label><input type="checkbox" name="year" value="3"> 3e année</label></div>
             </div>
         </div>
         <div class="filter-components">
-            <button class="title-filter" onclick="toggleDropdown('lesson-dropdown')">Matière  <i id="lesson-filter-icon" class="fas fa-caret-right"></i></button>
-            <div class="dropdown-content" id="lesson-dropdown">
-                <label><input type="checkbox" name="lesson" value="1"> ANCS</label>
-                <label><input type="checkbox" name="lesson" value="2"> Java</label>
-                <label><input type="checkbox" name="lesson" value="3"> HTML & CSS</label>
+            <button class="title-filter">Matière  </button>
+            <div class="menu-content" id="lesson-dropdown">
+                <div><label><input type="checkbox" name="lesson" value="1"> ANCS</label></div>
+                <div><label><input type="checkbox" name="lesson" value="2"> Java</label></div>
+                <div><label><input type="checkbox" name="lesson" value="3"> HTML & CSS</label></div>
+                <div><label><input type="checkbox" name="lesson" value="4"> F#</label></div>
+                <div><label><input type="checkbox" name="lesson" value="5"> Signal</label></div>
+                <div><label><input type="checkbox" name="lesson" value="6"> Economie</label></div>
+                <div><label><input type="checkbox" name="lesson" value="7"> Orientation</label></div>
+                <div><label><input type="checkbox" name="lesson" value="8"> UML</label></div>
+                <div><label><input type="checkbox" name="lesson" value="9"> Stat</label></div>
+                <div><label><input type="checkbox" name="lesson" value="10"> Math. Disc</label></div>
+                <div><label><input type="checkbox" name="lesson" value="11"> WEB2</label></div>
+                <div><label><input type="checkbox" name="lesson" value="12"> Reseau</label></div>
+                <div><label><input type="checkbox" name="lesson" value="14"> Physique</label></div>
+                <div><label><input type="checkbox" name="lesson" value="15"> Chimie</label></div>
+                <div><label><input type="checkbox" name="lesson" value="16"> Biologie</label></div>
+                <div><label><input type="checkbox" name="lesson" value="17"> Philosophie</label></div>
+                <div><label><input type="checkbox" name="lesson" value="18"> Littérature</label></div>
             </div>
         </div>
         <div class="filter-components">
-            <button class="title-filter" onclick="toggleDropdown('cursus-dropdown')">Filière  <i id="cursus-filter-icon" class="fas fa-caret-right"></i></button>
-            <div class="dropdown-content" id="cursus-dropdown">
-                <label><input type="checkbox" name="cursus" value="1"> IR</label>
-                <label><input type="checkbox" name="cursus" value="2"> Textile</label>
-                <label><input type="checkbox" name="cursus" value="3"> GI</label>
-                <label><input type="checkbox" name="cursus" value="4"> ASE</label>
-                <label><input type="checkbox" name="cursus" value="5"> MECA</label>
+            <button class="title-filter">Filière </button>
+            <div class="menu-content" id="cursus-dropdown">
+                <div><label><input type="checkbox" name="cursus" value="1"> IR</label></div>
+                <div><label><input type="checkbox" name="cursus" value="2"> Textile</label></div>
+                <div><label><input type="checkbox" name="cursus" value="3"> GI</label></div>
+                <div><label><input type="checkbox" name="cursus" value="4"> ASE</label></div>
+                <div><label><input type="checkbox" name="cursus" value="5"> MECA</label></div>
             </div>
         </div>
         <div id="button-container">
