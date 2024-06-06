@@ -101,6 +101,7 @@ body{
 }
 
 .loginbox{
+    text-align: center;
     background: var(--vdark-main-color);
     color: var(--white);
     box-sizing: border-box;
