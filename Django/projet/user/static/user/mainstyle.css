@@ -55,7 +55,7 @@
 }
 
 #search-menu button {
-    background-color: var(--vlight-main-color);
+    background-color: var(--vlight-grey);
     border: none;
     cursor: pointer;
     border-radius: 0 5px 5px 0;
