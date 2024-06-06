@@ -19,16 +19,6 @@
     border-radius:5px;
 }
 
-#logo {
-    width:10%;
-    height:100%;
-}
-
-#logo img {
-    height: 100%;
-    width: auto;
-}
-
 #menu-recherche-container {
     display: flex;
     justify-content: center;
@@ -163,12 +153,6 @@
     display:flex;
 }
 
-#profil-utilisateur button {
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
 #menu-filter {
     display: none; /* Le menu est initialement fermé */
     z-index: 1;
@@ -205,7 +189,6 @@ table {
 }
 
 th, td {
-    border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
 }
@@ -215,9 +198,9 @@ th {
     font-weight: bold;
     position: sticky;
     top:0;
-    border: 2px solid #000000;
+    border: 2px solid var(--black);
     transform: translate3d(0, 0, 0); /* Ajoute une transformation de traduction 3D */
-    color: #d8d3d3;
+    color: var(--white);
 }
 
 tr:nth-child(even) {
