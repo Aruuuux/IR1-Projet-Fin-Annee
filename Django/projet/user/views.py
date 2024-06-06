@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import UserForm
+from django.contrib.auth import login, authenticate
 from databaseprojet.models import Speciality, Roles, User
 import random
 
@@ -41,6 +42,22 @@ def createuser(request):
             print(f"Password: {user.password}")
             print(f"Year: {user.year}")
 
+
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(email=user.email, password=raw_password)
+            login(request, user)
+            roles = Roles.objects.all()
+            specialities = Speciality.objects.all()
+            print(roles)
+            return render(request, 'createuser.html', {'roles': roles, 'specialities': specialities})
+    else:
+        form = UserForm()
+        roles = Roles.objects.all()
+        specialities = Speciality.objects.all()
+        print(roles)
+        return render(request, 'createuser.html', {'roles': roles, 'specialities': specialities, 'form':form})
+    # return render(request, 'createuser.html')
+        
     form = UserForm()
     roles = Roles.objects.all()
     specialities = Speciality.objects.all()
@@ -48,7 +65,7 @@ def createuser(request):
     return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'users': users})
 
 def edituser(request, user_id):
-   return render(request, 'index.html')
+    return render(request, 'index.html')
     # return render(request, 'admin.html', {'user': user})
 
 def deleteuser(request, user_id):
