@@ -19,7 +19,7 @@ def main(request):
             selected_lessons = request.POST.getlist('lesson')
             selected_specialities = request.POST.getlist('cursus')
             selected_identifications = request.POST.getlist('identification')
-            
+            print("SELECTED : ",selected_years,selected_lessons,selected_specialities,selected_identifications)
             users = User.objects.all()  # Start with all users
             
             # Apply filters based on form data
@@ -32,22 +32,20 @@ def main(request):
             if selected_specialities:
                 users = users.filter(speciality_id__in=selected_specialities)
                 
-            if '1' in selected_identifications:
-                users = users.filter(...)  # Apply filter for identification 1
-                
-            if '2' in selected_identifications:
-                users = users.filter(...)  # Apply filter for identification 2
-            
-            # Check if any filters are selected
             if selected_years or selected_lessons or selected_specialities or selected_identifications:
-                # Get the list of selected filters
+                
                 selected_filters = []
+                if selected_identifications==1:
+                    selected_filters.append('last_name')
+                    selected_filters.append('first_name')
+                if selected_identifications==2:
+                    selected_filters.append('student_id')
                 if selected_years:
                     selected_filters.append('year')
                 if selected_lessons:
                     selected_filters.append('lesson')
                 if selected_specialities:
-                    selected_filters.append('speciality')
+                    selected_filters.append('speciality_id')
                 if selected_identifications:
                     selected_filters.append('identification')
             else:
@@ -55,15 +53,14 @@ def main(request):
                 selected_filters = ['year', 'lesson', 'speciality', 'identification']
             
             form = FilterForm()
-            
-            # Render the template with updated context
-            return render(request, 'main.html', {
+            contexte={
                 'form': form,
-                'roles': roles,
                 'specialities': specialities,
                 'users': users,
                 'selected_filters': selected_filters
-            })
+            }
+            print(contexte)
+            return render(request, 'main.html', contexte)
 
     else:
         form = FilterForm()
@@ -75,7 +72,6 @@ def main(request):
     # Render the template with initial context
     return render(request, 'main.html', {
         'form': form,
-        'roles': roles,
         'specialities': specialities,
         'users': users,
         'selected_filters': selected_filters
@@ -83,43 +79,6 @@ def main(request):
 
     
 
-def tableau_list(request):
-    first_name = request.GET.get('first_name', '')
-    last_name = request.GET.get('last_name', '')
-    role_id = request.GET.get('roles', '')
-    speciality_id = request.GET.get('speciality_id', '')
-    year = request.GET.get('year', '')
-    
-    users = User.objects.all()
-    
-    selected_filters = []
-    if first_name:
-        users = users.filter(first_name__icontains=first_name)
-        selected_filters.append('first_name')
-    if last_name:
-        users = users.filter(last_name__icontains=last_name)
-        selected_filters.append('last_name')
-    if role_id:
-        users = users.filter(roles__id=role_id)
-        selected_filters.append('roles')
-    if speciality_id:
-        users = users.filter(speciality_id=speciality_id)
-        selected_filters.append('speciality_id')
-    if year:
-        users = users.filter(year=year)
-        selected_filters.append('year')
-    
-    # Get all roles and specialities for the filters
-    roles = Roles.objects.all()
-    specialities = Speciality.objects.all()
-    
-    context = {
-        'users': users,
-        'roles': roles,
-        'specialities': specialities,
-        'selected_filters': selected_filters,
-    }
-    return render(request, 'main.html', context)
 
 def indexview(request):
     return render(request, 'index.html')
