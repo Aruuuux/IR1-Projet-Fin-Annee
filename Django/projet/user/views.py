@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import UserForm
+from django.contrib.auth import login, authenticate
 from databaseprojet.models import Speciality, Roles, User
 import random
 
@@ -15,8 +16,18 @@ def indexview(request):
 def psswrdforgot(request):
     return render(request, 'psswrdforgot.html')
 
+def profile(request):
+    return render(request, 'user/profile.html')
+
+def parametre(request):
+    return render(request, 'user/parametre.html')
+
+def changepsswrd(request):
+    return render(request,'changepsswrd.html')
+
 def E404(request):
     return render(request, 'user/404.html')
+
 
 def createuser(request):
     if request.method == 'POST':
@@ -35,6 +46,22 @@ def createuser(request):
             print(f"Password: {user.password}")
             print(f"Year: {user.year}")
 
+
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(email=user.email, password=raw_password)
+            login(request, user)
+            roles = Roles.objects.all()
+            specialities = Speciality.objects.all()
+            print(roles)
+            return render(request, 'createuser.html', {'roles': roles, 'specialities': specialities})
+    else:
+        form = UserForm()
+        roles = Roles.objects.all()
+        specialities = Speciality.objects.all()
+        print(roles)
+        return render(request, 'createuser.html', {'roles': roles, 'specialities': specialities, 'form':form})
+    # return render(request, 'createuser.html')
+        
     form = UserForm()
     roles = Roles.objects.all()
     specialities = Speciality.objects.all()
@@ -42,7 +69,7 @@ def createuser(request):
     return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'users': users})
 
 def edituser(request, user_id):
-   return render(request, 'index.html')
+    return render(request, 'index.html')
     # return render(request, 'admin.html', {'user': user})
 
 def deleteuser(request, user_id):
@@ -53,7 +80,3 @@ def generate_student_id():
         student_id = random.randint(22300000, 23300000)
         if not User.objects.filter(student_id=student_id).exists():
             return student_id
-def profile(request):
-    return render(request, 'user/profile.html')
-def parametre(request):
-    return render(request, 'user/parametre.html')

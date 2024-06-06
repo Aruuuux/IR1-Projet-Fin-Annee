@@ -1,25 +1,18 @@
 {% extends "user/base.html" %}
 {% load static %}
 
-{% extends "user/base.html" %}
-{% load static %}
-
 {% block styles %}
-<link rel="stylesheet" href="{% static 'user/styles.css' %}" />
+<link rel="stylesheet" href="{% static 'user/loginstyles.css' %}" />
 {% endblock %}
 
 {% block main-content %}
 <div class="loginbox">
-    <div id="menu-recherche">
-        <input type="text" placeholder="Rechercher...">
-        <button>Go</button>
-    </div>
     <h1>Mot de passe oublié ?</h1>
-    <form>
+    <form method="POST" action="/reset-password">
         <p style="margin: 0;">E-mail</p>
-        <input type="text" name="username" placeholder="tonemail@uha.fr">
+        <input type="text" name="username" placeholder="prenom.nom@uha.fr">
         <input type="submit" name="send" value="OK"><br>
-        <a href="{% url 'login' %}">Actually, I remember it !</a><br>
+        <a href="{% url 'login' %}">En fait, e m'en souviens !</a><br>
     </form>
 </div>
 {% endblock %}

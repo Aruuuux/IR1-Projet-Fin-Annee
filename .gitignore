@@ -1,2 +1,4 @@
-
 *.pyc
+*.pyo
+*.pyd
+Django/projet/db.sqlite3

@@ -12,6 +12,7 @@ urlpatterns = [
     path('main/', views.main, name='main'),
     path('profile/', views.profile, name='profile'),
     path('parametre/', views.parametre, name='parametre'),
+    path('changepsswrd/',views.changepsswrd,name='changepsswrd')
     path('404/', views.E404, name='page404'),
 ]
 
