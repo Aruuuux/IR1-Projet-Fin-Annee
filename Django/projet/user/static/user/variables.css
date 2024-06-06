@@ -7,8 +7,10 @@
     --clair-main-color : #319ac3;
     --light-main-color : #6cb2e0;
     --vlight-main-color : rgb(193, 228, 232);
-    --white : rgb(237, 241, 242);
-    --light-gray :#c5c7d1;
-    --grey : rgb(46, 52, 56);
-    --black : rgb(10, 13, 20);
+    --white : rgb(237, 242, 242);
+    --vlight-grey :#d5ddde;
+    --light-grey :#adbdbd;
+    --grey : #667372;
+    --dark-grey : #414e4f;
+    --black : rgb(10, 20, 17);
 }
