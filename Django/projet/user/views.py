@@ -35,22 +35,24 @@ def main(request):
             if selected_years or selected_lessons or selected_specialities or selected_identifications:
                 
                 selected_filters = []
-                if selected_identifications==1:
-                    selected_filters.append('last_name')
-                    selected_filters.append('first_name')
-                if selected_identifications==2:
-                    selected_filters.append('student_id')
+                if selected_identifications:
+                    if "1" in selected_identifications:
+                        selected_filters.append('student_id')
+                    if "2" in selected_identifications:
+                        selected_filters.append('last_name')
+                        selected_filters.append('first_name')    
                 if selected_years:
                     selected_filters.append('year')
-                if selected_lessons:
-                    selected_filters.append('lesson')
                 if selected_specialities:
                     selected_filters.append('speciality_id')
-                if selected_identifications:
-                    selected_filters.append('identification')
+                if selected_lessons:
+                    selected_filters.append('lesson')
+                
+                
+                    
             else:
-                # If no filters are selected, display all users and all filters
-                selected_filters = ['year', 'lesson', 'speciality', 'identification']
+                
+                selected_filters = ['year', 'lesson', 'speciality_id','last_name','first_name' ]
             
             form = FilterForm()
             contexte={
@@ -67,7 +69,7 @@ def main(request):
     
     # If it's a GET request or the form is invalid, display all users and all filters
     users = User.objects.all()
-    selected_filters = ['year', 'lesson', 'speciality', 'identification']
+    selected_filters = ['year', 'lesson', 'speciality_id','last_name','first_name' ]
     
     # Render the template with initial context
     return render(request, 'main.html', {

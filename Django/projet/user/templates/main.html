@@ -76,13 +76,13 @@
                 </tr>
             </thead>
             <tbody>
-                
-                    <tr>
+                    
+                    <tr>{% for user in users %}
                         {% for filter in selected_filters %}
                             <td>{{ user|get_attribute:filter }}</td>
                         {% endfor %}
-                    </tr>
-                
+                    </tr>{% endfor %}
+                    
                 
                     <tr>
                         <td colspan="{{ selected_filters|length }}">Aucun résultat trouvé</td>
