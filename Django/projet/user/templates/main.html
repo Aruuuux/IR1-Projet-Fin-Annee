@@ -14,95 +14,85 @@
 
 {% block main-content %}
 <section id="left-menu">
-    <button id="menu-filter-button"><i class="fas fa-filter fa-sm"></i>    Filtres  <i id="title-filter-icon" class="fas fa-caret-down"></i></button>
+    <button id="menu-filter-button"><i class="fas fa-filter fa-sm"></i> Filtres <i id="title-filter-icon" class="fas fa-caret-down"></i></button>
     <div id="menu-filter" class="open">
         <div class="filter-components">
-            <button class="title-filter">Année  </button>
-            <div class="menu-content" id="year-dropdown">
-                <div><label><input type="checkbox" name="year" value="1"> 1ère année</label></div>
-                <div><label><input type="checkbox" name="year" value="2"> 2e année</label></div>
-                <div><label><input type="checkbox" name="year" value="3"> 3e année</label></div>
-            </div>
+            <button class="title-filter">Année</button>
+            <form method="post" enctype="multipart/form-data" id="form_year">
+                {% csrf_token %}
+                <div class="menu-content" id="year-dropdown">
+                    <div><label><input type="checkbox" name="year" value="1"> 1ère année</label></div>
+                    <div><label><input type="checkbox" name="year" value="2"> 2e année</label></div>
+                    <div><label><input type="checkbox" name="year" value="3"> 3e année</label></div>
+                </div>
+            </form>
         </div>
         <div class="filter-components">
-            <button class="title-filter">Matière  </button>
-            <div class="menu-content" id="lesson-dropdown">
-                <div><label><input type="checkbox" name="lesson" value="1"> ANCS</label></div>
-                <div><label><input type="checkbox" name="lesson" value="2"> Java</label></div>
-                <div><label><input type="checkbox" name="lesson" value="3"> HTML & CSS</label></div>
-                <div><label><input type="checkbox" name="lesson" value="4"> F#</label></div>
-                <div><label><input type="checkbox" name="lesson" value="5"> Signal</label></div>
-                <div><label><input type="checkbox" name="lesson" value="6"> Economie</label></div>
-                <div><label><input type="checkbox" name="lesson" value="7"> Orientation</label></div>
-                <div><label><input type="checkbox" name="lesson" value="8"> UML</label></div>
-                <div><label><input type="checkbox" name="lesson" value="9"> Stat</label></div>
-                <div><label><input type="checkbox" name="lesson" value="10"> Math. Disc</label></div>
-                <div><label><input type="checkbox" name="lesson" value="11"> WEB2</label></div>
-                <div><label><input type="checkbox" name="lesson" value="12"> Reseau</label></div>
-                <div><label><input type="checkbox" name="lesson" value="14"> Physique</label></div>
-                <div><label><input type="checkbox" name="lesson" value="15"> Chimie</label></div>
-                <div><label><input type="checkbox" name="lesson" value="16"> Biologie</label></div>
-                <div><label><input type="checkbox" name="lesson" value="17"> Philosophie</label></div>
-                <div><label><input type="checkbox" name="lesson" value="18"> Littérature</label></div>
-            </div>
+            <button class="title-filter">Matière</button>
+            <form method="post" enctype="multipart/form-data" id="form_lesson">
+                {% csrf_token %}
+                <div class="menu-content" id="lesson-dropdown">
+                    {% for lesson in lessons %}
+                    <div><label><input type="checkbox" name="lesson" value="{{ lesson.id }}">{{ lesson.name }}</label></div>
+                    {% endfor %}
+                </div>
+            </form>
         </div>
         <div class="filter-components">
-            <button class="title-filter">Filière </button>
-            <div class="menu-content" id="cursus-dropdown">
-                <div><label><input type="checkbox" name="cursus" value="1"> IR</label></div>
-                <div><label><input type="checkbox" name="cursus" value="2"> Textile</label></div>
-                <div><label><input type="checkbox" name="cursus" value="3"> GI</label></div>
-                <div><label><input type="checkbox" name="cursus" value="4"> ASE</label></div>
-                <div><label><input type="checkbox" name="cursus" value="5"> MECA</label></div>
-            </div>
+            <button class="title-filter">Filière</button>
+            <form method="post" enctype="multipart/form-data" id="form_spe">
+                {% csrf_token %}
+                <div class="menu-content" id="cursus-dropdown">
+                    {% for speciality in specialities %}
+                    <div><label><input type="checkbox" name="cursus" value="{{ speciality.id }}">{{ speciality.name }}</label></div>
+                    {% endfor %}
+                </div>
+            </form>
         </div>
         <div class="filter-components">
             <button class="title-filter">Identification</button>
-            <div class="menu-content" id="cursus-dropdown">
-                <div><label><input type="checkbox" name="cursus" value="1"> N° étudiant</label></div>
-                <div><label><input type="checkbox" name="cursus" value="2"> Nom</label></div>
-            </div>
+            <form method="post" enctype="multipart/form-data" id="form_identification">
+                {% csrf_token %}
+                <div class="menu-content" id="identification-dropdown">
+                    <div><label><input type="checkbox" name="identification" value="1"> N° étudiant</label></div>
+                    <div><label><input type="checkbox" name="identification" value="2"> Nom</label></div>
+                </div>
+            </form>
         </div>
         <div id="button-container">
             <button id="reset-button">Reset</button>
-            <button id="applied-button">Apply</button>
+            <button type="submit" form="form_year" form="form_lesson" form="form_spe" form="form_identification" id="apply-button">Apply</button>
         </div>
     </div>
 </section>
 
+
 <div id="tableau-wrapper">
+    {% load custom_filters %}
     <section id="tableau">
         <table>
             <thead>
                 <tr>
-                    <th>Prenom</th>
-                    <th>Nom</th>
-                    <th>Id</th>
-                    <th>Note</th>
-                    <th>Abs</th>
+                    {% for filter in selected_filters %}
+                        <th>{{ filter|capfirst }}</th>
+                    {% endfor %}
                 </tr>
             </thead>
             <tbody>
-
-                {% for u in User %}
-                <tr>
-                    <td>{{ u.prenom }}</td>
-                    <td>{{ u.nom }}</td>
-                    <td>{{ u.student_id }}</td>
-                    <td>{{ u.note }}</td>
-                    <td>{{ u.absences }}</td>
-                </tr>
-                
+                {% for user in users %}
+                    <tr>
+                        {% for filter in selected_filters %}
+                            <td>{{ user|getattr:filter }}</td>
+                        {% endfor %}
+                    </tr>
                 {% endfor %}
-                <tr>
-                    <td>Marc</td>
-                    <td>Lavoine</td>
-                    <td>2204005</td>
-                    <td>10</td>
-                    <td>0</td>
-                </tr>
+                {% if not users %}
+                    <tr>
+                        <td colspan="{{ selected_filters|length }}">Aucun résultat trouvé</td>
+                    </tr>
+                {% endif %}
             </tbody>
         </table>
     </section>
-
+</div>
 {% endblock %}

@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from .forms import UserForm
+from .forms import UserForm,FilterForm
 from databaseprojet.models import Speciality, Roles, User
 import random, csv
 from django.contrib import messages
@@ -9,25 +9,90 @@ def admin(request):
     return render(request, 'admin.html')
 
 def main(request):
-    return render(request, 'main.html')
+    roles = Roles.objects.all()
+    specialities = Speciality.objects.all()
+    users = User.objects.all()  
+    if request.method == 'POST':
+        form = FilterForm(request.POST, request.FILES)
+        
+        if form.is_valid():
+            
+            selected_years = request.POST.getlist('year')
+            selected_lessons = request.POST.getlist('lesson')
+            selected_specialities = request.POST.getlist('cursus')
+            selected_identifications = request.POST.getlist('identification')
+            users = User.objects.all()
+
+            if selected_years:
+                users = users.filter(year__in=selected_years)
+                
+            if selected_lessons:
+                users = users.filter(lesson__id=selected_lessons)
+            if selected_specialities:
+                users = users.filter(speciality_id=selected_specialities)
+            if selected_identifications:
+                if '1' in selected_identifications:
+                    print("select 1")
+                if '2' in selected_identifications:
+                    print("select 2")
+            if not selected_years and not selected_lessons and not selected_specialities and not selected_identifications:
+                print("rien")
+            form = UserForm()
+            print(users)
+            return render(request, 'main.html', {
+        'form': form,
+        'roles': roles,
+        'specialities': specialities,
+        'users': users
+    })
+
+    else:
+        form = FilterForm()
+    return render(request, 'main.html', {
+        'form': form,
+        'roles': roles,
+        'specialities': specialities,
+        'users': users
+    })
+    
 
 def tableau_list(request):
-    students = Student.objects.all()
-
-    # Handle filters
-    if request.method == 'POST':
-        year = request.POST.getlist('year')
-        lesson = request.POST.getlist('lesson')
-        cursus = request.POST.getlist('cursus')
-
-        if year:
-            students = students.filter(year__in=year)
-        if lesson:
-            students = students.filter(lesson__in=lesson)
-        if cursus:
-            students = students.filter(cursus__in=cursus)
-
-    return render(request, 'student_list.html', {'students': students})
+    first_name = request.GET.get('first_name', '')
+    last_name = request.GET.get('last_name', '')
+    role_id = request.GET.get('roles', '')
+    speciality_id = request.GET.get('speciality_id', '')
+    year = request.GET.get('year', '')
+    
+    users = User.objects.all()
+    
+    selected_filters = []
+    if first_name:
+        users = users.filter(first_name__icontains=first_name)
+        selected_filters.append('first_name')
+    if last_name:
+        users = users.filter(last_name__icontains=last_name)
+        selected_filters.append('last_name')
+    if role_id:
+        users = users.filter(roles__id=role_id)
+        selected_filters.append('roles')
+    if speciality_id:
+        users = users.filter(speciality_id=speciality_id)
+        selected_filters.append('speciality_id')
+    if year:
+        users = users.filter(year=year)
+        selected_filters.append('year')
+    
+    # Get all roles and specialities for the filters
+    roles = Roles.objects.all()
+    specialities = Speciality.objects.all()
+    
+    context = {
+        'users': users,
+        'roles': roles,
+        'specialities': specialities,
+        'selected_filters': selected_filters,
+    }
+    return render(request, 'main.html', context)
 
 def indexview(request):
     return render(request, 'index.html')
@@ -49,6 +114,7 @@ def createuser(request):
         form = UserForm(request.POST, request.FILES)
         print(form.errors)
         if form.is_valid():
+            
             user = form.save(commit=False)
             user.student_id = generate_student_id()
             # Generate email address using first name and last name
