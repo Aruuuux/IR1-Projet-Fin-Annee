@@ -82,20 +82,6 @@ class User(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
-    
-    def clean(self):
-        super().clean()
-        email_pattern = r'^[a-zA-Z]+\.[a-zA-Z]+@uha\.fr$'
-        if not re.match(email_pattern, self.email):
-            raise ValidationError(_('Email doit être sous la forme prenom.nom@uha.fr'))
-'''
-    def save(self, *args, **kwargs):
-        if self.pk is None:  # Si l'utilisateur est nouveau
-            self.set_password(self.password)  # Hachage du mot de passe
-        super().save(*args, **kwargs)
-'''
-
-    
 
 class Module(models.Model):
     id=models.AutoField(primary_key=True)
