@@ -66,7 +66,6 @@ def createuser(request):
             print(f"Year: {user.year}")
             
             messages.success(request, 'User has been created successfully.')
-            return redirect('userslist')
     else:
         form = UserForm()
     roles = Roles.objects.all()
