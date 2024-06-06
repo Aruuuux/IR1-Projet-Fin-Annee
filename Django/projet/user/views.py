@@ -25,6 +25,10 @@ def parametre(request):
 def changepsswrd(request):
     return render(request,'changepsswrd.html')
 
+def E404(request):
+    return render(request, 'user/404.html')
+
+
 def createuser(request):
     if request.method == 'POST':
         form = UserForm(request.POST, request.FILES)
