@@ -4,12 +4,16 @@ from databaseprojet.models import Speciality, Roles, User
 import random, csv
 from django.contrib import messages
 from django.template.defaultfilters import slugify
+from datetime import datetime
+from django.utils import formats
 
 def indexview(request):
     return render(request, 'index.html')
 
 def psswrdforgot(request):
     return render(request, 'psswrdforgot.html')
+
+from django.contrib import messages
 
 def createuser(request):
     if request.method == 'POST':
@@ -27,7 +31,8 @@ def createuser(request):
             if len(password) < 8:
                 messages.error(request, 'Password must be at least 8 characters long.')
                 return redirect('createuser')
-             # Check if age is greater than 18
+            
+            # Check if age is greater than 18
             date_of_birth = form.cleaned_data.get('date_of_birth')
             if date_of_birth:
                 age = datetime.now().year - date_of_birth.year - ((datetime.now().month, datetime.now().day) < (date_of_birth.month, date_of_birth.day))
@@ -48,10 +53,9 @@ def createuser(request):
         form = UserForm()
     roles = Roles.objects.all()
     specialities = Speciality.objects.all()
-    return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities})
+    return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'messages': messages.get_messages(request)})
 
 
-from datetime import datetime, timedelta
 
 def edituser(request, user_id):
     user = get_object_or_404(User, pk=user_id)
@@ -90,7 +94,7 @@ def edituser(request, user_id):
             'first_name': user.first_name,
             'last_name': user.last_name,
             'roles': user.roles,
-            'date_of_birth': user.date_of_birth,
+            'date_of_birth': formats.date_format(user.date_of_birth, "Y-m-d"),
             'speciality_id': user.speciality_id,
             'photo': user.photo,
             'email': user.email,
@@ -198,11 +202,13 @@ def importusers(request):
                     year=year
                 )
                 # Save user instance
-                user.save()
-
-            messages.success(request, 'Users have been imported successfully.')
-            return redirect('userslist')
-
+                try:
+                    user.save()
+                    messages.success(request, 'Users have been imported successfully.')
+                    return redirect('userslist')
+                except:
+                    messages.error(request, 'There were errors while updating the user')
+                    return redirect('userslist')
         except UnicodeDecodeError:
             messages.error(request, 'Error decoding file. Please make sure the file is encoded in Latin-1.')
         except Exception as e:
