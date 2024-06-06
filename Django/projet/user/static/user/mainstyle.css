@@ -55,7 +55,7 @@
 }
 
 #search-menu button {
-    background-color: var();
+    background-color: var(--vlight-main-color);
     border: none;
     cursor: pointer;
     border-radius: 0 5px 5px 0;
@@ -67,7 +67,7 @@
     box-sizing: border-box;
 }
 #search-menu button:hover {
-    background-color: blue;
+    background-color: var(--light-main-color);
 }
 #search-menu button img {
     height: 20px;
