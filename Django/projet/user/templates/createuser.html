@@ -3,18 +3,20 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'user/mainstyle.css' %}" />
+<link rel="stylesheet" href="{% static 'user/css/createuserstyle.css' %}" />
 {% endblock %}
 
 {% block main-content %}
-<div style="text-align: center; margin-top: 20px;">
-    <form method="post" enctype="multipart/form-data" class="form-horizontal">
+<div id="form-wrapper" class="loginbox" style="text-align: center;">
+    <h2>Création d'étudiants/professeurs</h2>
+    <form method="post" enctype="multipart/form-data" id="form-content">
         {% csrf_token %}
         
         <!-- First Name -->
         
             <label class="firstname" for="id_first_name">First Name</label>
-            <div class="s">
-                <input type="text" class="form-control" id="id_first_name" name="first_name" value="{{ form.first_name.value }}" required>
+            <div class="first_name">
+                <input type="text" class="form-control" id="id_first_name" name="first_name" placeholder="Prénom" {% if form.first_name.value %} value="{{ form.first_name.value }}" {% endif %} required />
             </div>
         
         
@@ -22,7 +24,7 @@
         
             <label class="last_name" for="id_last_name">Last Name</label>
             <div class="last_name">
-                <input type="text" class="form-control" id="id_last_name" name="last_name" value="{{ form.last_name.value }}" required>
+                <input type="text" class="form-control" id="id_last_name" name="last_name" placeholder="Nom" {% if form.last_name.value %} value="{{ form.last_name.value }}" {% endif %} required />
             </div>
         
         
@@ -42,7 +44,7 @@
         
             <label class="DOB" for="id_date_of_birth">Date of Birth</label>
             <div class="DOB">
-                <input type="date" class="form-control" id="id_date_of_birth" name="date_of_birth" value="{{ form.date_of_birth.value }}" required>
+                <input type="date" class="form-control" id="id_date_of_birth" name="date_of_birth" value="{{ form.date_of_birth.value }}" required />
             </div>
         
         
@@ -62,7 +64,7 @@
         <div class="photo">
             <label class="photo" for="id_photo">Photo</label>
             <div class="photo">
-                <input type="file" class="form-control-file" id="id_photo" name="photo" accept=".jpg, .jpeg, .png">
+                <input type="file" class="form-control-file" id="id_photo" name="photo" accept=".jpg, .jpeg, .png" />
             </div>
         </div>
         
@@ -70,7 +72,7 @@
         <div class="email">
             <label class="col-sm-2 col-form-label" for="id_email">Email</label>
             <div class="col-sm-4">
-                <input type="email" class="form-control" id="id_email" name="email" value="{{ form.email.value }}" required>
+                <input type="email" class="form-control" id="id_email" name="email" placeholder="Nom" {% if form.email.value %} value="{{ form.email.value }}" {% endif %} required />
             </div>
         </div>
         
@@ -78,7 +80,7 @@
         <div class="pass">
             <label class="col-sm-2 col-form-label" for="id_password">Password</label>
             <div class="col-sm-4">
-                <input type="password" class="form-control" id="id_password" name="password" required>
+                <input type="password" class="form-control" id="id_password" name="password" placeholder="***********" required />
             </div>
         </div>
         
@@ -101,41 +103,41 @@
             </div>
         </div>
     </form>
-    <div class="container mt-5">
-        <h2>Users List</h2>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Photo</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Student ID</th>
-                    <th>Date of Birth</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Speciality</th>
-                    <th>Year</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for user in users %}
-                <tr>
-                    <td>
-                        {% comment %} <img src="{{ user.photo.url }}" alt="Photo" width="50"> {% endcomment %}
-                    </td>
-                    <td>{{ user.first_name }}</td>
-                    <td>{{ user.last_name }}</td>
-                    <td>{{ user.student_id }}</td>
-                    <td>{{ user.date_of_birth }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.roles.name }}</td>
-                    <td>{{ user.speciality_id.name }}</td>
-                    <td>{{ user.year }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
 
+</div>
+<div id="table-wrapper" class="loginbox">
+    <h2>Users List</h2>
+    <table class="table-users">
+        <thead>
+            <tr>
+                <th>Photo</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Student ID</th>
+                <th>Date of Birth</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Speciality</th>
+                <th>Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>
+                    {% comment %} <img src="{{ user.photo.url }}" alt="Photo" width="50" /> {% endcomment %}
+                </td>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.student_id }}</td>
+                <td>{{ user.date_of_birth }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles.name }}</td>
+                <td>{{ user.speciality_id.name }}</td>
+                <td>{{ user.year }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

@@ -6,12 +6,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
         if (icon.classList.contains('fa-moon')) {
             icon.classList.remove('fa-moon');
             icon.classList.add('fa-sun');
-            button.textContent = ' Thème clair';
+            button.textContent = ' Mode clair';
+            button.prepend(icon);
         } else {
             icon.classList.remove('fa-sun');
             icon.classList.add('fa-moon');
-            button.textContent = ' Thème sombre';
+            button.textContent = ' Mode sombre';
+            button.prepend(icon);
         }
-        button.prepend(icon);
     });
 });
