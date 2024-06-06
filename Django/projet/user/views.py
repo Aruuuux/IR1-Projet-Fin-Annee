@@ -7,53 +7,80 @@ from django.template.defaultfilters import slugify
 
 def admin(request):
     return render(request, 'admin.html')
-
 def main(request):
     roles = Roles.objects.all()
     specialities = Speciality.objects.all()
-    users = User.objects.all()  
+    
     if request.method == 'POST':
         form = FilterForm(request.POST, request.FILES)
         
         if form.is_valid():
-            
             selected_years = request.POST.getlist('year')
             selected_lessons = request.POST.getlist('lesson')
             selected_specialities = request.POST.getlist('cursus')
             selected_identifications = request.POST.getlist('identification')
-            users = User.objects.all()
-
+            
+            users = User.objects.all()  # Start with all users
+            
+            # Apply filters based on form data
             if selected_years:
                 users = users.filter(year__in=selected_years)
                 
             if selected_lessons:
-                users = users.filter(lesson__id=selected_lessons)
+                users = users.filter(lesson__id__in=selected_lessons)
+                
             if selected_specialities:
-                users = users.filter(speciality_id=selected_specialities)
-            if selected_identifications:
-                if '1' in selected_identifications:
-                    print("select 1")
-                if '2' in selected_identifications:
-                    print("select 2")
-            if not selected_years and not selected_lessons and not selected_specialities and not selected_identifications:
-                print("rien")
+                users = users.filter(speciality_id__in=selected_specialities)
+                
+            if '1' in selected_identifications:
+                users = users.filter(...)  # Apply filter for identification 1
+                
+            if '2' in selected_identifications:
+                users = users.filter(...)  # Apply filter for identification 2
+            
+            # Check if any filters are selected
+            if selected_years or selected_lessons or selected_specialities or selected_identifications:
+                # Get the list of selected filters
+                selected_filters = []
+                if selected_years:
+                    selected_filters.append('year')
+                if selected_lessons:
+                    selected_filters.append('lesson')
+                if selected_specialities:
+                    selected_filters.append('speciality')
+                if selected_identifications:
+                    selected_filters.append('identification')
+            else:
+                # If no filters are selected, display all users and all filters
+                selected_filters = ['year', 'lesson', 'speciality', 'identification']
+            
             form = UserForm()
-            print(users)
+            
+            # Render the template with updated context
             return render(request, 'main.html', {
-        'form': form,
-        'roles': roles,
-        'specialities': specialities,
-        'users': users
-    })
+                'form': form,
+                'roles': roles,
+                'specialities': specialities,
+                'users': users,
+                'selected_filters': selected_filters
+            })
 
     else:
         form = FilterForm()
+    
+    # If it's a GET request or the form is invalid, display all users and all filters
+    users = User.objects.all()
+    selected_filters = ['year', 'lesson', 'speciality', 'identification']
+    
+    # Render the template with initial context
     return render(request, 'main.html', {
         'form': form,
         'roles': roles,
         'specialities': specialities,
-        'users': users
+        'users': users,
+        'selected_filters': selected_filters
     })
+
     
 
 def tableau_list(request):
