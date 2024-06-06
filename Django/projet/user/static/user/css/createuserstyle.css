@@ -43,6 +43,28 @@
     color: var(--primary-color);
 }
 
+/* Hide the default file input */
+.loginbox input[type="file"] {
+    display: none;
+}
+
+/* Style the label to look like a button */
+.loginbox label[for="id_photo"] {
+    border: 1px solid var(--white);
+    padding: 0.5rem;
+    background: transparent;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    border-radius: 1.5rem;
+}
+
+/* Change the style when the user hovers over the label */
+.loginbox label[for="id_photo"]:hover {
+    background-color: var(--vdark-main-color);
+    color: var(--primary-color);
+}
+
 #main-content {
     flex-direction: column;
     align-items: center;

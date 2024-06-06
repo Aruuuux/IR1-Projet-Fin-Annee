@@ -31,7 +31,7 @@
         <!-- Role -->
         
             <label for="id_role">Role</label>
-            <div class="role">
+            <div>
                 <select name="roles" id="id_role">
                     {% for role in roles %}
                     <option value="{{ role.id }}">{{ role.name }}</option>
@@ -79,7 +79,7 @@
         <!-- Password -->
         <div>
             <label for="id_password">Password</label>
-            <div class="col-sm-4">
+            <div>
                 <input type="password" id="id_password" name="password" placeholder="***********" required />
             </div>
         </div>
@@ -87,7 +87,7 @@
         <!-- Year -->
         <div>
             <label for="id_year">Year</label>
-            <div class="col-sm-4">
+            <div>
                 <select name="year" id="id_year" >
                     <option value="1">Year 1</option>
                     <option value="2">Year 2</option>
