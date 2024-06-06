@@ -35,6 +35,15 @@ def indexview(request):
 def psswrdforgot(request):
     return render(request, 'psswrdforgot.html')
 
+def profile(request):
+    return render(request, 'user/profile.html')
+
+def parametre(request):
+    return render(request, 'user/parametre.html')
+
+def changepsswrd(request):
+    return render(request,'changepsswrd.html')
+
 def createuser(request):
     if request.method == 'POST':
         form = UserForm(request.POST, request.FILES)
