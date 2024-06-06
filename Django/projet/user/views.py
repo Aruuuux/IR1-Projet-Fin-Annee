@@ -15,6 +15,9 @@ def indexview(request):
 def psswrdforgot(request):
     return render(request, 'psswrdforgot.html')
 
+def E404(request):
+    return render(request, 'user/404.html')
+
 def createuser(request):
     if request.method == 'POST':
         form = UserForm(request.POST, request.FILES)
