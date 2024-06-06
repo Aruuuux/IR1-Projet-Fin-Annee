@@ -114,21 +114,48 @@ def importusers(request):
             return redirect('importusers')
 
         try:
+            # Decode the file and split lines for the CSV reader
             decoded_file = csv_file.read().decode('latin-1').splitlines()
-            reader = csv.DictReader(decoded_file)
+            reader = csv.reader(decoded_file)
+
+            # Extract the header
+            header = next(reader)
+            header = header[0].split(',')  # Split header into individual columns
+            print(header)  # Debugging header
+
             for row in reader:
-                print(row)
+                row = row[0].split(',')  # Split row into individual columns
+                print(row)  # Debugging row
+
+                # Create a dictionary to map column names to values
+                row_data = dict(zip(header, row))
+
                 # Extract data from the CSV row
-                first_name = row.get('first_name')
-                last_name = row.get('last_name')
-                role = row.get('roles')
-                date_of_birth = row.get('date_of_birth')
-                speciality = row.get('speciality_id')
-                email = row.get('email')
-                password = row.get('password')
-                year = row.get('year')
-                # role = Roles.objects.get(name=role_name)
-                # speciality = Speciality.objects.get(name=speciality_name)
+                first_name = row_data['first_name'].strip()
+                last_name = row_data['last_name'].strip()
+                role_name = row_data['roles'].strip()
+                date_of_birth = row_data['date_of_birth'].strip()
+                speciality_name = row_data['speciality_id'].strip()
+                email = row_data['email'].strip()
+                password = row_data['password'].strip()
+                year = row_data['year'].strip()
+                student_id = generate_student_id()
+
+                # Debugging print statements to check values
+                print(f"first_name: {first_name}, last_name: {last_name}, role_name: {role_name}, date_of_birth: {date_of_birth}, speciality_name: {speciality_name}, email: {email}, password: {password}, year: {year}")
+
+                # Retrieve role and speciality objects
+                try:
+                    role = Roles.objects.get(name=role_name)
+                except Roles.DoesNotExist:
+                    messages.error(request, f'Role "{role_name}" does not exist.')
+                    return redirect('importusers')
+
+                try:
+                    speciality = Speciality.objects.get(name=speciality_name)
+                except Speciality.DoesNotExist:
+                    messages.error(request, f'Speciality "{speciality_name}" does not exist.')
+                    return redirect('importusers')
 
                 # Create user instance
                 user = User(
@@ -139,19 +166,29 @@ def importusers(request):
                     speciality_id=speciality,
                     email=email,
                     password=password,
+                    student_id=student_id,
                     year=year
                 )
                 # Save user instance
-                # print(user)
-                # user.save()
+                user.save()
 
             messages.success(request, 'Users have been imported successfully.')
             return redirect('userslist')
 
+        except UnicodeDecodeError:
+            messages.error(request, 'Error decoding file. Please make sure the file is encoded in Latin-1.')
         except Exception as e:
             messages.error(request, f'An error occurred while importing users: {e}')
 
-    return render(request, 'userslist.html')
+    roles = Roles.objects.all()
+    specialities = Speciality.objects.all()
+    users = User.objects.all()
+    context = {
+        'users': users,
+        'roles': roles,
+        'specialities': specialities,
+    }
+    return render(request, 'userslist.html', context)
 
 def generate_student_id():
     while True:
