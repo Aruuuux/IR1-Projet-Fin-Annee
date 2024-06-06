@@ -59,3 +59,14 @@ def generate_student_id():
         student_id = random.randint(22300000, 23300000)
         if not User.objects.filter(student_id=student_id).exists():
             return student_id
+from django.core.mail import send_mail
+from django.conf import settings
+from django.http import HttpResponse
+
+def test_email(request):
+    subject = 'Test Email'
+    message = 'This is a test email.'
+    recipient_list = ['louis.augey@uha.fr']  # Remplacez par l'adresse e-mail de destination pour le test
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_list)
+    return HttpResponse('Email sent successfully')
+

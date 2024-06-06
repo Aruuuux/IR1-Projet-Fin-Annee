@@ -141,3 +141,14 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+#Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Remplacez par le serveur SMTP de votre université
+EMAIL_PORT = 587  # Ou le port utilisé par votre serveur SMTP
+EMAIL_USE_TLS = True  # Ou False, selon la configuration de votre serveur SMTP
+EMAIL_HOST_USER = 'edutrack.supp@gmail.com'  # Votre adresse e-mail complète
+EMAIL_HOST_PASSWORD = 'weeu nmnw uevy oglm'  # Le mot de passe de votre e-mail
+
+# L'adresse e-mail qui sera utilisée pour envoyer les e-mails
+DEFAULT_FROM_EMAIL = 'edutrack.supp@gmail.com'
