@@ -16,7 +16,7 @@ def psswrdforgot(request):
     return render(request, 'psswrdforgot.html')
 
 def profile(request):
-    return render(request, 'profile.html')
+    return render(request, 'user/profile.html')
 
 def parametre(request):
     return render(request, 'user/parametre.html')
