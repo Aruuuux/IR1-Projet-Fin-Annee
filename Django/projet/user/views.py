@@ -46,6 +46,16 @@ def createuser(request):
             email = f"{slugify(user.first_name)}.{slugify(user.last_name)}@uha.fr"
             user.email = email
             user.save()
+            print(f"First Name: {user.first_name}")
+            print(f"Last Name: {user.last_name}")
+            print(f"Roles: {user.roles}")
+            print(f"Date of Birth: {user.date_of_birth}")
+            print(f"Speciality: {user.speciality_id}")
+            print(f"Photo: {user.photo}")
+            print(f"Email: {user.email}")
+            print(f"Password: {user.password}")
+            print(f"Year: {user.year}")
+            
             messages.success(request, 'User has been created successfully.')
             return redirect('userslist')
     else:

@@ -64,7 +64,7 @@ class User(models.Model):
     roles = models.ForeignKey('Roles', on_delete=models.CASCADE)
     date_of_birth = models.DateField()
     speciality_id = models.ForeignKey('Speciality', on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to='../Media/photos/')
+    photo = models.ImageField(upload_to='user_photos/')
     email = models.EmailField(unique=True)
     password = models.TextField(max_length=255)
     student_id = models.IntegerField(unique=True)
