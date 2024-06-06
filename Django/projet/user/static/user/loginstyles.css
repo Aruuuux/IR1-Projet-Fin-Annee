@@ -71,3 +71,9 @@ h1{
 {
     color: var(--white);
 }
+
+.icon{
+    margin: auto;
+    width: auto;
+    padding: 10%;
+}
