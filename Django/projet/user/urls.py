@@ -2,9 +2,8 @@
 from django.urls import path
 from . import views
 
-from .views import test_email
-from django.contrib.auth import views as auth_views
 
+app_name = 'user'
 urlpatterns = [
     path('', views.indexview, name='login'),  # login view URL pattern
     path('login/', views.indexview, name='login'),
@@ -16,13 +15,21 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('parametre/', views.parametre, name='parametre'),
     path('changepsswrd/',views.changepsswrd,name='changepsswrd'),
-    path('test-email/', views.test_email,name='test_email'),
-    path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
-    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
-    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('emailsent/', views.emailsent, name='emailsent'),
+    #path('test-email/', views.test_email, name='test_email'),
+    #path('psswrdreset/<uidb64>/<token>/', views.psswrdreset, name='psswrdreset'),
+    path('password_change/', views.CustomPasswordChangeView.as_view(),
+         name='password_change'),
+    path('password_change_done/', views.CustomPasswordChangeDoneView.as_view(),
+         name='password_change_done'),
+    path('password_reset/', views.CustomPasswordResetView.as_view(),
+         name='password_reset'),
+    path('password_reset_done/', views.CustomPasswordResetDoneView.as_view(),
+         name='password_reset_done'),
+    path('reset/<uidb64>/<token>/',
+         views.CustomPasswordResetConfirmView.as_view(),
+         name='password_reset_confirm'),
+    path('reset/done/', views.CustomPasswordResetCompleteView.as_view(),
+         name='password_reset_complete'),
 ]
-
-from django.urls import path
-from . import views
 
