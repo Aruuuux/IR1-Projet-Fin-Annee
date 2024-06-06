@@ -40,7 +40,8 @@ def main(request):
                         selected_filters.append('student_id')
                     if "2" in selected_identifications:
                         selected_filters.append('last_name')
-                        selected_filters.append('first_name')    
+                        selected_filters.append('first_name')
+                        #add photo    
                 if selected_years:
                     selected_filters.append('year')
                 if selected_specialities:
