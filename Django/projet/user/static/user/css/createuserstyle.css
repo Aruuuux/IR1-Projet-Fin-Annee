@@ -1,12 +1,46 @@
-input[type=text] {
+.loginbox input[type="text"], .loginbox input[type="password"], .loginbox input[type="email"]  {
     padding: 0.5rem 0;
-    border-style: outset;
-    border-radius: 5px;
-    border-color: black;
-    outline: 0;
+    border: 0.05rem solid var(--white);
+    background: transparent;
     text-indent: 0.5rem;
     color: var(--primary-color);
     background-color: var(--secondary-color);
+    font-size: 16px;
+    border-radius: 1.5rem;
+    height: 2rem;
+}
+
+.loginbox button[type="submit"] {
+    border: 1px solid var(--white);
+    padding: 0.5rem;
+    background: transparent;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    border-radius: 1.5rem;
+}
+
+.loginbox button[type="submit"]:hover {
+    cursor: pointer;
+    background: var(--light-main-color);
+    color: var(--black);
+}
+
+.loginbox select {
+    border: 0.1rem solid var(--white);
+    background: transparent;
+    text-indent: 0.5rem;
+    color: var(--primary-color);
+
+    font-size: 16px;
+    border-radius: 1.5rem;
+    height: 2rem;
+}
+
+.loginbox select:focus {
+    outline: none;
+    background-color: var(--vdark-main-color);
+    color: var(--primary-color);
 }
 
 #main-content {
