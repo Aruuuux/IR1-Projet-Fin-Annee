@@ -14,7 +14,7 @@ class UserFormTests(TestCase):
         form_data = {
             'first_name': 'hamza',
             'last_name': 'baya',
-            'roles': self.role.id,
+            'roles': self.role,
             'date_of_birth': '1990-01-01',
             'speciality_id': self.speciality.id,
             'email': 'hamza.baya@uha.fr',
@@ -32,7 +32,7 @@ class UserFormTests(TestCase):
         form_data = {
             'first_name': 'hamza',
             'last_name': 'baya',
-            'roles': self.role.id,
+            'roles': self.role,
             'date_of_birth': '1990-01-01',
             'speciality_id': self.speciality.id,
             'email': 'hamza@uha.fr',
