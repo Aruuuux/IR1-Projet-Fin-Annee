@@ -54,7 +54,7 @@ def main(request):
                 # If no filters are selected, display all users and all filters
                 selected_filters = ['year', 'lesson', 'speciality', 'identification']
             
-            form = UserForm()
+            form = FilterForm()
             
             # Render the template with updated context
             return render(request, 'main.html', {

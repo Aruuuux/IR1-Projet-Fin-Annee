@@ -82,7 +82,7 @@
                 {% for user in users %}
                     <tr>
                         {% for filter in selected_filters %}
-                            <td>{{ user|getattr:filter }}</td>
+                            <td>{{ user|get_attribute:filter }}</td>
                         {% endfor %}
                     </tr>
                 {% endfor %}
