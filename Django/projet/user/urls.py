@@ -12,9 +12,12 @@ urlpatterns = [
     path('main/', views.main, name='main'),
     path('profile/', views.profile, name='profile'),
     path('parametre/', views.parametre, name='parametre'),
-    path('changepsswrd/',views.changepsswrd,name='changepsswrd')
+    path('changepsswrd/', views.changepsswrd, name='changepsswrd'),
+    path('404/', views.E404, name='E404'),
+    path('500/', views.E500, name='E500'),
+    path('403/', views.E403, name='E403'),
+    path('400/', views.E400, name='E400'),
 ]
 
-from django.urls import path
-from . import views
+
 
