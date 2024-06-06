@@ -1,6 +1,8 @@
 .loginbox{
     max-width: 500px;
     max-height: 400px;
+    min-width: 200px;
+    min-height: 200px;
     background: var(--vdark-main-color);
     color: var(--white);
     top: 50%;
@@ -57,14 +59,14 @@ h1{
 .loginbox input[type="submit"]:hover
 {
     cursor: pointer;
-    background: var(--light-main-color);
+    background: var(--lighter-main-color);
     color: var(--black);
 }
 .loginbox a{
     text-decoration: none;
     font-size: 12px;
     line-height: 20px;
-    color: darkgrey;
+    color: var(--vlight-grey);
 }
 
 .loginbox a:hover
