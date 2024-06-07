@@ -2,10 +2,13 @@
 {% load static %}
 
 {% block styles %}
+<link rel="stylesheet" href="{% static 'user/styles.css' %}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link rel="stylesheet" href="{% static 'user/loginstyles.css' %}" />
 {% endblock %}
 
 {% block main-content %}
+<i class="fas fa-user-circle fa-5x"></i>
 <div class="loginbox">
     <div class="icon">
         <i class="fas fa-user-circle fa-6x"></i>

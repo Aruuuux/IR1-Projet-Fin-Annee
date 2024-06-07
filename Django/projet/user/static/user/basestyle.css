@@ -84,10 +84,11 @@ header {
 }
 
 footer {
-    bottom: 0px;
+    display: flex;
     color: var(--white);
     position:absolute;
     width: calc(100vw - 8px) ;
     bottom:0;
     padding-left: 8px;
+    justify-content: center;
 }
