@@ -1,21 +1,11 @@
 {% extends "user/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'user/styles.css' %}" />
-    <link rel="stylesheet" href="{% static 'user/variables.css' %}" />
-    <link rel="stylesheet" href="{% static 'user/loginstyles.css' %}" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'user/loginstyles.css' %}" />
 {% endblock %}
-</head>
-<body>
+
+
 {% block main-content %}
 <div class="loginbox">
     <h1>Se connecter</h1>
@@ -28,26 +18,6 @@
         <a href="{% url 'user:password_reset' %}" class="type1">Mot de passe oublié ?</a>
     </form>
 </div>
-
-
-    <header>
-        <p>EduTrack</p>
-    </header>
-    <section>
-        <div class="loginbox">
-            <h1>Se connecter</h1>
-            <form method="post">
-                {% csrf_token %}
-                <p>E-Mail</p>
-                <input type="text" name="email" placeholder="tonemail@uha.fr" required>
-                <p>Mot de passe</p>
-                <input type="password" name="password" placeholder="********" required>
-                <input type="submit" value="Login"><br>
-                <a href="{% url 'psswrdforgot' %}">Lost your password ?</a><br>
-                <a href="{% url 'createuser' %}">Create User</a><br>
-            </form>
-        </div>
-    </section>
 
     <!-- Error Modal -->
     <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
