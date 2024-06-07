@@ -18,6 +18,7 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('parametre/', views.parametre, name='parametre'),
     path('changepsswrd/',views.changepsswrd,name='changepsswrd'),
+    path('edt/',views.edt,name='edt'),
     #path('emailsent/', views.emailsent, name='emailsent'),
     #path('test-email/', views.test_email, name='test_email'),
     #path('psswrdreset/<uidb64>/<token>/', views.psswrdreset, name='psswrdreset'),

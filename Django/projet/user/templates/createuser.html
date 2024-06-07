@@ -10,7 +10,7 @@
 <div id="form-wrapper" class="loginbox">
     <h2>Création d'étudiants/professeurs</h2>
 
-    <form method="post" enctype="multipart/form-data" action="{% url 'importusers' %}">
+    <form method="post" enctype="multipart/form-data" action="{% url 'user:importusers' %}">
         {% csrf_token %}
 
         <!-- CSV File importation -->

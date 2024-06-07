@@ -69,7 +69,17 @@
             <thead>
                 <tr>
                     {% for filter in selected_filters %}
-                        <th>{{ filter|capfirst }}</th>
+                        <th>
+                            {% if filter == 'last_name' %}
+                                Nom
+                            {% elif filter == 'first_name' %}
+                                Prénom
+                            {% elif filter == 'first_name' %}
+                                Année
+                            {% else %}
+                                {{ filter|capfirst }}
+                            {% endif %}
+                        </th>
                     {% endfor %}
                 </tr>
             </thead>
