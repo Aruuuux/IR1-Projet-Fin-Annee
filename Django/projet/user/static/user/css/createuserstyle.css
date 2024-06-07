@@ -134,9 +134,10 @@ form > * {
     width: 90%;
     display: flex;
     flex-direction: column;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     align-items: center;
     overflow: auto;
+    justify-content: center;
 }
 
 #table-wrapper h2 {
@@ -164,8 +165,47 @@ form > * {
     width: 80%;
 }
 
-table {
+#table-users {
     border-collapse: collapse;
-    min-width: 1000px;
-    min-height: 400px;
+    width: 100%;
+    min-height: 70vh;
+}
+
+/* Specific styles for date input */
+.loginbox input[type="date"] {
+    width: 80%;
+    -webkit-appearance: none; /* Remove default styling for WebKit browsers */
+    -moz-appearance: none; /* Remove default styling for Firefox */
+    appearance: none; /* Remove default styling for other browsers */
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+.loginbox input[type="date"]::-webkit-inner-spin-button,
+.loginbox input[type="date"]::-webkit-clear-button {
+    /*display: none;*/ /* Hide default buttons in WebKit browsers */
+}
+
+.loginbox input[type="date"]::-webkit-calendar-picker-indicator {
+    font-size: 1.2rem;
+    position: absolute;
+    right: 2rem;
+    cursor: pointer;
+    background-color: white;
+}
+
+.loginbox input[type="date"]::-webkit-input-placeholder {
+    text-align: center;
+}
+
+.loginbox input[type="date"]::-moz-placeholder {
+    text-align: center;
+}
+
+.loginbox input[type="date"]:-ms-input-placeholder {
+    text-align: center;
+}
+
+.loginbox input[type="date"]:-moz-placeholder {
+    text-align: center;
 }
