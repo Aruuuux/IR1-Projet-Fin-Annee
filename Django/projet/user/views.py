@@ -123,6 +123,7 @@ def edt(request):
 def createuser(request):
     if request.method == 'POST':
         form = UserForm(request.POST, request.FILES)
+        print(form.errors)
         if form.is_valid():
             
             user = form.save(commit=False)
@@ -149,7 +150,7 @@ def createuser(request):
             try:
                 user.save()
                 messages.success(request, 'User has been created successfully.')
-                return redirect('userslist')
+                return redirect('createuser')
             except:
                 messages.error(request, 'There were errors while creating the user')
             

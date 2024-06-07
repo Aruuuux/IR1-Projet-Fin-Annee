@@ -25,7 +25,7 @@
     border-radius: 1.5rem;
 }
 
-.loginbox button[type="submit"]:hover {
+.loginbox button[type="submit"]:, .loginbox label[for="id_photo"]:hover {
     cursor: pointer;
     background: var(--light-main-color);
     color: var(--black);
@@ -71,12 +71,6 @@
     color: var(--primary-color);
     font-size: 1.2rem;
     border-radius: 1.5rem;
-}
-
-/* Change the style when the user hovers over the label */
-.loginbox label[for="id_photo"]:hover {
-    background-color: var(--vdark-main-color);
-    color: var(--primary-color);
 }
 
 #main-content {
@@ -182,7 +176,7 @@ form > * {
     text-align: center;
 }
 
-#id_year {
+#id_year, #id_role {
     width: 80%;
 }
 
