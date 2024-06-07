@@ -16,7 +16,7 @@
         <!-- CSV File importation -->
         <h3>Importation de fichier CSV</h3>
         <label for="csvFile"></label>
-        <input type="file" id="csvFile" name="csv_file" accept=".csv">
+        <input type="file" id="csvFile" name="csv_file" accept=".csv" />
         <button type="submit">Import csv</button>
 
     </form>
@@ -39,7 +39,7 @@
         <select name="roles" id="id_role">
             <option value="" disabled selected hidden>-- Statut --</option>
             {% for role in roles %}
-            <option value="{{ role.id }}">{{ role.name }}</option>
+            <option value="{{ role.name }}">{{ role.name }}</option>
             {% endfor %}
         </select>
 
@@ -49,54 +49,18 @@
         <input type="date" id="id_date_of_birth" name="date_of_birth" value="{{ form.date_of_birth.value }}" required />
 
 
-
         <!-- Speciality -->
-        
-            <label for="id_speciality">Speciality</label>
-            <div>
-                <select name="speciality_id" id="id_speciality">
-                    {% for speciality in specialities %}
-                    <option value="{{ speciality.id }}">{{ speciality.name }}</option>
-                    {% endfor %}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
+            <label for="id_speciality">Spécialités</label>
+            <select name="speciality_id" id="id_speciality">
+                {% for speciality in specialities %}
+                <option value="{{ speciality.id }}">{{ speciality.name }}</option>
+                {% endfor %}
+            </select>
 
-            <!-- à changer -->
-            <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="successModalLabel">Success</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            {% for message in messages %}
-                                {% if message.tags == 'success' %}
-                                <div class="alert alert-success">{{ message }}</div>
-                                {% endif %}
-        
-                            {% endfor %}
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-        
-        
         <!-- Photo -->
         <p>Importation de la photo</p>
         <label for="id_photo">Import photo</label>
         <input type="file" id="id_photo" name="photo" accept=".jpg, .jpeg, .png" />
-
-
-        <!-- Email -->
-        <!--<label for="id_email">Email</label>
-        <input type="email" id="id_email" name="email" placeholder="Nom" {% if form.email.value %} value="{{ form.email.value }}" {% endif %} required />-->
 
         <!-- Password -->
         <label for="id_password">Mot de passe</label>
@@ -111,12 +75,29 @@
             <option value="3">3ème année</option>
         </select>
 
+                    <!-- à changer -->
+            <button type="button"  data-dismiss="modal">Close</button>
+            <div tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                <h5 id="successModalLabel">Success</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                    <div class="alert alert-success">{{ message }}</div>
+                    {% endif %}
+
+                {% endfor %}
+                <button type="button" data-dismiss="modal">Close</button>
+            </div>
+
         <!-- Submit Button -->
         <button type="submit" class="loginbox">Sauvegarder</button>
         <button type="reset" class="loginbox">Reset</button>
     </form>
-
 </div>
+
+
 <div id="table-wrapper" class="loginbox">
     <h2>Liste des utilisateurs à ajouter</h2>
     <table id="table-users">
@@ -152,35 +133,22 @@
         </tbody>
     </table>
 </div>
-        </div>
-    </div>
 
-    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="errorModalLabel">Error</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    {% for message in messages %}
-                        {% if message.tags == 'error' %}
-                        <div class="alert alert-danger">{{ message }}</div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<div tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <h5>Error</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <div class="alert alert-danger">{{ message }}</div>
+        {% endif %}
+    {% endfor %}
+    <button type="button" data-dismiss="modal">Close</button>
+</div>
+{% endblock %}
 
-    {% endblock %}
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <script>
     $(document).ready(function() {
