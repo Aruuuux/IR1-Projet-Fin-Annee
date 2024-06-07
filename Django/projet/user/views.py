@@ -93,7 +93,6 @@ def indexview(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
-        
         try:
             user = User.objects.get(email=email)
             if password==user.password:

@@ -8,12 +8,14 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'user/styles.css' %}" />
     <link rel="stylesheet" href="{% static 'user/variables.css' %}" />
+    <link rel="stylesheet" href="{% static 'user/loginstyles.css' %}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'user/loginstyles.css' %}" />
 {% endblock %}
-
+</head>
+<body>
 {% block main-content %}
 <div class="loginbox">
     <h1>Se connecter</h1>
@@ -26,8 +28,8 @@
         <a href="{% url 'psswrdforgot' %}">Mot de passe oublié ?</a><br>
     </form>
 </div>
-{% endblock %}
-<body>
+
+
     <header>
         <p>EduTrack</p>
     </header>
@@ -70,7 +72,7 @@
             </div>
         </div>
     </div>
-
+    {% endblock %}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
