@@ -168,6 +168,7 @@ def edituser(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     if request.method == 'POST':
         form = UserForm(request.POST, request.FILES, instance=user)
+        print(form.errors)
         if form.is_valid():
             user = form.save(commit=False)
             first_name = form.cleaned_data.get('first_name')
@@ -214,9 +215,6 @@ def edituser(request, user_id):
     users = User.objects.all()
     return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'users': users})
 
-def edituser(request, user_id):
-    return render(request, 'index.html')
-    # return render(request, 'admin.html', {'user': user})
 
 def deleteuser(request, user_id):
     context = {
