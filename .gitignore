@@ -1,4 +1,6 @@
 *.pyc
 *.pyo
 *.pyd
-Django/projet/db.sqlite3
+__pycache__/
+Django/projet/db.sqlite3*
+**/__pycache__/
