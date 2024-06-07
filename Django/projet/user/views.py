@@ -1,5 +1,8 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import UserForm,FilterForm
+from django.shortcuts import render, redirect
+from .forms import UserForm
+from django.contrib.auth import login, authenticate
 from databaseprojet.models import Speciality, Roles, User
 import random, csv
 from django.contrib.auth.hashers import check_password
@@ -209,7 +212,7 @@ def edituser(request, user_id):
     return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'users': users})
 
 def edituser(request, user_id):
-   return render(request, 'index.html')
+    return render(request, 'index.html')
     # return render(request, 'admin.html', {'user': user})
 
 def deleteuser(request, user_id):
@@ -337,3 +340,15 @@ def generate_student_id():
         student_id = random.randint(22300000, 23300000)
         if not User.objects.filter(student_id=student_id).exists():
             return student_id
+
+def E404(request, exception=None):
+    return render(request, '404.html', status=404)
+
+def E500(request):
+    return render(request, '500.html', status=500)
+
+def E403(request, exception=None):
+    return render(request, '403.html', status=403)
+
+def E400(request, exception=None):
+    return render(request, '400.html', status=400)
