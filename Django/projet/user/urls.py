@@ -12,7 +12,8 @@ urlpatterns = [
     path('main/', views.main, name='main'),
     path('profile/', views.profile, name='profile'),
     path('parametre/', views.parametre, name='parametre'),
-    path('changepsswrd/',views.changepsswrd,name='changepsswrd')
+    path('changepsswrd/',views.changepsswrd,name='changepsswrd'),
+    path('edt/',views.edt,name='edt')
 ]
 
 from django.urls import path
