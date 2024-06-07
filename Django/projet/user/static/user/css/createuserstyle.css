@@ -78,11 +78,12 @@ h2 {
 
 .table-users {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
     margin: 0;
     width: 80%;
-    height: 80%
+    height: 80%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
 }
 
 select option {

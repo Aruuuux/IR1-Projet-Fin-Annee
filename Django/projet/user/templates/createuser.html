@@ -9,8 +9,7 @@
 {% block main-content %}
 <div id="form-wrapper" class="loginbox">
     <h2>Création d'étudiants/professeurs</h2>
-    <form method="post" enctype="multipart/form-data" id="form-content">
-        {% csrf_token %}
+    <form method="post" enctype="multipart/form-data" onsubmit="return ecriretablForm(event)" id="form-content-create" name="myForm">        {% csrf_token %}
         
         <!-- First Name -->
         
@@ -115,22 +114,19 @@
             </tr>
         </thead>
         <tbody id="tableau-creatuser">
-            {% for user in users %}
             
             <tr>
-                <td>
-                    {% comment %} <img src="{{ user.photo.url }}" alt="Photo" width="50" /> {% endcomment %}
-                </td>
-                <td>{{ user.first_name }}</td>
-                <td>{{ user.last_name }}</td>
-                <td>{{ user.student_id }}</td>
-                <td>{{ user.date_of_birth }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles.name }}</td>
-                <td>{{ user.speciality_id.name }}</td>
-                <td>{{ user.year }}</td>
+                <td>Photo</td>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Student ID</td>
+                <td>Date of Birth</td>
+                <td>Email</td>
+                <td>Role</td>
+                <td>Speciality</td>
+                <td>Year</td>
             </tr>
-            {% endfor %}
+            
         </tbody>
     </table>
 </div>

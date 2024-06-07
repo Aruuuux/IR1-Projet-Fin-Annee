@@ -50,13 +50,4 @@ document.getElementById('reset-button').addEventListener('click', function() {
     });
 });
 
-document.getElementById("form-content").addEventListener("submit", function (e) {
-    e.preventDefault();
-  
-    var formData = new FormData(form);
-    // output as an object
-    print(document.getElementById("form-content"));
-    print(formData);
-    
-    
-  });
+
