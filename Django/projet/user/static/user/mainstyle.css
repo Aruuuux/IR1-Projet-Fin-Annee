@@ -99,7 +99,7 @@
     z-index: 1;
     display: block;
 }
-#reset-button, #applied-button {
+#reset-button, #apply-button {
     background-color:  var(--grey);
     color: var(--white);
     font-size: 13px;
@@ -109,7 +109,7 @@
     border-radius: 8px;
     display: flex;
 }
-#reset-button:hover, #applied-button:hover {
+#reset-button:hover, #apply-button:hover {
     background-color:  var(--light-grey);
     
 }
@@ -255,7 +255,7 @@ tr:nth-child(odd) {
     background-color: var(--white);
 }
 
-#schedule td:not(tr:first-child):hover{
+#schedule td:hover{
     background-color: var(--white);
 }
 
@@ -263,6 +263,7 @@ tr:nth-child(odd) {
     background-color: var(--dark-grey);
     color: var(--white);
     width: 8rem;
+    text-align: center;
 }
 
 th, td {
