@@ -124,6 +124,14 @@ def indexview(request):
 def psswrdforgot(request):
     return render(request, 'psswrdforgot.html')
 
+def password_resethtml(request):
+    return render(request, 'user/psswrdreset.html')
+
+def password_resetdonehtml(request):
+    return render(request, 'user/?????????.html')
+
+def password_resethtml(request):
+    return render(request, 'user/psswrdreset.html')
 def profile(request):
     return render(request, 'user/profile.html')
 
@@ -177,8 +185,10 @@ def createuser(request):
             messages.error(request, 'There were errors in the form. Please correct them and try again.')
     else:
         form = UserForm()
-    roles = Roles.objects.all()
-    specialities = Speciality.objects.all()
+    roles = User._meta.get_field('roles').choices
+    print(roles)
+    specialities = specialities = Speciality.SPECIALITY_CHOICES
+
     return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'messages': messages.get_messages(request)})
 
 
