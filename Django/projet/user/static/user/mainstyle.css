@@ -1,0 +1,223 @@
+.menu-content {
+    display: block;
+    position: static;
+    color : var(--black);
+    background-color: var(--light-grey);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 5px 0;
+    border-radius:5px;
+    z-index: 1;
+}
+.menu-content label {
+    display: block;
+    width: 100%;
+}
+
+.menu-content label:hover {
+    background-color: var(--vlight-grey);
+    border-radius:5px;
+}
+
+#menu-recherche-container {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+#search-menu {
+    display: flex;
+    align-items: center;
+    width: 60%;
+    max-width: 400px; /* Ajustez cette largeur selon vos besoins */
+    margin: 0 auto;
+}
+
+#search-menu input {
+    width: 20%;
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    box-sizing: border-box;
+    height: 40px; /* Assurez-vous que la hauteur est la même pour les deux éléments */
+}
+
+#search-menu button {
+    background-color: var(--vlight-grey);
+    border: none;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+    height: 40px; /* Assurez-vous que la hauteur est la même pour les deux éléments */
+    box-sizing: border-box;
+}
+#search-menu button:hover {
+    background-color: var(--light-main-color);
+}
+#search-menu button img {
+    height: 20px;
+}
+
+
+#left-menu {
+    background-color: transparent;
+    width: 200px;
+    height: auto;
+    float: left;
+    color: var(--white);
+    box-sizing: border-box;
+    padding: 3px 5px 4px 5px;
+    border-radius: 0px 0px 5px 0px;
+    z-index: 1;
+    display: block;
+}
+#reset-button, #applied-button {
+    background-color:  var(--grey);
+    color: var(--white);
+    font-size: 13px;
+    border: 1px solid var(--black);
+    cursor: pointer;
+    width: 50%;
+    border-radius: 5px;
+    display: flex;
+}
+#reset-button:hover, #applied-button:hover {
+    background-color:  var(--light-grey);
+    
+}
+#button-container {
+    display: flex;
+    justify-content: space-between; /* Si vous voulez un espace entre les boutons */
+}
+#menu-filter-button {
+    box-sizing: border-box; /* Ajoutez cette ligne */
+    font-size: 18px;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    background-color: var(--dark-grey);
+    color: var(--white);
+    border-radius: 5px;
+    padding:5px;
+}
+
+.title-filter {
+    background-color: var(--grey);
+    color: var(--white);
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid var(--black);
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    border-radius: 5px;
+}
+
+#left-menu button:hover {
+    background-color: var(--light-grey); /* Changez ceci à la couleur que vous voulez */
+}
+.dropdown-content {
+    display: none;
+    min-width: 100%;
+    box-shadow: 0px 8px 16px 0px var(--black);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.dropdown-content label {
+    color: var(--white);
+    padding: 10px;
+    display: block;
+    border-radius:5px;
+    z-index: 1;
+}
+
+.dropdown-content label:hover {
+    background-color: var(--grey);
+    z-index: 1;
+}
+
+.dropdown-content input {
+    margin-right: 10px;
+    z-index: 1;
+}
+
+#main-content {
+    box-sizing: border-box;
+    display:flex;
+}
+
+#menu-filter {
+    display: none; /* Le menu est initialement fermé */
+    z-index: 1;
+    position: relative;
+    width: 100%;
+}
+
+#lesson-dropdown {
+    max-height: 100px;
+    overflow-y: auto;
+}
+#menu-filter.open {
+    display: block; /* Le menu s'ouvre lorsque la classe 'open' est ajoutée */
+}
+
+#tableau {
+    position:absolute;
+    /*width: calc(100% - 300px);*/
+    height: 80vh;
+    flex-grow:1;
+    overflow: auto; 
+    z-index: 0; /* Cela place #tableau en dessous de #left-menu */
+}
+
+#tableau-wrapper {
+    background: var(--vdark-main-color);
+}
+
+table {
+    width: calc(100vw - 300px);
+    border-collapse: collapse;
+    min-width: 1000px;
+    min-height: 400px;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: var(--grey);
+    font-weight: bold;
+    position: sticky;
+    top:0;
+    border: 2px solid var(--black);
+    transform: translate3d(0, 0, 0); /* Ajoute une transformation de traduction 3D */
+    color: var(--white);
+}
+
+tr:nth-child(even) {
+    background-color: var(--light-grey);
+}
+tr:nth-child(odd) {
+    background-color: var(--vlight-grey);
+}
+tr:hover {
+    background-color: var(--white);
+}
+
+th, td {
+    min-width: 100px;
+    box-sizing: border-box;
+    border: 2px solid #000000;
+}
+
+.filter-icon {
+    margin-right: 10px;
+}

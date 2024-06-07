@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import UserForm
+from django.contrib.auth import login, authenticate
 from databaseprojet.models import Speciality, Roles, User
 import random, csv
 from django.contrib.auth.hashers import check_password
@@ -7,6 +8,12 @@ from django.contrib import messages
 from django.template.defaultfilters import slugify
 from datetime import datetime
 from django.utils import formats
+
+def admin(request):
+    return render(request, 'admin.html')
+
+def main(request):
+    return render(request, 'main.html')
 
 def indexview(request):
     if request.method == 'POST':
@@ -29,6 +36,14 @@ def psswrdforgot(request):
     return render(request, 'psswrdforgot.html')
 
 from django.contrib import messages
+def profile(request):
+    return render(request, 'user/profile.html')
+
+def parametre(request):
+    return render(request, 'user/parametre.html')
+
+def changepsswrd(request):
+    return render(request,'changepsswrd.html')
 
 def createuser(request):
     if request.method == 'POST':
@@ -238,9 +253,22 @@ def importusers(request):
         'specialities': specialities,
     }
     return render(request, 'userslist.html', context)
+    return render(request, 'index.html')
 
 def generate_student_id():
     while True:
         student_id = random.randint(22300000, 23300000)
         if not User.objects.filter(student_id=student_id).exists():
             return student_id
+
+def E404(request, exception=None):
+    return render(request, '404.html', status=404)
+
+def E500(request):
+    return render(request, '500.html', status=500)
+
+def E403(request, exception=None):
+    return render(request, '403.html', status=403)
+
+def E400(request, exception=None):
+    return render(request, '400.html', status=400)

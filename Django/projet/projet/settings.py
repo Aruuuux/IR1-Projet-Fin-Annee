@@ -99,7 +99,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
         'OPTIONS': {
-            'min_length': 12,
+            'min_length': 8,
         }
     },
     {
@@ -139,5 +139,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "user" / "static",
 ]
 
+# Pour indiquer à Django d'utiliser notre modèle User personnalisé par défaut
+AUTH_USER_MODEL = 'databaseprojet.User'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

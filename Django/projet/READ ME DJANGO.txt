@@ -1,2 +1,0 @@
-aller dans le repertoire \projet\ et faire "py manage.py runserver 8080"
-si ça marche pas verifier que vous avez django installer 
