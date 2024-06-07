@@ -1,4 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
+from .forms import UserForm,FilterForm
+from django.shortcuts import render, redirect
 from .forms import UserForm
 from django.contrib.auth import login, authenticate
 from databaseprojet.models import Speciality, Roles, User
@@ -11,15 +13,86 @@ from django.utils import formats
 
 def admin(request):
     return render(request, 'admin.html')
-
 def main(request):
-    return render(request, 'main.html')
+    roles = Roles.objects.all()
+    specialities = Speciality.objects.all()
+    
+    if request.method == 'POST':
+        form = FilterForm(request.POST, request.FILES)
+        
+        if form.is_valid():
+            selected_years = request.POST.getlist('year')
+            selected_lessons = request.POST.getlist('lesson')
+            selected_specialities = request.POST.getlist('cursus')
+            selected_identifications = request.POST.getlist('identification')
+            print("SELECTED : ",selected_years,selected_lessons,selected_specialities,selected_identifications)
+            users = User.objects.all()  # Start with all users
+            
+            # Apply filters based on form data
+            if selected_years:
+                users = users.filter(year__in=selected_years)
+                
+            if selected_lessons:
+                users = users.filter(lesson__id__in=selected_lessons)
+                
+            if selected_specialities:
+                users = users.filter(speciality_id__in=selected_specialities)
+                
+            if selected_years or selected_lessons or selected_specialities or selected_identifications:
+                
+                selected_filters = []
+                if selected_identifications:
+                    if "1" in selected_identifications:
+                        selected_filters.append('student_id')
+                    if "2" in selected_identifications:
+                        selected_filters.append('last_name')
+                        selected_filters.append('first_name')
+                        #add photo    
+                if selected_years:
+                    selected_filters.append('year')
+                if selected_specialities:
+                    selected_filters.append('speciality_id')
+                if selected_lessons:
+                    selected_filters.append('lesson')
+                
+                
+                    
+            else:
+                
+                selected_filters = ['year', 'lesson', 'speciality_id','last_name','first_name' ]
+            
+            form = FilterForm()
+            contexte={
+                'form': form,
+                'specialities': specialities,
+                'users': users,
+                'selected_filters': selected_filters
+            }
+            print(contexte)
+            return render(request, 'main.html', contexte)
+
+    else:
+        form = FilterForm()
+    
+    # If it's a GET request or the form is invalid, display all users and all filters
+    users = User.objects.all()
+    selected_filters = ['year', 'lesson', 'speciality_id','last_name','first_name' ]
+    
+    # Render the template with initial context
+    return render(request, 'main.html', {
+        'form': form,
+        'specialities': specialities,
+        'users': users,
+        'selected_filters': selected_filters
+    })
+
+    
+
 
 def indexview(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
-        
         try:
             user = User.objects.get(email=email)
             if password==user.password:
@@ -35,7 +108,6 @@ def indexview(request):
 def psswrdforgot(request):
     return render(request, 'psswrdforgot.html')
 
-from django.contrib import messages
 def profile(request):
     return render(request, 'user/profile.html')
 
@@ -45,10 +117,14 @@ def parametre(request):
 def changepsswrd(request):
     return render(request,'changepsswrd.html')
 
+def edt(request):
+    return render(request,'edt.html')
+
 def createuser(request):
     if request.method == 'POST':
         form = UserForm(request.POST, request.FILES)
         if form.is_valid():
+            
             user = form.save(commit=False)
             user.student_id = generate_student_id()
             
@@ -135,6 +211,13 @@ def edituser(request, user_id):
     roles = Roles.objects.all()
     specialities = Speciality.objects.all()
     users = User.objects.all()
+    return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'users': users})
+
+def edituser(request, user_id):
+    return render(request, 'index.html')
+    # return render(request, 'admin.html', {'user': user})
+
+def deleteuser(request, user_id):
     context = {
         'form': form,
         'user': user,
@@ -253,7 +336,6 @@ def importusers(request):
         'specialities': specialities,
     }
     return render(request, 'userslist.html', context)
-    return render(request, 'index.html')
 
 def generate_student_id():
     while True:
