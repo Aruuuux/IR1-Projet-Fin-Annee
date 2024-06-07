@@ -3,21 +3,14 @@ from .forms import UserForm
 from django.contrib.auth import login, authenticate
 from databaseprojet.models import Speciality, Roles, User
 import random
-#envoi mail
-
-from django.core.mail import send_mail
-from django.conf import settings
-from django.http import HttpResponse
-from django.contrib.auth.models import User
-from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_decode
-from django.utils.encoding import force_bytes
-
-#envoi mail 2
-from django.contrib.auth import login
+from django.utils.encoding import force_str
+from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_decode
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView, FormView
 from django.contrib.auth.views import (LoginView, LogoutView,
                                        PasswordChangeView,
                                        PasswordChangeDoneView,
@@ -101,64 +94,41 @@ def generate_student_id():
         student_id = random.randint(22300000, 23300000)
         if not User.objects.filter(student_id=student_id).exists():
             return student_id
-#envoi mail
-'''
-def psswrdreset(request, uidb64, token):
-    if request.method == 'POST':
-        new_password = request.POST['newpassword']
-        uid = force_bytes(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-        if default_token_generator.check_token(user, token):
-            user.set_password(new_password)
-            user.save()
-            messages.success(request, 'Votre mot de passe a été réinitialisé avec succès.')
-            return redirect('login')
-        else:
-            messages.error(request, 'Le lien de réinitialisation du mot de passe est invalide.')
-            return redirect('password_reset')
-    else:
-        return render(request, 'psswrdreset.html')
-
-def test_email(request):
-    if request.method == 'POST':
-        email = request.POST['username']
-        subject = 'Test Email'
-        message = 'This is a test email.'
-        recipient_list = [email]  # Utilisez l'adresse e-mail entrée par l'utilisateur
-        send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_list)
-        return redirect('emailsent')
-    else:
-        return HttpResponse('Invalid request')
-'''
-#envoi mail 2
-
-class CustomPasswordChangeView(PasswordChangeView):
-    template_name = 'registration/password_change_form.html'
-    success_url = reverse_lazy('user:password_change_done')  # reverse_lazy
-    # permet de convertir le chemin relatif en url, nécessaire ici pour
-    # success_url.
-
-
-class CustomPasswordChangeDoneView(PasswordChangeDoneView):
-    template_name = 'registration/password_change_done.html'
-
 
 class CustomPasswordResetView(PasswordResetView):
     template_name = 'registration/password_reset_form.html'
-    success_url = reverse_lazy('user:password_reset_done')
-
+    success_url = reverse_lazy('password_reset_done')
+    email_template_name = 'registration/password_reset_email.html'
 
 class CustomPasswordResetDoneView(PasswordResetDoneView):
     template_name = 'registration/password_reset_done.html'
 
-
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     template_name = 'registration/password_reset_confirm.html'
-    success_url = reverse_lazy('user:password_reset_complete')
-
+    success_url = reverse_lazy('password_reset_complete')
 
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'registration/password_reset_complete.html'
+
+
+
+User = get_user_model()
+
+def password_reset_confirm(request, uidb64=None, token=None):
+    assert uidb64 is not None and token is not None  # Vérifiez que les deux paramètres sont présents
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and default_token_generator.check_token(user, token):
+        # Le lien est valide, vous pouvez permettre à l'utilisateur de changer son mot de passe
+        return render(request, 'registration/password_reset_confirm.html', {'validlink': True})
+    else:
+        # Le lien n'est pas valide
+        return render(request, 'registration/password_reset_confirm.html', {'validlink': False})
+
     
 
 def E404(request, exception=None):

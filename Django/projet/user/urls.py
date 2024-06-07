@@ -1,6 +1,7 @@
 # user/urls.py
-from django.urls import path, include
+from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
 
 
 app_name = 'user'
@@ -18,25 +19,17 @@ urlpatterns = [
     #path('emailsent/', views.emailsent, name='emailsent'),
     #path('test-email/', views.test_email, name='test_email'),
     #path('psswrdreset/<uidb64>/<token>/', views.psswrdreset, name='psswrdreset'),
-    path('password_change/', views.CustomPasswordChangeView.as_view(),
-         name='password_change'),
-    path('password_change_done/', views.CustomPasswordChangeDoneView.as_view(),
-         name='password_change_done'),
-    path('password_reset/', views.CustomPasswordResetView.as_view(),
-         name='password_reset'),
-    path('password_reset_done/', views.CustomPasswordResetDoneView.as_view(),
-         name='password_reset_done'),
-    path('reset/done/', views.CustomPasswordResetCompleteView.as_view(),
-         name='password_reset_complete'),
+   
      path('changepsswrd/', views.changepsswrd, name='changepsswrd'),
      path('404/', views.E404, name='E404'),
      path('500/', views.E500, name='E500'),
-    path('403/', views.E403, name='E403'),
-    path('400/', views.E400, name='E400'),
-    path('reset/<uidb64>/<token>/', views.CustomPasswordResetConfirmView.as_view(), name='emailsent'),
+     path('403/', views.E403, name='E403'),
+     path('400/', views.E400, name='E400'),
+     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html'), name='password_reset'),
+     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'), name='password_reset_done'),
+     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html'), name='password_reset_confirm'),
+     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'), name='password_reset_complete'),
     
-    
-]
-
+    ]
 
 
