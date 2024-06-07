@@ -9,117 +9,107 @@
 {% block main-content %}
 <div id="form-wrapper" class="loginbox">
     <h2>Création d'étudiants/professeurs</h2>
+
+    <form method="post" enctype="multipart/form-data" action="{% url 'importusers' %}">
+        {% csrf_token %}
+
+        <!-- CSV File importation -->
+        <h3>Importation de fichier CSV</h3>
+        <label for="csvFile"></label>
+        <input type="file" id="csvFile" name="csv_file" accept=".csv">
+        <button type="submit">Import csv</button>
+
+    </form>
+
     <form method="post" enctype="multipart/form-data" id="form-content">
         {% csrf_token %}
-        
+
         <!-- First Name -->
-        
-            <label for="id_first_name">First Name</label>
-            <div>
-                <input type="text" id="id_first_name" name="first_name" placeholder="Prénom" {% if form.first_name.value %} value="{{ form.first_name.value }}" {% endif %} required />
-            </div>
-        
-        
+        <label for="id_first_name">Prénom</label>
+        <input type="text" id="id_first_name" name="first_name" placeholder="Prénom" {% if form.first_name.value %} value="{{ form.first_name.value }}" {% endif %} required />
+
+
         <!-- Last Name -->
-        
-            <label for="id_last_name">Last Name</label>
-            <div>
-                <input type="text" id="id_last_name" name="last_name" placeholder="Nom" {% if form.last_name.value %} value="{{ form.last_name.value }}" {% endif %} required />
-            </div>
-        
-        
+        <label for="id_last_name">Nom</label>
+        <input type="text" id="id_last_name" name="last_name" placeholder="Nom" {% if form.last_name.value %} value="{{ form.last_name.value }}" {% endif %} required />
+
+
         <!-- Role -->
-        
-            <label for="id_role">Role</label>
-            <div>
-                <select name="roles" id="id_role">
-                    {% for role in roles %}
-                    <option value="{{ role.id }}">{{ role.name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        
+        <label for="id_role">Statut</label>
+        <select name="roles" id="id_role">
+            <option value="" disabled selected hidden>-- Statut --</option>
+            {% for role in roles %}
+            <option value="{{ role.id }}">{{ role.name }}</option>
+            {% endfor %}
+        </select>
+
 
         <!-- Date of Birth -->
-        
-            <label for="id_date_of_birth">Date of Birth</label>
-            <div>
-                <input type="date" id="id_date_of_birth" name="date_of_birth" value="{{ form.date_of_birth.value }}" required />
-            </div>
-        
-        
+        <label for="id_date_of_birth">Date de naissance</label>
+        <input type="date" id="id_date_of_birth" name="date_of_birth" value="{{ form.date_of_birth.value }}" required />
+
+
+
         <!-- Speciality -->
-        
-            <label for="id_speciality">Speciality</label>
-            <div>
-                <select name="speciality_id" id="id_speciality">
-                    {% for speciality in specialities %}
-                    <option value="{{ speciality.id }}">{{ speciality.name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        
-        
+        <label for="id_speciality">Spécialité</label>
+        <select name="speciality_id" id="id_speciality">
+            <option value="" disabled selected hidden>-- Sélection de la spécialité --</option>
+            {% for speciality in specialities %}
+            <option value="{{ speciality.id }}">{{ speciality.name }}</option>
+            {% endfor %}
+        </select>
+
+
         <!-- Photo -->
-        <div>
-            <label for="id_photo">Photo</label>
-            <div>
-                <input type="file" id="id_photo" name="photo" accept=".jpg, .jpeg, .png" />
-            </div>
-        </div>
-        
-        
+        <p>Importation de la photo</p>
+        <label for="id_photo">Import photo</label>
+        <input type="file" id="id_photo" name="photo" accept=".jpg, .jpeg, .png" />
+
+
+        <!-- Email -->
+        <!--<label for="id_email">Email</label>
+        <input type="email" id="id_email" name="email" placeholder="Nom" {% if form.email.value %} value="{{ form.email.value }}" {% endif %} required />-->
+
         <!-- Password -->
-        <div>
-            <label for="id_password">Password</label>
-            <div>
-                <input type="password" id="id_password" name="password" placeholder="***********" required />
-            </div>
-        </div>
-        
+        <label for="id_password">Mot de passe</label>
+        <input type="password" id="id_password" name="password" placeholder="***********" required />
+
         <!-- Year -->
-        <div>
-            <label for="id_year">Year</label>
-            <div>
-                <select name="year" id="id_year" >
-                    <option value="1">Year 1</option>
-                    <option value="2">Year 2</option>
-                    <option value="3">Year 3</option>
-                </select>
-            </div>
-        </div>
-        
+        <label for="id_year">Année</label>
+        <select name="year" id="id_year" >
+            <option value="" disabled selected hidden>-- Sélection de l'année --</option>
+            <option value="1">1ère année</option>
+            <option value="2">2ème année</option>
+            <option value="3">3ème année</option>
+        </select>
+
         <!-- Submit Button -->
-        <div>
-            <div>
-                <button type="submit" class="loginbox">Save</button>
-            </div>
-        </div>
+        <button type="submit" class="loginbox">Sauvegarder</button>
+        <button type="reset" class="loginbox">Reset</button>
     </form>
 
 </div>
 <div id="table-wrapper" class="loginbox">
-    <h2>Users List</h2>
-    <table class="table-users">
+    <h2>Liste des utilisateurs à ajouter</h2>
+    <table id="table-users">
         <thead>
             <tr>
                 <th>Photo</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Student ID</th>
-                <th>Date of Birth</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>ID étudiant</th>
+                <th>Date de naissance</th>
                 <th>Email</th>
                 <th>Role</th>
-                <th>Speciality</th>
-                <th>Year</th>
+                <th>Spécialité</th>
+                <th>Année</th>
             </tr>
         </thead>
         <tbody id="tableau-creatuser">
             {% for user in users %}
-            
             <tr>
                 <td>
-                    {% comment %} <img src="{{ user.photo.url }}" alt="Photo" width="50" /> {% endcomment %}
+                    {% comment %} <img src="{{ user.photo.url }}" alt="Photo étudiant" width="50" /> {% endcomment %}
                 </td>
                 <td>{{ user.first_name }}</td>
                 <td>{{ user.last_name }}</td>

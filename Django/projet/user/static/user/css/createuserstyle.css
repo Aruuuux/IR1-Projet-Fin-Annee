@@ -1,4 +1,4 @@
-.loginbox input[type="text"], .loginbox input[type="password"], .loginbox input[type="email"]  {
+.loginbox input[type="text"], .loginbox input[type="password"], .loginbox input[type="email"], .loginbox input[type="date"]  {
     padding: 0.5rem 0;
     border: 0.05rem solid var(--white);
     background: transparent;
@@ -8,9 +8,14 @@
     font-size: 16px;
     border-radius: 1.5rem;
     height: 2rem;
+    text-align: center;
 }
 
-.loginbox button[type="submit"] {
+.loginbox input[type="date"] {
+    padding: 0.5rem 1rem;
+}
+
+.loginbox button[type="submit"], .loginbox button[type="reset"] {
     border: 1px solid var(--white);
     padding: 0.5rem;
     background: transparent;
@@ -26,21 +31,30 @@
     color: var(--black);
 }
 
+.loginbox button[type="reset"]:hover {
+    cursor: pointer;
+    background: #951414;
+}
+
 .loginbox select {
     border: 0.1rem solid var(--white);
     background: transparent;
     text-indent: 0.5rem;
     color: var(--primary-color);
-
     font-size: 16px;
     border-radius: 1.5rem;
     height: 2rem;
+    text-align: center;
 }
 
 .loginbox select:focus {
     outline: none;
     background-color: var(--vdark-main-color);
     color: var(--primary-color);
+}
+
+.loginbox label, .loginbox p{
+    font-weight: bold;
 }
 
 /* Hide the default file input */
@@ -65,26 +79,6 @@
     color: var(--primary-color);
 }
 
-#main-content {
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: nowrap;
-    overflow: auto;
-}
-
-h2 {
-    text-align: center;
-}
-
-.table-users {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    margin: 0;
-    width: 80%;
-    height: 80%
-}
-
 select option {
     padding: 0;
 }
@@ -93,7 +87,6 @@ body{
     margin: 0;
     padding: 0;
     height: 100vh;
-    width: 100vw;
     background-image: url('../images/login_img.jpg');
     background-position: center;
     background-size: cover;
@@ -115,13 +108,64 @@ body{
 
 form > * {
     margin: 0.5rem 0rem;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 #form-wrapper {
-    padding: 0rem 0.5rem;
-    margin: 0.5rem 0rem;
+    padding: 0rem 1rem;
+    margin: 1rem 0rem;
+    width: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#form-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
 }
 
 #table-wrapper {
     border: 0.3rem solid var(--white);
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    overflow: auto;
+}
+
+#table-wrapper h2 {
+    position: sticky;
+    top: 0; /* Ensure it stays at the top */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--vdark-main-color); /* Match background color */
+    z-index: 1; /* Ensure it stays above other content */
+    padding: 0.5rem;
+}
+
+
+#main-content {
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+#table-users thead tr th {
+    text-align: center;
+}
+
+#id_year {
+    width: 80%;
+}
+
+table {
+    border-collapse: collapse;
+    min-width: 1000px;
+    min-height: 400px;
 }
