@@ -79,6 +79,27 @@
     color: var(--primary-color);
 }
 
+#main-content {
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow: auto;
+}
+
+h2 {
+    text-align: center;
+}
+
+.table-users {
+    display: flex;
+    margin: 0;
+    width: 80%;
+    height: 80%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+}
+
 select option {
     padding: 0;
 }
