@@ -8,7 +8,7 @@
 {% block main-content %}
 <div class="loginbox">
     <h1>Mot de passe oublié ?</h1>
-    <form method="POST" action="{% url 'test_email' %}">
+    <form method="POST" action="{% url 'password_reset' %}">
         <p style="margin: 0;">E-mail</p>
         {% csrf_token %}
         <input type="text" name="username" placeholder="prenom.nom@uha.fr">

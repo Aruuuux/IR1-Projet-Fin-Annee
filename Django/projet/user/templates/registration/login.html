@@ -1,6 +1,6 @@
-{% extends 'users/base.html' %}
+{% extends 'user/base.html' %}
 
-{% block content %}
+{% block main-content %}
 <h2>Connexion</h2>
 
 <div class="form-holder">
@@ -15,7 +15,7 @@
     </div>
 </div>
 
-<p><a href="{% url 'users:password_reset' %}" class="type1">Mot de passe
+<p><a href="{% url 'user:password_reset' %}" class="type1">Mot de passe
     perdu</a></p>
-<p><a href="{% url 'users:register' %}" class="type1">S'enregistrer</a></p>
+<p><a href="{% url 'user:register' %}" class="type1">S'enregistrer</a></p>
 {% endblock %}

@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.getenv('DEBUG', 'False'))
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
@@ -157,7 +157,7 @@ MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
 EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
 EMAIL_USE_TLS = bool(os.getenv('EMAIL_USE_TLS', 'True'))
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
@@ -166,3 +166,11 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 # L'adresse e-mail qui sera utilisée pour envoyer les e-mails
 #DEFAULT_FROM_EMAIL = 'edutrack.supp@gmail.com'
 
+print('DEBUG:', DEBUG)
+print('SECRET_KEY:', SECRET_KEY)
+print('ALLOWED_HOSTS:', ALLOWED_HOSTS)
+print('EMAIL_BACKEND:', EMAIL_BACKEND)
+print('EMAIL_HOST:', EMAIL_HOST)
+print('EMAIL_PORT:', EMAIL_PORT)
+print('EMAIL_USE_TLS:', EMAIL_USE_TLS)
+print('EMAIL_HOST_USER:', EMAIL_HOST_USER)
