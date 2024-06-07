@@ -1,0 +1,185 @@
+:root {
+    --white : rgb(237, 241, 242);
+    --vdark-main-color : rgb(2, 32, 38);
+    --main-color : rgb(66, 150, 183);
+    --light-main-color : rgb(135, 198, 224);
+    --black : rgb(10, 13, 20);
+    --grey : rgb(46, 52, 56);
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--white);
+    color: var(--black);
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+#prevWeek, #nextWeek {
+    padding: 10px 20px;
+    margin: 0 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 20px; 
+    background-color: var(--main-color); 
+    color: var(--white); 
+}
+
+#weekLabel {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#main {
+    display: flex;
+    height: calc(100vh - 80px);
+}
+
+#left-menu {
+    width: 200px;
+    border-right: 1px solid var(--light-main-color);
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.schedule {
+    overflow: auto;
+}
+
+.schedule table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.schedule th,
+.schedule td {
+    border: 1px solid var(--light-main-color);
+    padding: 10px;
+    text-align: center;
+}
+
+.schedule th {
+    background-color: var(--grey);
+    font-weight: bold;
+}
+
+.schedule .break {
+    background-color: var(--light-main-color);
+    font-style: italic;
+}
+
+#menu-filter-button {
+    background-color: var(--main-color);
+    color: var(--white);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#menu-filter {
+    display: none;
+    margin-top: 10px;
+}
+
+.filter-components {
+    margin-bottom: 10px;
+}
+
+.title-filter {
+    background-color: var(--main-color);
+    color: var(--white);
+    border: none;
+    padding: 10px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dropdown-content {
+    display: none;
+    border: 1px solid var(--light-main-color);
+    padding: 10px;
+    background-color: var(--grey);
+    margin-top: 5px;
+}
+
+.dropdown-content label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+#reset-button, #applied-button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: var(--main-color);
+    color: var(--white);
+}
+
+#search-bar {
+    margin-bottom: 20px;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+body.dark-mode {
+    background-color: var(--dark-grey); 
+    color: var(--white);
+}
+
+.header.dark-mode,
+#prevWeek.dark-mode,
+#nextWeek.dark-mode,
+#weekLabel.dark-mode,
+#searchInput.dark-mode,
+.filtre-titre.dark-mode {
+    color: var(--black); 
+}
+
+.day-header.dark-mode {
+    background-color: var(--light-main-color);
+    color: var(--black); 
+}
+
+.day-header {
+    background-color: var(--grey);
+    color: var(--black); 
+}
+
+body.dark-mode .day-header {
+    color: var(--black); 
+}
