@@ -6,33 +6,52 @@
     <title>Users List</title>
     <!-- Link to Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 50px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        #scrollTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            font-size: 18px;
+            border: none;
+            outline: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            padding: 3px 5px;
+            border-radius: 5px;
+        }
+
+        #scrollTopBtn:hover {
+            background-color: #555;
+        }
+    </style>
 </head>
 <body>
-    <a href="{% url 'createuser' %}" class="btn btn-primary">Create User</a>
+  
 <div class="container mt-5">
-
-    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="successModalLabel">Success</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    {% for message in messages %}
-                    <div class="alert alert-success">{{ message }}</div>
-                    {% endfor %}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <a href="{% url 'createuser' %}" class="btn btn-primary" >Create User</a>
+    
     <h2>Users List</h2>
-
     <!-- Search Form -->
     <form method="get" action="{% url 'userslist' %}" class="mb-4">
         <div class="form-row">
@@ -72,7 +91,23 @@
         </div>
     </form>
 
-    
+    <form method="post" enctype="multipart/form-data" action="{% url 'importusers' %}" class="mt-4">
+        {% csrf_token %}
+        <div class="card" style="margin-bottom:20px">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Upload CSV File</h5>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="csvFile">Select CSV File:</label>
+                    <input type="file" class="form-control-file" id="csvFile" name="csv_file" accept=".csv">
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </div>
+        </div>
+    </form>
 
     <!-- Table of Users -->
     <table class="table table-striped" style="border: 0px;">
@@ -97,7 +132,7 @@
                     {% if user.photo %}
                     <img src="{{ user.photo.url }}" alt="Photo" width="100px">
                     {% else %}
-                    <span>No photo available</span>
+                    <img src="/media/user_photos/noprofile.png" alt="Photo" width="100px">
                     {% endif %}
                 </td>
                 <td>{{ user.first_name }}</td>
@@ -150,6 +185,57 @@
         </div>
     </div>
 </div>
+
+ <!-- Success Modal -->
+ <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                        <div class="alert alert-success">{{ message }}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% for message in messages %}
+                    {% if message.tags == 'error' %}
+                        <div class="alert alert-danger">{{ message }}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<a onclick="topFunction()" id="scrollTopBtn" title="Go to top"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+    <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
+  </svg></a>
 </body>
 
 
@@ -160,8 +246,14 @@
     jQuery(document).ready(function() {
 
         {% if messages %}
-        jQuery('#successModal').modal('show');
-        {% endif %}
+                {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                        $('#successModal').modal('show');
+                    {% elif message.tags == 'error' %}
+                        $('#errorModal').modal('show');
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
 
 
         jQuery('.delete-user-btn').click(function() {
@@ -172,5 +264,30 @@
             jQuery('#deleteConfirmationModal').modal('show'); // Show the modal
         });
     });
+</script>
+<script>
+    // Get the button
+    var mybutton = document.getElementById("scrollTopBtn");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {
+        scrollFunction();
+    };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
 </script>
 </html>
