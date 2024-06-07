@@ -6,12 +6,9 @@
 {% endblock %}
 
 {% block main-content %}
-<div class="loginbox">
-    <div class="icon">
-        <i class="fas fa-user-circle fa-6x"></i>
-    </div>
-    <h1>Nom Prenom</h1>
-    <p>N° Etudiant</p>
-    <p>Classe</p>
+<div class="error-container">
+    <h1>400</h1>
+    <p>La requête est incorrecte. Veuillez vérifier et réessayer.</p>
+    <a href="{% url 'home' %}">Retour à l'accueil</a>
 </div>
 {% endblock %}
