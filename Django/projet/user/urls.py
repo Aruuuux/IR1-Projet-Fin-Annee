@@ -15,7 +15,7 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('parametre/', views.parametre, name='parametre'),
     path('changepsswrd/',views.changepsswrd,name='changepsswrd'),
-    path('emailsent/', views.emailsent, name='emailsent'),
+    #path('emailsent/', views.emailsent, name='emailsent'),
     #path('test-email/', views.test_email, name='test_email'),
     #path('psswrdreset/<uidb64>/<token>/', views.psswrdreset, name='psswrdreset'),
     path('password_change/', views.CustomPasswordChangeView.as_view(),
@@ -33,7 +33,7 @@ urlpatterns = [
      path('500/', views.E500, name='E500'),
     path('403/', views.E403, name='E403'),
     path('400/', views.E400, name='E400'),
-    path('reset/<uidb64>/<token>/', views.CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/<uidb64>/<token>/', views.CustomPasswordResetConfirmView.as_view(), name='emailsent'),
     
     
 ]
