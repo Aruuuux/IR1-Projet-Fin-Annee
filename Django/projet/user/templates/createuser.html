@@ -10,7 +10,7 @@
 <div id="form-wrapper" class="loginbox">
     <h2>Création d'étudiants/professeurs</h2>
 
-    <form method="post" enctype="multipart/form-data" action="{% url 'importusers' %}">
+    <form method="post" enctype="multipart/form-data" action="{% url 'user:importusers' %}">
         {% csrf_token %}
 
         <!-- CSV File importation -->
@@ -75,7 +75,7 @@
             <option value="3">3ème année</option>
         </select>
 
-                    <!-- à changer -->
+            <!-- à changer -->
             <button type="button"  data-dismiss="modal">Close</button>
             <div tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
                 <h5 id="successModalLabel">Success</h5>
