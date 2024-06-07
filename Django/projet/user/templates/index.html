@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+{% extends "user/base.html" %}
+{% load static %}
+<!DOCTYPE htmmmml>
 <html lang="fr">
 <head>
     <meta charset="UTF-8"/>
@@ -8,10 +10,26 @@
     <link rel="stylesheet" href="{% static 'user/variables.css' %}" />
     <link rel="stylesheet" href="{% static 'user/loginstyles.css' %}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
-{% load static %}
 
+{% block styles %}
+<link rel="stylesheet" href="{% static 'user/loginstyles.css' %}" />
+{% endblock %}
+</head>
 <body>
-    {% extends "user/base.html" %}
+{% block main-content %}
+<div class="loginbox">
+    <h1>Se connecter</h1>
+    <form>
+        <p>E-Mail</p>
+        <input type="text" name="email" placeholder="tonemail@uha.fr">
+        <p>Mot de passe</p>
+        <input type="password" name="password" placeholder="********">
+        <input type="submit" name="" value="Connecte-toi"><br>
+        <a href="{% url 'psswrdforgot' %}">Mot de passe oublié ?</a><br>
+    </form>
+</div>
+{% endblock %}
+
     <header>
         <p>EduTrack</p>
     </header>
@@ -70,16 +88,3 @@
     </script>
 </body>
 </html>
-{% block main-content %}
-<div class="loginbox">
-    <h1>Se connecter</h1>
-    <form>
-        <p>E-Mail</p>
-        <input type="text" name="email" placeholder="tonemail@uha.fr">
-        <p>Mot de passe</p>
-        <input type="password" name="password" placeholder="********">
-        <input type="submit" name="" value="Connecte-toi"><br>
-        <a href="{% url 'psswrdforgot' %}">Mot de passe oublié ?</a><br>
-    </form>
-</div>
-{% endblock %}

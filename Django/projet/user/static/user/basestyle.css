@@ -85,8 +85,7 @@ header {
 }
 
 footer {
-    bottom: 0px;
+    display: flex;
     color: var(--white);
-    position: absolute;
-    width: 100vw;
+    justify-content: center;
 }
