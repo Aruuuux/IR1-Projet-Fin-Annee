@@ -2,12 +2,27 @@ from django.shortcuts import get_object_or_404, render, redirect
 from .forms import UserForm
 from databaseprojet.models import Speciality, Roles, User
 import random, csv
+from django.contrib.auth.hashers import check_password
 from django.contrib import messages
 from django.template.defaultfilters import slugify
 from datetime import datetime
 from django.utils import formats
 
 def indexview(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+        
+        try:
+            user = User.objects.get(email=email)
+            if password==user.password:
+                messages.success(request, 'Successfully logged in.')
+                return redirect('userslist')  
+            else:
+                messages.error(request, 'Invalid email or password')
+        except User.DoesNotExist:
+            messages.error(request, 'Invalid email or password')
+    
     return render(request, 'index.html')
 
 def psswrdforgot(request):
