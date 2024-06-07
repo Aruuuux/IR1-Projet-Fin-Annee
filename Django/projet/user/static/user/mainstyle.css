@@ -15,9 +15,18 @@
 }
 
 .header{
-    width: 99%;
+    border-radius: 4px;
+    width: calc(100% - 2rem);
+    padding: 1rem;
+    margin-bottom: 1rem;
     color: var(--white);
     text-align: center;
+    background-color: var(--darker-main-color);
+}
+
+#weekLabel{
+    margin: 0;
+    margin-top: 1rem;
 }
 
 #prevWeek, #nextWeek {
@@ -193,7 +202,7 @@
 
 .tableau {
     position:absolute;
-    height: calc(var(--table-height) - 100px);
+    height: calc(var(--table-height) - 150px);
     overflow: auto; 
     z-index: 0; /* Cela place #tableau en dessous de #left-menu */
     border-radius: 8px;
@@ -207,7 +216,7 @@
 .tableau-wrapper {
     background: var(--vdark-main-color);
     padding: 1rem;
-    margin : 8px;
+    margin-top: 8px;
     height: var(--table-height);
     width: var(--table-width);
     border-radius: 8px;
@@ -217,7 +226,7 @@ table#noteabs{
     width: calc(var(--table-width) - 10px);
     border-collapse: collapse;
     min-width: 1000px;
-    min-height: 400px;
+    min-height: var(--table-height);
     table-layout: fixed;
 }
 
@@ -227,12 +236,15 @@ table#schedule{
     min-width: 1000px;
     min-height: 400px;
     table-layout: fixed;
-    height: calc(var(--table-height) - 300px);
 }
 
 th, td {
     padding: 8px;
     text-align: left;
+    min-width: 100px;
+    max-height:150px;
+    box-sizing: border-box;
+    border: 2px solid var(--black);
 }
 
 th {
@@ -240,7 +252,6 @@ th {
     font-weight: bold;
     position: sticky;
     top:0;
-    border: 2px solid var(--black);
     transform: translate3d(0, 0, 0); /* Ajoute une transformation de traduction 3D */
     color: var(--white);
 }
@@ -264,12 +275,6 @@ tr:nth-child(odd) {
     color: var(--white);
     width: 8rem;
     text-align: center;
-}
-
-th, td {
-    min-width: 100px;
-    box-sizing: border-box;
-    border: 2px solid #000000;
 }
 
 .filter-icon {

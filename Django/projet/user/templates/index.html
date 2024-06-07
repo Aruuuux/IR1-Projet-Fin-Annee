@@ -1,21 +1,11 @@
 {% extends "user/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'user/styles.css' %}" />
-    <link rel="stylesheet" href="{% static 'user/variables.css' %}" />
-    <link rel="stylesheet" href="{% static 'user/loginstyles.css' %}" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'user/loginstyles.css' %}" />
 {% endblock %}
-</head>
-<body>
+
+
 {% block main-content %}
 <div class="loginbox">
     <h1>Se connecter</h1>
