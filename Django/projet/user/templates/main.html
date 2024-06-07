@@ -52,7 +52,7 @@
                 {% csrf_token %}
                 <div class="menu-content" id="identification-dropdown">
                     <div><label><input type="checkbox" name="identification" value="1"> N° étudiant</label></div>
-                    <div><label><input type="checkbox" name="identification" value="2"> Nom</label></div>
+                    <div><label><input type="checkbox" name="identification" value="2" checked="true"> Nom</label></div>
                 </div>
         </div>
         <div id="button-container">
@@ -62,12 +62,10 @@
     </div>
     </form>
 </section>
-
-
-<div id="tableau-wrapper">
+<div  class="tableau-wrapper">
     {% load custom_filters %}
-    <section id="tableau">
-        <table>
+    <section id="tabmain" class="tableau">
+        <table id="noteabs">
             <thead>
                 <tr>
                     {% for filter in selected_filters %}
@@ -76,17 +74,17 @@
                 </tr>
             </thead>
             <tbody>
-                    
+                {% if users %}
                     <tr>{% for user in users %}
                         {% for filter in selected_filters %}
                             <td>{{ user|get_attribute:filter }}</td>
                         {% endfor %}
                     </tr>{% endfor %}
-                    
-                
+                {% else %}
                     <tr>
                         <td colspan="{{ selected_filters|length }}">Aucun résultat trouvé</td>
                     </tr>
+                    {% endif %}
             </tbody>
         </table>
     </section>
