@@ -148,11 +148,10 @@
                 <td>{{ user.speciality_id.name }}</td>
                 <td>{{ user.year }}</td>
             </tr>
-            
+            {% endfor %}
         </tbody>
     </table>
 </div>
-{% endblock %}
         </div>
     </div>
 
@@ -179,6 +178,7 @@
         </div>
     </div>
 
+    {% endblock %}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
@@ -195,5 +195,4 @@
         {% endif %}
     });
 </script>
-</body>
-</html>
+
