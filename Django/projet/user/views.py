@@ -30,8 +30,8 @@ from django.contrib.auth.views import (LoginView, LogoutView,
 def admin(request):
     return render(request, 'admin.html')
 def main(request):
-    roles = Roles.objects.all()
-    specialities = Speciality.objects.all()
+    roles = User._meta.get_field('roles').choices
+    specialities = specialities = Speciality.SPECIALITY_CHOICES
     
     if request.method == 'POST':
         form = FilterForm(request.POST, request.FILES)
@@ -186,7 +186,6 @@ def createuser(request):
     else:
         form = UserForm()
     roles = User._meta.get_field('roles').choices
-    print(roles)
     specialities = specialities = Speciality.SPECIALITY_CHOICES
 
     return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'messages': messages.get_messages(request)})
@@ -239,8 +238,8 @@ def edituser(request, user_id):
             'year': user.year
         }
         form = UserForm(instance=user, initial=initial_values)
-    roles = Roles.objects.all()
-    specialities = Speciality.objects.all()
+    roles = User._meta.get_field('roles').choices
+    specialities = specialities = Speciality.SPECIALITY_CHOICES
     users = User.objects.all()
     return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'users': users})
 
