@@ -33,3 +33,12 @@ urlpatterns = [
          name='password_reset_complete'),
 ]
 
+    path('changepsswrd/', views.changepsswrd, name='changepsswrd'),
+    path('404/', views.E404, name='E404'),
+    path('500/', views.E500, name='E500'),
+    path('403/', views.E403, name='E403'),
+    path('400/', views.E400, name='E400'),
+]
+
+
+

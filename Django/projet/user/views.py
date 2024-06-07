@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import UserForm
+from django.contrib.auth import login, authenticate
 from databaseprojet.models import Speciality, Roles, User
 import random
 #envoi mail
@@ -66,6 +67,22 @@ def createuser(request):
             print(f"Password: {user.password}")
             print(f"Year: {user.year}")
 
+
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(email=user.email, password=raw_password)
+            login(request, user)
+            roles = Roles.objects.all()
+            specialities = Speciality.objects.all()
+            print(roles)
+            return render(request, 'createuser.html', {'roles': roles, 'specialities': specialities})
+    else:
+        form = UserForm()
+        roles = Roles.objects.all()
+        specialities = Speciality.objects.all()
+        print(roles)
+        return render(request, 'createuser.html', {'roles': roles, 'specialities': specialities, 'form':form})
+    # return render(request, 'createuser.html')
+        
     form = UserForm()
     roles = Roles.objects.all()
     specialities = Speciality.objects.all()
@@ -73,7 +90,7 @@ def createuser(request):
     return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'users': users})
 
 def edituser(request, user_id):
-   return render(request, 'index.html')
+    return render(request, 'index.html')
     # return render(request, 'admin.html', {'user': user})
 
 def deleteuser(request, user_id):
@@ -143,3 +160,15 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'registration/password_reset_complete.html'
     
+
+def E404(request, exception=None):
+    return render(request, '404.html', status=404)
+
+def E500(request):
+    return render(request, '500.html', status=500)
+
+def E403(request, exception=None):
+    return render(request, '403.html', status=403)
+
+def E400(request, exception=None):
+    return render(request, '400.html', status=400)
