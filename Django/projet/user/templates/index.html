@@ -19,26 +19,6 @@
     </form>
 </div>
 
-
-    <header>
-        <p>EduTrack</p>
-    </header>
-    <section>
-        <div class="loginbox">
-            <h1>Se connecter</h1>
-            <form method="post">
-                {% csrf_token %}
-                <p>E-Mail</p>
-                <input type="text" name="email" placeholder="tonemail@uha.fr" required>
-                <p>Mot de passe</p>
-                <input type="password" name="password" placeholder="********" required>
-                <input type="submit" value="Login"><br>
-                <a href="{% url 'user:psswrdforgot' %}">Lost your password ?</a><br>
-                <a href="{% url 'user:createuser' %}">Create User</a><br>
-            </form>
-        </div>
-    </section>
-
     <!-- Error Modal -->
     <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
         <div class="modal-dialog">
