@@ -21,6 +21,9 @@ header {
     padding-left:  8px;
 }
 
+#main-content {
+    display: flex;
+}
 
 #profil-utilisateur button {
     margin: 5px;
@@ -86,9 +89,5 @@ header {
 footer {
     display: flex;
     color: var(--white);
-    position:absolute;
-    width: calc(100vw - 8px) ;
-    bottom:0;
-    padding-left: 8px;
     justify-content: center;
 }
