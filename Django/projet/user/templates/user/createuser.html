@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'user/css/mainstyle.css' %}" />
+<link rel="stylesheet" href="{% static 'user/mainstyle.css' %}" />
 <link rel="stylesheet" href="{% static 'user/css/createuserstyle.css' %}" />
 {% endblock %}
 
@@ -38,9 +38,9 @@
         <label for="id_role">Statut</label>
         <select name="roles" id="id_role">
             <option value="" disabled selected hidden>-- Statut --</option>
-            {% for role in roles %}
-            <option value="{{ role.name }}">{{ role.name }}</option>
-            {% endfor %}
+            {% for value, label in roles %}
+            <option value="{{ value }}">{{ label }}</option>
+        {% endfor %}
         </select>
 
 
@@ -50,11 +50,10 @@
 
 
         <!-- Speciality -->
-            <label for="id_speciality">Spécialité</label>
+            <label for="id_speciality">Spécialités</label>
             <select name="speciality_id" id="id_speciality">
-                <option value="" disabled selected hidden>-- Spécialité --</option>
-                {% for speciality in specialities %}
-                <option value="{{ speciality.id }}">{{ speciality.name }}</option>
+                {% for choice in specialities %}
+                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
                 {% endfor %}
             </select>
 
