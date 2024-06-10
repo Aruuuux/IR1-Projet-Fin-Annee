@@ -1,0 +1,21 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'user/css/loginstyles.css' %}" />
+{% endblock %}
+
+{% block main-content %}
+<div class="loginbox">
+    <h1>Mot de passe oublié ?</h1>
+    <form method="POST" action="{% url 'user:password_reset' %}">
+        {% csrf_token %}
+
+        <p>E-mail</p>
+        <input type="text" name="email" placeholder="prenom.nom@uha.fr" />
+        <input type="submit" name="send" value="OK" />
+        <a href="{% url 'user:login' %}">En fait, je m'en souviens !</a>
+
+    </form>
+</div>
+{% endblock %}

@@ -118,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "fr"
 
 TIME_ZONE = "UTC"
 
@@ -134,18 +134,20 @@ LOCALE_PATHS = [
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-#BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [
-    BASE_DIR / "user" / "static",
-    #os.path.join(BASE_DIR, 'static'),
-]
+
+
+
 
 # Pour indiquer à Django d'utiliser notre modèle User personnalisé par défaut
 AUTH_USER_MODEL = 'databaseprojet.User'
@@ -153,7 +155,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 #Email settings
-
 
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
 EMAIL_HOST = os.getenv('EMAIL_HOST')
@@ -174,3 +175,5 @@ print('EMAIL_HOST:', EMAIL_HOST)
 print('EMAIL_PORT:', EMAIL_PORT)
 print('EMAIL_USE_TLS:', EMAIL_USE_TLS)
 print('EMAIL_HOST_USER:', EMAIL_HOST_USER)
+
+

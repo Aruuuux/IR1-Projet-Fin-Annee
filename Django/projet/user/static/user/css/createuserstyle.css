@@ -1,9 +1,8 @@
-.loginbox input[type="text"], .loginbox input[type="password"], .loginbox input[type="date"]  {
+.loginbox input[type="text"], .loginbox input[type="password"], .loginbox input[type="date"], .loginbox input[type="email"]  {
     padding: 0.5rem 0;
     border: 0.05rem solid var(--white);
     background: transparent;
     color: var(--primary-color);
-    background-color: var(--secondary-color);
     font-size: 16px;
     border-radius: 1.5rem;
     height: 2rem;
@@ -15,19 +14,18 @@
 }
 
 .loginbox button[type="submit"], .loginbox button[type="reset"] {
-    border: 1px solid var(--white);
+    border: 0.05rem solid var(--white);
     padding: 0.5rem;
-    background: transparent;
     background-color: var(--secondary-color);
     color: var(--primary-color);
     font-size: 1.2rem;
     border-radius: 1.5rem;
 }
 
-.loginbox button[type="submit"]:hover, .loginbox label[for="id_photo"]:hover, .loginbox button[type="submit"]:hover {
+.loginbox button[type="submit"]:hover, .loginbox label[for="id_photo"]:hover {
     cursor: pointer;
-    background: var(--light-main-color);
     color: var(--black);
+    background: var(--light-main-color)
 }
 
 .loginbox button[type="reset"]:hover {
@@ -35,24 +33,35 @@
     background: #951414;
 }
 
+
 .loginbox select {
-    border: 0.1rem solid var(--white);
-    background: transparent;
+    border: 0.05rem solid var(--white);
+    background: transparent url('data:image/svg+xml;utf8,<svg fill="white" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 0.5rem center;
+    background-size: 2rem;
     color: var(--primary-color);
     font-size: 16px;
     border-radius: 1.5rem;
     height: 2rem;
     text-align: center;
+    width: auto;
+    appearance: none; /* Remove default styling */
+    -webkit-appearance: none; /* Remove default styling for WebKit browsers */
+    -moz-appearance: none; /* Remove default styling for Firefox */
+    position: relative;
+    padding-right: 2.4rem; /* Add space for the custom arrow */
+    padding-left: 0.5rem; /* Add space for the text */
 }
 
-.loginbox select:hover {
+.loginbox select:hover, .loginbox select:focus {
     cursor: pointer;
+    background: var(--light-main-color) url('data:image/svg+xml;utf8,<svg fill="black" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 0.5rem center;
+    color: var(--black);
+    outline: 0.1rem solid var(--white);
+    background-size: 2rem;
 }
 
-.loginbox select:focus {
-    background-color: var(--vdark-main-color);
-    color: var(--primary-color);
-    outline: 0.05rem solid var(--white);
+.loginbox select::-ms-expand {
+    display: none; /* Remove default arrow in IE */
 }
 
 .loginbox label, .loginbox p{
@@ -66,9 +75,8 @@
 
 /* Style the label to look like a button */
 .loginbox label[for="id_photo"] {
-    border: 1px solid var(--white);
+    border: 0.05rem solid var(--white);
     padding: 0.5rem;
-    background: transparent;
     background-color: var(--secondary-color);
     color: var(--primary-color);
     font-size: 1.2rem;
@@ -101,7 +109,7 @@ select option {
     padding: 0;
 }
 
-body{
+body {
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -111,12 +119,12 @@ body{
     font-family: sans-serif;
 }
 
-.loginbox{
+.loginbox {
     text-align: center;
     background: var(--vdark-main-color);
     color: var(--white);
     box-sizing: border-box;
-    border-radius: 20px;
+    border-radius: 2rem;
     opacity: 0.92;
 }
 
@@ -176,10 +184,6 @@ form > * {
     text-align: center;
 }
 
-#id_year, #id_role {
-    width: 80%;
-}
-
 #table-users {
     border-collapse: collapse;
     width: 100%;
@@ -202,11 +206,15 @@ form > * {
 .loginbox input[type="date"]::-webkit-calendar-picker-indicator {
     font-size: 1.2rem;
     position: absolute;
-    right: 2rem;
+    right: 1rem;
     cursor: pointer;
-    background-color: white;
+    background-color: rgba(237, 242, 242, 0.7); /* Transparent background */
     border-radius: 1.5rem;
     padding: 0.5rem;
+}
+
+.loginbox input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    background-color: rgba(237, 242, 242, 0.9); /* Slightly less transparent on hover */
 }
 
 .loginbox input[type="date"]::-webkit-input-placeholder, .loginbox input[type="date"]::-moz-placeholder,

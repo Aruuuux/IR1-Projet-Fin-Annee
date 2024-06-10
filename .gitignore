@@ -1,10 +1,10 @@
 *.pyc
 *.pyo
 *.pyd
-__pycache__/
-Django/projet/db.sqlite3*
 **/__pycache__/
-Django/projet/db.sqlite3
-Django/projet/projet/.env
+/Django/projet/db.sqlite3
+/Django/projet/projet/.env
 /Django/projet/databaseprojet/__pycache__/*
 /.idea
+/.vscode
+/Django/projet/staticfiles
