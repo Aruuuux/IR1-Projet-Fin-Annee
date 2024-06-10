@@ -5,28 +5,25 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Edutrack</title>
-            <link rel="stylesheet" href="{% static 'user/mainstyle.css' %}" />
+            <link rel="stylesheet" href="{% static 'user/basestyle.css' %}" />
             <link rel="stylesheet" href="{% static 'user/variables.css' %}" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
             <!-- <link rel="icon" type="image/ico" href="{% static '/.ico' %}">  à rajouter -->
             {% block styles %}
             {% endblock %}
     </head>
 
     <body>
-        {% block jquery %}
-            <!-- Script jquery -->
-            <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-                    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-                    crossorigin="anonymous"></script>
-        {% endblock %}
         <header>
             <section id="menu-top">
                 <div id="logo">
                     <img src="{% static 'png/logo_resized.png' %}" alt="logo"/>
                 </div>
+                {% block header-content %}
+                {% endblock %}
                 <div id="profil-utilisateur">
                     <button>
-                        <i class="fas fa-user fa-3x"></i>
+                        <i class="fas fa-user fa-2x"></i>
                     </button>
                     <div id="dropdown-menu">
                         <p><i class="fas fa-user"></i>  Mon profil</p>
@@ -47,6 +44,7 @@
 
 
         <script type="text/javascript" src="{% static 'user/script.js' %}"></script>
+        <script type="text/javascript" src="{% static 'user/script-param.js' %}"></script>
         {% block js %}
         {% endblock %}
     </body>
