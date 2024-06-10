@@ -30,17 +30,12 @@ urlpatterns = [
     path('400/', views.E400, name='E400'),
 
     path('password_reset/', views.psswrdforgot, name='password_reset'),
-    
+    #path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    # Other URL patterns
     #nop
-    path('password_reset/done/', views.password_resetdonehtml, name='password_reset_done'),
+    
 
     
-    path('reset/<uidb64>/<token>/', views.password_resethtml, name='password_reset_confirm'),
-    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html'), name='password_reset_confirm'),
-   
-    
-    path('reset/done/', views.password_resetcomplete, name='password_reset_complete'),    
-    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'), name='password_reset_complete'),
 
     ]
 

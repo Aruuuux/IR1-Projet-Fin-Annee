@@ -20,6 +20,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_decode
 from django.urls import reverse_lazy
+from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.views import (LoginView, LogoutView,
                                        PasswordChangeView,
                                        PasswordChangeDoneView,
@@ -122,22 +123,18 @@ def indexview(request):
     
     return render(request, 'index.html')
 
+#######
 def psswrdforgot(request):
-    print("password forgot loading page")
-    auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html')
     return render(request, 'psswrdforgot.html')
 
-def password_resetdonehtml(request):
-    print("rest done")
-    auth_views.PasswordResetDoneView.as_view(template_name='user/passwordresetsend.html')
-    return render(request, 'passwordresetsend.html')
+def psswrdresetdone(request):
+    return render(request, 'password_reset_done.html')
 
-def password_resethtml(request):
-    return render(request, 'psswrdreset.html')
 
-def password_resetcomplete(request):
-    return render(request, 'psswrdresetcomplete.html')
-
+def psswrdresetcomplete(request):
+    print("PASSWORD RESET COMPLETE")
+    return render(request, 'password_reset_complete.html')
+#############
 
 def profile(request):
     return render(request, 'user/profile.html')
@@ -487,23 +484,26 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
 
 User = get_user_model()
 
-def password_reset_confirm(request, uidb64=None, token=None):
-    print("passresetconfirm")
-    assert uidb64 is not None and token is not None  # Vérifiez que les deux paramètres sont présents
+def password_reset_confirm(request, uidb64, token):
     try:
-        uid = force_str(urlsafe_base64_decode(uidb64))
+        uid = urlsafe_base64_decode(uidb64).decode()
         user = User.objects.get(pk=uid)
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
 
     if user is not None and default_token_generator.check_token(user, token):
-        # Le lien est valide, vous pouvez permettre à l'utilisateur de changer son mot de passe
-        return render(request, 'registration/password_reset_confirm.html', {'validlink': True})
+        if request.method == 'POST':
+            form = SetPasswordForm(user, request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('password_reset_complete')
+        else:
+            form = SetPasswordForm(user)
+        return render(request, 'password_reset_confirm.html', {'form': form, 'validlink': True})
     else:
-        # Le lien n'est pas valide
-        return render(request, 'registration/password_reset_confirm.html', {'validlink': False})
+        return render(request, 'password_reset_confirm.html', {'validlink': False})
 
-    
+
 
 def E404(request, exception=None):
     return render(request, '404.html', status=404)

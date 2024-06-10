@@ -8,3 +8,8 @@ Django/projet/db.sqlite3
 Django/projet/projet/.env
 /Django/projet/databaseprojet/__pycache__/*
 /.idea
+__pycache__
+db.sqlite3
+.git
+.venv
+.DS_Store
