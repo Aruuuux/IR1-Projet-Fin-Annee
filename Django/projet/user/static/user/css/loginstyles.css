@@ -1,3 +1,4 @@
+/*
 .loginbox{
     max-width: 500px;
     max-height: 400px;
@@ -15,8 +16,26 @@
     opacity: 0.90;
     backdrop-filter: blur(2px);
 }
+*/
+#main-content {
+    justify-content: center;
+}
 
-h1{
+.loginbox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background: var(--vdark-main-color);
+    color: var(--white);
+    box-sizing: border-box;
+    padding: 2rem;
+    margin: 5rem 0rem;
+    border-radius: 2rem;
+    opacity: 0.92;
+}
+
+h2{
     margin: 0;
     padding: 0 0 20px;
     text-align: center;

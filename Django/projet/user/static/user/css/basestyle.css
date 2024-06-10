@@ -23,6 +23,7 @@ header {
 
 #main-content {
     display: flex;
+    box-sizing: border-box;
 }
 
 #profil-utilisateur button {

@@ -9,6 +9,7 @@
     border-radius:8px;
     z-index: 1;
 }
+
 .menu-content label {
     display: block;
     width: 100%;
@@ -87,13 +88,14 @@
     height: 40px; /* Assurez-vous que la hauteur est la même pour les deux éléments */
     box-sizing: border-box;
 }
+
 #search-menu button:hover {
     background-color: var(--light-main-color);
 }
+
 #search-menu button img {
     height: 20px;
 }
-
 
 #left-menu {
     background-color: transparent;
@@ -106,8 +108,10 @@
     margin-top: 8px;
     border-radius: 0px 0px 8px 0px;
     z-index: 1;
-    display: block;
+    display: flex;
+    flex-direction: column;
 }
+
 #reset-button, #apply-button {
     background-color:  var(--grey);
     color: var(--white);
@@ -118,14 +122,16 @@
     border-radius: 8px;
     display: flex;
 }
+
 #reset-button:hover, #apply-button:hover {
     background-color:  var(--light-grey);
-    
 }
+
 #button-container {
     display: flex;
     justify-content: space-between; /* Si vous voulez un espace entre les boutons */
 }
+
 #menu-filter-button {
     box-sizing: border-box; /* Ajoutez cette ligne */
     font-size: 18px;
@@ -153,6 +159,7 @@
 #left-menu button:hover {
     background-color: var(--light-grey); /* Changez ceci à la couleur que vous voulez */
 }
+
 .dropdown-content {
     display: none;
     min-width: 100%;
@@ -179,12 +186,6 @@
     z-index: 1;
 }
 
-#main-content {
-    width: 100vw;
-    box-sizing: border-box;
-    display:flex;
-}
-
 #menu-filter {
     display: none; /* Le menu est initialement fermé */
     z-index: 1;
@@ -196,19 +197,21 @@
     max-height: 100px;
     overflow-y: auto;
 }
+
 #menu-filter.open {
     display: block; /* Le menu s'ouvre lorsque la classe 'open' est ajoutée */
 }
 
 .tableau {
-    position:absolute;
+    /*position:absolute;*/
     height: calc(var(--table-height) - 150px);
     overflow: auto; 
     z-index: 0; /* Cela place #tableau en dessous de #left-menu */
     border-radius: 8px;
 }
 
-.tableau#tabmain{
+#tabmain{
+    display: flex;
     height: var(--table-height);
 }
 

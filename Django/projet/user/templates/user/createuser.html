@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'user/mainstyle.css' %}" />
+<link rel="stylesheet" href="{% static 'user/css/mainstyle.css' %}" />
 <link rel="stylesheet" href="{% static 'user/css/createuserstyle.css' %}" />
 {% endblock %}
 
@@ -50,8 +50,9 @@
 
 
         <!-- Speciality -->
-            <label for="id_speciality">Spécialités</label>
+            <label for="id_speciality">Filière</label>
             <select name="speciality_id" id="id_speciality">
+                <option value="" disabled selected hidden>-- Filière --</option>
                 {% for choice in specialities %}
                     <option value="{{ choice.0 }}">{{ choice.1 }}</option>
                 {% endfor %}

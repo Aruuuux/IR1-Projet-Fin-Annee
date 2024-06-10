@@ -9,22 +9,17 @@ body{
     font-family: sans-serif;
 }
 
-.loginbox{
-    max-width: 500px;
-    max-height: 400px;
+/*
+.loginbox {
     background: var(--vdark-main-color);
     color: var(--white);
-    top: 50%;
-    left: 50%;
-    position: absolute;
-    transform: translate(-50%,-50%);
     box-sizing: border-box;
     padding: 30px 30px;
     border-radius: 20px;
     opacity: 0.92;
-}
+}*/
 
-h1{
+h2{
     margin: 0;
     padding: 0 0 20px;
     text-align: center;

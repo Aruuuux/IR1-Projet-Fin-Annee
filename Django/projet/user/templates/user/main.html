@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block main-content %}
-<section id="left-menu">
+<div id="left-menu">
     <button id="menu-filter-button"><i class="fas fa-filter fa-sm"></i> Filtres <i id="title-filter-icon" class="fas fa-caret-down"></i></button>
     <form method="post" enctype="multipart/form-data" id="form_year">
     <div id="menu-filter" class="open">
@@ -61,10 +61,9 @@
         </div>
     </div>
     </form>
-</section>
-<div  class="tableau-wrapper">
+</div>
+<div id="tabmain" class="tableau-wrapper tableau">
     {% load custom_filters %}
-    <section id="tabmain" class="tableau">
         <table id="noteabs">
             <thead>
                 <tr>
@@ -97,6 +96,5 @@
                     {% endif %}
             </tbody>
         </table>
-    </section>
 </div>
 {% endblock %}

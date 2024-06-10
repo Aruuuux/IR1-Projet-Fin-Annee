@@ -109,7 +109,7 @@ select option {
     padding: 0;
 }
 
-body{
+body {
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -119,12 +119,12 @@ body{
     font-family: sans-serif;
 }
 
-.loginbox{
+.loginbox {
     text-align: center;
     background: var(--vdark-main-color);
     color: var(--white);
     box-sizing: border-box;
-    border-radius: 20px;
+    border-radius: 2rem;
     opacity: 0.92;
 }
 
