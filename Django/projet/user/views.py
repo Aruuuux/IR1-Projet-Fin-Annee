@@ -110,7 +110,7 @@ def indexview(request):
             user = User.objects.get(email=email)
             if password == user.password:
                 messages.success(request, 'Successfully logged in.')
-                return redirect('user/userslist')
+                return redirect('user:userslist')
             else:
                 messages.error(request, 'Invalid email or password')
         except User.DoesNotExist:
@@ -159,7 +159,7 @@ def createuser(request):
             password = form.cleaned_data.get('password')
             if len(password) < 8:
                 messages.error(request, 'Password must be at least 8 characters long.')
-                return redirect('user/createuser')
+                return redirect('user:createuser')
             
             # Check if age is greater than 18
             date_of_birth = form.cleaned_data.get('date_of_birth')
@@ -167,12 +167,12 @@ def createuser(request):
                 age = datetime.now().year - date_of_birth.year - ((datetime.now().month, datetime.now().day) < (date_of_birth.month, date_of_birth.day))
                 if age < 18:
                     messages.error(request, 'User must be at least 18 years old.')
-                    return redirect('user/createuser')
+                    return redirect('user:createuser')
             user.password = password
             try:
                 user.save()
                 messages.success(request, 'User has been created successfully.')
-                return redirect('user/createuser')
+                return redirect('user:createuser')
             except:
                 messages.error(request, 'There were errors while creating the user')
             
@@ -203,7 +203,7 @@ def edituser(request, user_id):
             password = form.cleaned_data.get('password')
             if password and len(password) < 8:
                 messages.error(request, 'Password must be at least 8 characters long.')
-                return redirect('user/edituser', user_id = user_id)
+                return redirect('user:edituser', user_id = user_id)
             
             # Check if age is greater than 18
             date_of_birth = form.cleaned_data.get('date_of_birth')
@@ -211,12 +211,12 @@ def edituser(request, user_id):
                 age = datetime.now().year - date_of_birth.year - ((datetime.now().month, datetime.now().day) < (date_of_birth.month, date_of_birth.day))
                 if age < 18:
                     messages.error(request, 'User must be at least 18 years old.')
-                    return redirect('user/edituser', user_id = user_id)
+                    return redirect('user:edituser', user_id = user_id)
 
             try:
                 user.save()
                 messages.success(request, 'User has been updated successfully.')
-                return redirect('user/userslist')
+                return redirect('user:userslist')
             except:
                 messages.error(request, 'There were errors while updating the user')
     else:
@@ -255,7 +255,7 @@ def deleteuser(request, user_id):
     user = get_object_or_404(User, id=user_id)
     user.delete()
     messages.success(request, 'User has been deleted successfully.')
-    return redirect('user/userslist')
+    return redirect('user:userslist')
 
 
 def userslist(request):
@@ -289,7 +289,7 @@ def importusers(request):
         csv_file = request.FILES['csv_file']
         if not csv_file.name.endswith('.csv'):
             messages.error(request, 'Please upload a CSV file.')
-            return redirect('user/importusers')
+            return redirect('user:importusers')
 
         try:
             decoded_file = csv_file.read().decode('latin-1').splitlines()
@@ -316,13 +316,13 @@ def importusers(request):
                     role = Roles.objects.get(name=role_name)
                 except Roles.DoesNotExist:
                     messages.error(request, f'Role "{role_name}" does not exist.')
-                    return redirect('user/importusers')
+                    return redirect('user:importusers')
 
                 try:
                     speciality = Speciality.objects.get(name=speciality_name)
                 except Speciality.DoesNotExist:
                     messages.error(request, f'Speciality "{speciality_name}" does not exist.')
-                    return redirect('user/importusers')
+                    return redirect('user:importusers')
 
                 # Create user instance
                 user = User(
@@ -340,10 +340,10 @@ def importusers(request):
                 try:
                     user.save()
                     messages.success(request, 'Users have been imported successfully.')
-                    return redirect('user/userslist')
+                    return redirect('user:userslist')
                 except:
                     messages.error(request, 'There were errors while updating the user')
-                    return redirect('user/userslist')
+                    return redirect('user:userslist')
         except UnicodeDecodeError:
             messages.error(request, 'Error decoding file. Please make sure the file is encoded in Latin-1.')
         except Exception as e:
