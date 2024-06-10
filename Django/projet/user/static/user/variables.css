@@ -13,4 +13,7 @@
     --grey : #667372;
     --dark-grey : #414e4f;
     --black : rgb(10, 20, 17);
+
+    --table-height : calc(100vh - 150px);
+    --table-width : calc(100vw - 250px);
 }

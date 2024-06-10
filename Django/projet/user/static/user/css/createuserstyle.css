@@ -1,12 +1,79 @@
-input[type=text] {
+.loginbox input[type="text"], .loginbox input[type="password"], .loginbox input[type="date"]  {
     padding: 0.5rem 0;
-    border-style: outset;
-    border-radius: 5px;
-    border-color: black;
-    outline: 0;
-    text-indent: 0.5rem;
+    border: 0.05rem solid var(--white);
+    background: transparent;
     color: var(--primary-color);
     background-color: var(--secondary-color);
+    font-size: 16px;
+    border-radius: 1.5rem;
+    height: 2rem;
+    text-align: center;
+}
+
+.loginbox input[type="date"] {
+    padding: 0.5rem 1rem;
+}
+
+.loginbox button[type="submit"], .loginbox button[type="reset"] {
+    border: 1px solid var(--white);
+    padding: 0.5rem;
+    background: transparent;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    border-radius: 1.5rem;
+}
+
+.loginbox button[type="submit"]:hover, .loginbox label[for="id_photo"]:hover, .loginbox button[type="submit"]:hover {
+    cursor: pointer;
+    background: var(--light-main-color);
+    color: var(--black);
+}
+
+.loginbox button[type="reset"]:hover {
+    cursor: pointer;
+    background: #951414;
+}
+
+.loginbox select {
+    border: 0.1rem solid var(--white);
+    background: transparent;
+    color: var(--primary-color);
+    font-size: 16px;
+    border-radius: 1.5rem;
+    height: 2rem;
+    text-align: center;
+}
+
+.loginbox select:hover {
+    cursor: pointer;
+}
+
+.loginbox select:focus {
+    background-color: var(--vdark-main-color);
+    color: var(--primary-color);
+    outline: 0.05rem solid var(--white);
+}
+
+.loginbox label, .loginbox p{
+    font-weight: bold;
+}
+
+/* Hide the default file input */
+.loginbox input[type="file"] {
+    display: none;
+}
+
+/* Style the label to look like a button */
+.loginbox label[for="id_photo"] {
+    border: 1px solid var(--white);
+    padding: 0.5rem;
+    background: transparent;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    border-radius: 1.5rem;
+    font-weight: normal;
 }
 
 #main-content {
@@ -22,11 +89,12 @@ h2 {
 
 .table-users {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
     margin: 0;
     width: 80%;
-    height: 80%
+    height: 80%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
 }
 
 select option {
@@ -37,7 +105,6 @@ body{
     margin: 0;
     padding: 0;
     height: 100vh;
-    width: 100vw;
     background-image: url('../images/login_img.jpg');
     background-position: center;
     background-size: cover;
@@ -45,6 +112,7 @@ body{
 }
 
 .loginbox{
+    text-align: center;
     background: var(--vdark-main-color);
     color: var(--white);
     box-sizing: border-box;
@@ -61,10 +129,87 @@ form > * {
 }
 
 #form-wrapper {
-    padding: 0rem 0.5rem;
-    margin: 0.5rem 0rem;
+    padding: 0rem 1rem;
+    margin: 1rem 0rem;
+    width: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#form-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
 }
 
 #table-wrapper {
     border: 0.3rem solid var(--white);
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    overflow: auto;
+    justify-content: center;
+}
+
+#table-wrapper h2 {
+    position: sticky;
+    top: 0; /* Ensure it stays at the top */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--vdark-main-color); /* Match background color */
+    z-index: 1; /* Ensure it stays above other content */
+    padding: 0.5rem;
+}
+
+
+#main-content {
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+#table-users thead tr th {
+    text-align: center;
+}
+
+#id_year, #id_role {
+    width: 80%;
+}
+
+#table-users {
+    border-collapse: collapse;
+    width: 100%;
+    min-height: 70vh;
+}
+
+/* Specific styles for date input */
+.loginbox input[type="date"] {
+    -webkit-appearance: none; /* Remove default styling for WebKit browsers */
+    -moz-appearance: none; /* Remove default styling for Firefox */
+    appearance: none; /* Remove default styling for other browsers */
+    position: relative;
+}
+
+.loginbox input[type="date"]::-webkit-inner-spin-button,
+.loginbox input[type="date"]::-webkit-clear-button {
+    display: none; /* Hide default buttons in WebKit browsers */
+}
+
+.loginbox input[type="date"]::-webkit-calendar-picker-indicator {
+    font-size: 1.2rem;
+    position: absolute;
+    right: 2rem;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 1.5rem;
+    padding: 0.5rem;
+}
+
+.loginbox input[type="date"]::-webkit-input-placeholder, .loginbox input[type="date"]::-moz-placeholder,
+.loginbox input[type="date"]:-ms-input-placeholder, .loginbox input[type="date"]:-moz-placeholder{
+    text-align: center;
 }
