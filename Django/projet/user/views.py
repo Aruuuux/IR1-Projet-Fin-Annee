@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from .forms import UserForm
 from django.contrib.auth import login, authenticate
 from databaseprojet.models import Speciality, Roles, User, Course
+
 import random, csv
 from django.contrib.auth.hashers import check_password
 from django.contrib import messages
@@ -446,4 +447,3 @@ def add_grade(request):
         'course_selected': course_selected,
         'students': students
     })
-    
