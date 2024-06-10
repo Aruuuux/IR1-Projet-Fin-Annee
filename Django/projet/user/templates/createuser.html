@@ -10,14 +10,14 @@
 <div id="form-wrapper" class="loginbox">
     <h2>Création d'étudiants/professeurs</h2>
 
-    <form method="post" enctype="multipart/form-data" action="{% url 'user:importusers' %}">
+    <form method="post" enctype="multipart/form-data" action="{% url 'user:createuser' %}">
         {% csrf_token %}
 
         <!-- CSV File importation -->
         <h3>Importation de fichier CSV</h3>
-        <label for="csvFile"></label>
+        <label for="csvFile">Import :</label>
         <input type="file" id="csvFile" name="csv_file" accept=".csv" />
-        <button type="submit">Import csv</button>
+        <button type="submit">csv</button>
 
     </form>
 

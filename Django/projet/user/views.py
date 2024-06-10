@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from .forms import UserForm,FilterForm
 from django.shortcuts import render, redirect
 from .forms import UserForm
+from django.contrib.auth import views as auth_views
 from django.contrib.auth import login, authenticate
 from databaseprojet.models import Speciality, Roles, User
 import random, csv
@@ -122,16 +123,22 @@ def indexview(request):
     return render(request, 'index.html')
 
 def psswrdforgot(request):
+    print("password forgot loading page")
+    auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html')
     return render(request, 'psswrdforgot.html')
 
-def password_resethtml(request):
-    return render(request, 'user/psswrdreset.html')
-
 def password_resetdonehtml(request):
-    return render(request, 'user/?????????.html')
+    print("rest done")
+    auth_views.PasswordResetDoneView.as_view(template_name='user/passwordresetsend.html')
+    return render(request, 'passwordresetsend.html')
 
 def password_resethtml(request):
-    return render(request, 'user/psswrdreset.html')
+    return render(request, 'psswrdreset.html')
+
+def password_resetcomplete(request):
+    return render(request, 'psswrdresetcomplete.html')
+
+
 def profile(request):
     return render(request, 'user/profile.html')
 
@@ -148,9 +155,85 @@ def edt(request):
     return render(request,'edt.html')
 
 def createuser(request):
-    if request.method == 'POST':
+    print("import user launch")
+    print(request.FILES)
+    if request.method == 'POST' and request.FILES.get('csv_file'):
+        print("premier if")
+        csv_file = request.FILES['csv_file']
+        if not csv_file.name.endswith('.csv'):
+            print("error in csv")
+            messages.error(request, 'Please upload a CSV file.')
+            return redirect('createuser')
+
+        try:
+            
+            decoded_file = csv_file.read().decode('latin-1').splitlines()
+            reader = csv.reader(decoded_file)
+
+            header = next(reader)
+            header = header[0].split(',')  # Split header into individual columns
+            print(header)  # Debugging header
+
+            for row in reader:
+                row = row[0].split(',')  # Split row into individual columns
+                row_data = dict(zip(header, row))
+
+                first_name = row_data['first_name'].strip()
+                last_name = row_data['last_name'].strip()
+                role_name = row_data['roles'].strip()
+                date_of_birth = row_data['date_of_birth'].strip()
+                speciality_name = row_data['speciality_id'].strip()
+                email = row_data['email'].strip()
+                password = row_data['password'].strip()
+                year = row_data['year'].strip()
+                student_id = generate_student_id()
+                try:
+                    
+                    role = Roles.objects.get(name=role_name)
+                except Roles.DoesNotExist:
+                    messages.error(request, f'Role "{role_name}" does not exist.')
+                    print("role 'nexist pas")
+                    return redirect('createuser')
+
+                try:
+                    speciality = Speciality.objects.get(name=speciality_name)
+                except Speciality.DoesNotExist:
+                    messages.error(request, f'Speciality "{speciality_name}" does not exist.')
+                    print("spe n'existe pas")
+                    return redirect('createuser')
+
+                # Create user instance
+                print("create user")
+                user = User(
+                    first_name=first_name,
+                    last_name=last_name,
+                    roles=role,
+                    date_of_birth=date_of_birth,
+                    speciality_id=speciality,
+                    email=email,
+                    password=password,
+                    student_id=student_id,
+                    year=year
+                )
+                # Save user instance
+                try:
+                    user.save()
+                    messages.success(request, 'Users have been imported successfully.')
+                    print("good")
+                    return redirect('createuser')
+                except:
+                    messages.error(request, 'There were errors while updating the user')
+                    print("error while update")
+                    return redirect('createuser')
+        except UnicodeDecodeError:
+            messages.error(request, 'Error decoding file. Please make sure the file is encoded in Latin-1.')
+            print("error decode")
+        except Exception as e:
+            messages.error(request, f'An error occurred while importing users: {e}')
+            print("error in user import")
+    elif request.method == 'POST' and not request.FILES.get('csv_file'):
         form = UserForm(request.POST, request.FILES)
-        print(form.errors)
+        print("err",form.errors)
         if form.is_valid():
             
             user = form.save(commit=False)
@@ -290,11 +373,15 @@ def userslist(request):
     return render(request, 'userslist.html', context)
 
 def importusers(request):
+    print("import user launch")
+    print(request)
     if request.method == 'POST' and request.FILES.get('csv_file'):
+        print("premier if")
         csv_file = request.FILES['csv_file']
         if not csv_file.name.endswith('.csv'):
+            print("error in csv")
             messages.error(request, 'Please upload a CSV file.')
-            return redirect('importusers')
+            return redirect('createuser')
 
         try:
             decoded_file = csv_file.read().decode('latin-1').splitlines()
@@ -321,13 +408,15 @@ def importusers(request):
                     role = Roles.objects.get(name=role_name)
                 except Roles.DoesNotExist:
                     messages.error(request, f'Role "{role_name}" does not exist.')
-                    return redirect('importusers')
+                    print("role 'nexist pas")
+                    return redirect('createuser')
 
                 try:
                     speciality = Speciality.objects.get(name=speciality_name)
                 except Speciality.DoesNotExist:
                     messages.error(request, f'Speciality "{speciality_name}" does not exist.')
-                    return redirect('importusers')
+                    print("spe n'existe pas")
+                    return redirect('createuser')
 
                 # Create user instance
                 user = User(
@@ -345,14 +434,18 @@ def importusers(request):
                 try:
                     user.save()
                     messages.success(request, 'Users have been imported successfully.')
-                    return redirect('userslist')
+                    print("good")
+                    return redirect('createuser')
                 except:
                     messages.error(request, 'There were errors while updating the user')
-                    return redirect('userslist')
+                    print("error while update")
+                    return redirect('createuser')
         except UnicodeDecodeError:
             messages.error(request, 'Error decoding file. Please make sure the file is encoded in Latin-1.')
+            print("error decode")
         except Exception as e:
             messages.error(request, f'An error occurred while importing users: {e}')
+            print("error in user import")
 
     roles = Roles.objects.all()
     specialities = Speciality.objects.all()
@@ -362,7 +455,7 @@ def importusers(request):
         'roles': roles,
         'specialities': specialities,
     }
-    return render(request, 'userslist.html', context)
+    return render(request, 'createuser.html', context)
 
 def generate_student_id():
     while True:
@@ -370,18 +463,23 @@ def generate_student_id():
         if not User.objects.filter(student_id=student_id).exists():
             return student_id
 
+#nop
 class CustomPasswordResetView(PasswordResetView):
+    print("password reset done page")
     template_name = 'registration/password_reset_form.html'
-    success_url = reverse_lazy('password_reset_done')
+    success_url = reverse_lazy('password_reset/done')
     email_template_name = 'registration/password_reset_email.html'
 
+#np
 class CustomPasswordResetDoneView(PasswordResetDoneView):
     template_name = 'registration/password_reset_done.html'
 
+#nop
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
-    template_name = 'registration/password_reset_confirm.html'
+    template_name = 'user/psswrdforgot.html'
     success_url = reverse_lazy('password_reset_complete')
 
+#nop
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'registration/password_reset_complete.html'
 
@@ -390,6 +488,7 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
 User = get_user_model()
 
 def password_reset_confirm(request, uidb64=None, token=None):
+    print("passresetconfirm")
     assert uidb64 is not None and token is not None  # Vérifiez que les deux paramètres sont présents
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))

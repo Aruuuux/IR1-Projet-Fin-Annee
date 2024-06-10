@@ -16,6 +16,9 @@ class Roles(models.Model):
     def __str__(self):
         return self.get_name_display()
 
+
+
+
 class Speciality(models.Model):
     SPECIALITY_CHOICES = [
         (1, 'Informatique et réseaux'),
@@ -117,6 +120,22 @@ class Course(models.Model):
     coefficient_PW=models.IntegerField() 
     coefficient_DW=models.IntegerField() 
 
+class Date(models.Model):
+    id = models.AutoField(primary_key=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    start_time = models.TimeField()
+    
+    end_time = models.TimeField()
+    jours=models.DateTimeField(default=timezone.now)
+
+
+class Absence(models.Model):
+    id = models.AutoField(primary_key=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    date = models.ForeignKey(Date, on_delete=models.CASCADE)
+    date = models.DateField()
+    student_id = models.ForeignKey(User, on_delete=models.CASCADE)
+
 class Score(models.Model):
     id=models.AutoField(primary_key=True)
     student_id = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -131,8 +150,3 @@ class Course_type(models.Model):
     absence_number=models.IntegerField()
     course_type=models.IntegerField()
 
-class Absence(models.Model):
-    id=models.AutoField(primary_key=True)
-    course_id=models.ForeignKey(Course, on_delete=models.CASCADE)
-    date=models.DateField()
-    student_id=models.ForeignKey(User, on_delete=models.CASCADE)

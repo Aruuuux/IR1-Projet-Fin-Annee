@@ -42,9 +42,10 @@
             <button class="title-filter">Filière</button>
                 {% csrf_token %}
                 <div class="menu-content" id="cursus-dropdown">
-                    {% for speciality in specialities %}
-                    <div><label><input type="checkbox" name="cursus" value="{{ speciality.id }}">{{ speciality.name }}</label></div>
-                    {% endfor %}
+                    
+                    {% for choice in specialities %}
+                    <div><label><input type="checkbox" name="cursus" value="{{ choice.0 }}">{{ choice.1 }}</label></div>
+                {% endfor %}
                 </div>
         </div>
         <div class="filter-components">
@@ -71,7 +72,7 @@
                     {% for filter in selected_filters %}
                         <th>
                             {% if filter == 'last_name' %}
-                                
+                                Nom
                             {% elif filter == 'first_name' %}
                                 Prénom
                             {% elif filter == 'first_name' %}
