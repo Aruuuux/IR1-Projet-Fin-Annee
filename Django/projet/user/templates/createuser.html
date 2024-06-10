@@ -38,9 +38,9 @@
         <label for="id_role">Statut</label>
         <select name="roles" id="id_role">
             <option value="" disabled selected hidden>-- Statut --</option>
-            {% for role in roles %}
-            <option value="{{ role.name }}">{{ role.name }}</option>
-            {% endfor %}
+            {% for value, label in roles %}
+            <option value="{{ value }}">{{ label }}</option>
+        {% endfor %}
         </select>
 
 
@@ -52,8 +52,8 @@
         <!-- Speciality -->
             <label for="id_speciality">Spécialités</label>
             <select name="speciality_id" id="id_speciality">
-                {% for speciality in specialities %}
-                <option value="{{ speciality.id }}">{{ speciality.name }}</option>
+                {% for choice in specialities %}
+                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
                 {% endfor %}
             </select>
 
@@ -75,21 +75,7 @@
             <option value="3">3ème année</option>
         </select>
 
-            <!-- à changer -->
-            <button type="button"  data-dismiss="modal">Close</button>
-            <div tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-                <h5 id="successModalLabel">Success</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                {% for message in messages %}
-                    {% if message.tags == 'success' %}
-                    <div class="alert alert-success">{{ message }}</div>
-                    {% endif %}
-
-                {% endfor %}
-                <button type="button" data-dismiss="modal">Close</button>
-            </div>
+        <h5 id="successModalLabel">Success</h5>
 
         <!-- Submit Button -->
         <button type="submit" class="loginbox">Sauvegarder</button>
@@ -134,18 +120,6 @@
     </table>
 </div>
 
-<div tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-    <h5>Error</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    {% for message in messages %}
-        {% if message.tags == 'error' %}
-        <div class="alert alert-danger">{{ message }}</div>
-        {% endif %}
-    {% endfor %}
-    <button type="button" data-dismiss="modal">Close</button>
-</div>
 {% endblock %}
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

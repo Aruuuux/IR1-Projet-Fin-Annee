@@ -29,7 +29,9 @@ urlpatterns = [
      path('403/', views.E403, name='E403'),
      path('400/', views.E400, name='E400'),
      path('password_reset/', auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html'), name='password_reset'),
+     path('password_reset/', views.password_resethtml, name='password_reset'),
      path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'), name='password_reset_done'),
+     path('password_reset/done/', views.password_resetdonehtml, name='password_reset_done'),
      path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html'), name='password_reset_confirm'),
      path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'), name='password_reset_complete'),
     
