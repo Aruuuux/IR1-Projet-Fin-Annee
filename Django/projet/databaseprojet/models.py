@@ -113,10 +113,8 @@ class Course(models.Model):
     coefficient=models.IntegerField() 
     module_id=models.ForeignKey(Module, on_delete=models.CASCADE)
     semester=models.IntegerField() 
-    coefficient_lectures=models.IntegerField() 
-    coefficient_PW=models.IntegerField() 
-    coefficient_DW=models.IntegerField()
     teacher_id=models.IntegerField(default=0)
+
 
 class Score(models.Model):
     id=models.AutoField(primary_key=True)
@@ -124,13 +122,6 @@ class Score(models.Model):
     course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
     student_score = models.FloatField()
 
-class Course_type(models.Model):
-    id=models.AutoField(primary_key=True)
-    course_id=models.ForeignKey(Course, on_delete=models.CASCADE)
-    student_id=models.ForeignKey(User, on_delete=models.CASCADE)
-    Score=models.FloatField()
-    absence_number=models.IntegerField()
-    course_type=models.IntegerField()
 
 class Absence(models.Model):
     id=models.AutoField(primary_key=True)

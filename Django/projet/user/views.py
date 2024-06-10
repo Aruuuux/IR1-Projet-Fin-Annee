@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from .forms import UserForm
 from django.contrib.auth import login, authenticate
 from databaseprojet.models import Speciality, Roles, User, Course
+from .forms import UserForm, FilterForm
 
 import random, csv
 from django.contrib.auth.hashers import check_password
@@ -166,7 +167,7 @@ def createuser(request):
     else:
         form = UserForm()
     roles = User._meta.get_field('roles').choices
-    specialities = specialities = Speciality.SPECIALITY_CHOICES
+    specialities = specialities = Speciality.objects.all()
 
     return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'messages': messages.get_messages(request)})
 
