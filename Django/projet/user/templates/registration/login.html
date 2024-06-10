@@ -1,0 +1,20 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+<h2>Connexion</h2>
+
+<div class="form-holder">
+    <div class="form-content">
+        <div class="form-items">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Connexion">
+            </form>
+        </div>
+    </div>
+</div>
+
+<p><a href="{% url 'user:password_reset' %}" class="type1">Mot de passe
+    perdu</a></p>
+{% endblock %}

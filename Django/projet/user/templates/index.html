@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'user/loginstyles.css' %}" />
+<link rel="stylesheet" href="{% static 'user/styles.css' %}" />
 {% endblock %}
 
 {% block main-content %}
@@ -13,8 +13,8 @@
         <input type="text" name="email" placeholder="tonemail@uha.fr">
         <p>Mot de passe</p>
         <input type="password" name="password" placeholder="********">
-        <input type="submit" name="" value="Connecte-toi"><br>
-        <a href="{% url 'psswrdforgot' %}">Mot de passe oublié ?</a><br>
+        <input type="submit" name="" value="Login"><br>
+        <a href="{% url 'psswrdforgot' %}">Lost your password ?</a><br>
     </form>
 </div>
 {% endblock %}
