@@ -115,7 +115,8 @@ class Course(models.Model):
     semester=models.IntegerField() 
     coefficient_lectures=models.IntegerField() 
     coefficient_PW=models.IntegerField() 
-    coefficient_DW=models.IntegerField() 
+    coefficient_DW=models.IntegerField()
+    teacher_id=models.IntegerField(default=0)
 
 class Score(models.Model):
     id=models.AutoField(primary_key=True)

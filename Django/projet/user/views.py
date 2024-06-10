@@ -3,7 +3,8 @@ from .forms import UserForm,FilterForm
 from django.shortcuts import render, redirect
 from .forms import UserForm
 from django.contrib.auth import login, authenticate
-from databaseprojet.models import Speciality, Roles, User
+from databaseprojet.models import Speciality, Roles, User, Course
+
 import random, csv
 from django.contrib.auth.hashers import check_password
 from django.contrib import messages
@@ -30,8 +31,8 @@ from django.contrib.auth.views import (LoginView, LogoutView,
 def admin(request):
     return render(request, 'admin.html')
 def main(request):
-    roles = Roles.objects.all()
-    specialities = Speciality.objects.all()
+    roles = User._meta.get_field('roles').choices
+    specialities = specialities = Speciality.SPECIALITY_CHOICES
     
     if request.method == 'POST':
         form = FilterForm(request.POST, request.FILES)
@@ -124,6 +125,14 @@ def indexview(request):
 def psswrdforgot(request):
     return render(request, 'psswrdforgot.html')
 
+def password_resethtml(request):
+    return render(request, 'user/psswrdreset.html')
+
+def password_resetdonehtml(request):
+    return render(request, 'user/?????????.html')
+
+def password_resethtml(request):
+    return render(request, 'user/psswrdreset.html')
 def profile(request):
     return render(request, 'user/profile.html')
 
@@ -177,8 +186,9 @@ def createuser(request):
             messages.error(request, 'There were errors in the form. Please correct them and try again.')
     else:
         form = UserForm()
-    roles = Roles.objects.all()
-    specialities = Speciality.objects.all()
+    roles = User._meta.get_field('roles').choices
+    specialities = specialities = Speciality.SPECIALITY_CHOICES
+
     return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'messages': messages.get_messages(request)})
 
 
@@ -229,8 +239,8 @@ def edituser(request, user_id):
             'year': user.year
         }
         form = UserForm(instance=user, initial=initial_values)
-    roles = Roles.objects.all()
-    specialities = Speciality.objects.all()
+    roles = User._meta.get_field('roles').choices
+    specialities = specialities = Speciality.SPECIALITY_CHOICES
     users = User.objects.all()
     return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'users': users})
 
@@ -408,3 +418,32 @@ def E403(request, exception=None):
 
 def E400(request, exception=None):
     return render(request, '400.html', status=400)
+
+
+
+def add_grade(request):
+    course_selected = False
+    students = User.objects.none()
+    selected_course_id = None
+    
+    if request.method == 'POST':
+        form = AddGradeForm(request.POST)
+        if form.is_valid():
+            selected_course_id = form.cleaned_data['course_id']  # Récupérer le cours sélectionné à partir du formulaire validé
+            course_selected = True
+            course = Course.objects.get(course_id=selected_course_id)
+            students = User.objects.filter(
+                speciality_id=course.Speciality_id,
+                year=course.Year,
+                roles='Student'
+            )
+            form.save()  # Enregistrer les données du formulaire
+            return redirect('success_page')  # Rediriger vers la page de succès après la soumission
+    else:
+        form = AddGradeForm()
+
+    return render(request, 'add_grade.html', {
+        'form': form,
+        'course_selected': course_selected,
+        'students': students
+    })
