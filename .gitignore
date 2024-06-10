@@ -13,3 +13,5 @@ db.sqlite3
 .git
 .venv
 .DS_Store
+
+*.pyc

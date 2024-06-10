@@ -30,12 +30,12 @@ urlpatterns = [
     path('400/', views.E400, name='E400'),
 
     path('password_reset/', views.psswrdforgot, name='password_reset'),
-    #path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    # Other URL patterns
-    #nop
+    
     
 
     
 
     ]
 
+     path('add-grade/', views.add_grade, name='add_grade'),
+    ]

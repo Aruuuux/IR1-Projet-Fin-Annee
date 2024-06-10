@@ -1,53 +1,58 @@
-.menu-content {
-    display: block;
-    position: static;
-    color : var(--black);
-    background-color: var(--light-grey);
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 5px 0;
-    border-radius:8px;
-    z-index: 1;
-}
-.menu-content label {
-    display: block;
-    width: 100%;
-}
-
-.header{
-    border-radius: 4px;
-    width: calc(100% - 2rem);
-    padding: 1rem;
-    margin-bottom: 1rem;
-    color: var(--white);
-    text-align: center;
-    background-color: var(--darker-main-color);
-}
-
-#weekLabel{
+html, body {
+    height: 100%;
     margin: 0;
-    margin-top: 1rem;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    width:100%;
+    background-color: #f0f0f0; /* Ajoutez cette ligne pour une couleur de fond gris clair */
 }
 
-#prevWeek, #nextWeek {
-    padding: 10px 20px;
-    margin: 0 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: 20px; 
-    background-color: var(--main-color); 
-    color: var(--white); 
+header {
+    background-color: var(--vdark-main-color);
+    height: 6%;
+    color : var(--white);
+    padding: 5px;
+    opacity: 0.8;
+    backdrop-filter: blur(2px);
 }
 
-#prevWeek:hover, #nextWeek:hover{
-    background-color: var(--lighter-main-color);
-    color: var(--black)
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color: #00336698;
+    height:100%;
+    box-sizing: 0 5px 25px rgba(0,0,0,0.2);
 }
 
-.menu-content label:hover {
-    background-color: var(--vlight-grey);
-    border-radius:8px;
+.menu ::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #3d3d3d;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    z-index: -1;
+}
+
+#menu-top {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    height:100%;
+}
+
+#logo {
+    width:10%;
+    height:100%;
+}
+
+#logo img {
+    height: 100%;
+    width: auto;
 }
 
 #menu-recherche-container {
@@ -56,7 +61,7 @@
     flex-grow: 1;
 }
 
-#search-menu {
+#menu-recherche {
     display: flex;
     align-items: center;
     width: 60%;
@@ -64,22 +69,21 @@
     margin: 0 auto;
 }
 
-#search-menu input {
-    width: 20%;
+#menu-recherche input {
     flex: 1;
     padding: 10px;
     border: none;
-    border-radius: 8px 0 0 8px;
+    border-radius: 5px 0 0 5px;
     outline: none;
     box-sizing: border-box;
     height: 40px; /* Assurez-vous que la hauteur est la même pour les deux éléments */
 }
 
-#search-menu button {
-    background-color: var(--vlight-grey);
+#menu-recherche button {
+    background-color: #aaa;
     border: none;
     cursor: pointer;
-    border-radius: 0 8px 8px 0;
+    border-radius: 0 5px 5px 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -87,40 +91,37 @@
     height: 40px; /* Assurez-vous que la hauteur est la même pour les deux éléments */
     box-sizing: border-box;
 }
-#search-menu button:hover {
-    background-color: var(--light-main-color);
-}
-#search-menu button img {
+
+#menu-recherche button img {
     height: 20px;
 }
 
+#profil-utilisateur button {
+    height: 50px;
+    padding-right: 50px;
+
+}
 
 #left-menu {
     background-color: transparent;
     width: 200px;
     height: auto;
     float: left;
-    color: var(--white);
+    color: white;
     box-sizing: border-box;
     padding: 3px 5px 4px 5px;
-    margin-top: 8px;
-    border-radius: 0px 0px 8px 0px;
+    border-radius: 0px 0px 5px 0px;
     z-index: 1;
-    display: block;
 }
-#reset-button, #apply-button {
-    background-color:  var(--grey);
-    color: var(--white);
+#reset-button, #applied-button {
+    background-color:  #3399cc;
+    color: white;
     font-size: 13px;
-    border: 1px solid var(--black);
+    border: 1px solid #333;
     cursor: pointer;
     width: 50%;
-    border-radius: 8px;
+    border-radius: 5px;
     display: flex;
-}
-#reset-button:hover, #apply-button:hover {
-    background-color:  var(--light-grey);
-    
 }
 #button-container {
     display: flex;
@@ -132,45 +133,43 @@
     width: 100%;
     border: none;
     cursor: pointer;
-    background-color: var(--dark-grey);
-    color: var(--white);
-    border-radius: 8px;
+    background-color: #005c99;
+    color: white;
+    border-radius: 5px;
     padding:5px;
 }
 
 .title-filter {
-    background-color: var(--grey);
-    color: var(--white);
+    background-color: #005c99;
+    color: white;
     padding: 8px;
     font-size: 16px;
-    border: 1px solid var(--black);
+    border: 1px solid #333;
     cursor: pointer;
     width: 100%;
     text-align: center;
-    border-radius: 8px;
+    border-radius: 5px;
 }
 
-#left-menu button:hover {
-    background-color: var(--light-grey); /* Changez ceci à la couleur que vous voulez */
-}
 .dropdown-content {
     display: none;
+    background-color: rgb(19, 92, 141);
     min-width: 100%;
-    box-shadow: 0px 8px 16px 0px var(--black);
+    box-shadow: 0px 8px 16px 0px #3399cc;
     z-index: 1;
-    border-radius: 8px;
+    border-radius: 5px;
 }
 
 .dropdown-content label {
-    color: var(--white);
+    color: white;
     padding: 10px;
     display: block;
-    border-radius:8px;
+    border-radius:5px;
     z-index: 1;
 }
 
 .dropdown-content label:hover {
-    background-color: var(--grey);
+    background-color: #1399f3b9;
     z-index: 1;
 }
 
@@ -180,9 +179,52 @@
 }
 
 #main-content {
-    width: 100vw;
+    width:100%;
+    height: calc(100vh - 70px);
     box-sizing: border-box;
     display:flex;
+}
+
+#dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 10px; /* Positionner le menu à droite de l'élément parent */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    background-color: #0f70df; /* Couleur de fond sombre */
+    font-family: Arial, sans-serif; /* Police simple et propre */
+    padding: 10px;
+}
+
+#dropdown-menu.show {
+    display: block;
+    opacity: 1;
+    right:0;
+}
+
+#dropdown-menu p {
+    color: rgb(203, 197, 197);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    margin: 5px 0;
+    font-size: 16px;
+    text-align: center;
+}
+
+#dropdown-menu p:hover {
+    background-color: #1399f3b9; /* Couleur de fond plus claire lors du survol */
+    cursor: pointer; /* Change le curseur en main-content lors du survol */
+}
+
+#profil-utilisateur button {
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 #menu-filter {
@@ -192,91 +234,64 @@
     width: 100%;
 }
 
-#lesson-dropdown {
-    max-height: 100px;
-    overflow-y: auto;
-}
 #menu-filter.open {
     display: block; /* Le menu s'ouvre lorsque la classe 'open' est ajoutée */
 }
 
-.tableau {
+#tableau {
     position:absolute;
-    height: calc(var(--table-height) - 150px);
-    overflow: auto; 
+    margin-top:6%;
+    width: calc(100% - 300px);
+    height: 500px;
+    flex-grow:1;
+    overflow: scroll; /* Force la barre de défilement à être toujours visible */
     z-index: 0; /* Cela place #tableau en dessous de #left-menu */
-    border-radius: 8px;
 }
-
-.tableau#tabmain{
-    height: var(--table-height);
+#tableau-wrapper {
+    overflow-x: auto; /* Ajoute une barre de défilement horizontale si nécessaire */
+    width: 100%;
+    height: 500px;
 }
-
-
-.tableau-wrapper {
-    background: var(--vdark-main-color);
-    padding: 1rem;
-    margin-top: 8px;
-    height: var(--table-height);
-    width: var(--table-width);
-    border-radius: 8px;
-}
-
-table#noteabs{
-    width: calc(var(--table-width) - 10px);
+table {
+    width: 100%;
     border-collapse: collapse;
-    min-width: 1000px;
-    min-height: var(--table-height);
-    table-layout: fixed;
-}
-
-table#schedule{
-    width: calc(var(--table-width) - 10px);
-    border-collapse: collapse;
+    margin-left: 5%;
     min-width: 1000px;
     min-height: 400px;
-    table-layout: fixed;
 }
 
 th, td {
+    border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
-    min-width: 100px;
-    max-height:150px;
-    box-sizing: border-box;
-    border: 2px solid var(--black);
 }
 
 th {
-    background-color: var(--grey);
+    background-color: #3250f8;
     font-weight: bold;
     position: sticky;
     top:0;
+    border: 1px solid #000000;
     transform: translate3d(0, 0, 0); /* Ajoute une transformation de traduction 3D */
-    color: var(--white);
 }
 
 tr:nth-child(even) {
-    background-color: var(--light-grey);
+    background-color: #1c8ef8a1;
 }
 tr:nth-child(odd) {
-    background-color: var(--vlight-grey);
+    background-color: #aacef0ef;
 }
-#noteabs tr:hover {
-    background-color: var(--white);
-}
-
-#schedule td:hover{
-    background-color: var(--white);
+tr:hover {
+    background-color: #91daf0e3;
 }
 
-#schedule td:first-child{
-    background-color: var(--dark-grey);
-    color: var(--white);
-    width: 8rem;
-    text-align: center;
+th, td {
+    min-width: 100px;
+    box-sizing: border-box;
+    border: 2px solid #000000;
 }
 
 .filter-icon {
     margin-right: 10px;
 }
+
