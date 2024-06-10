@@ -121,28 +121,7 @@ def indexview(request):
     
     return render(request, 'index.html')
 
-def psswrdforgot(request):
-    return render(request, 'psswrdforgot.html')
 
-def password_resethtml(request):
-    return render(request, 'user/psswrdreset.html')
-
-def password_resetdonehtml(request):
-    return render(request, 'user/?????????.html')
-
-def password_resethtml(request):
-    return render(request, 'user/psswrdreset.html')
-def profile(request):
-    return render(request, 'user/profile.html')
-
-def parametre(request):
-    return render(request, 'user/parametre.html')
-
-def emailsent(request):
-    return render(request, 'emailsent.html')
-
-def changepsswrd(request):
-    return render(request,'changepsswrd.html')
 
 def edt(request):
     return render(request,'edt.html')
@@ -370,41 +349,49 @@ def generate_student_id():
         if not User.objects.filter(student_id=student_id).exists():
             return student_id
 
+
+
 class CustomPasswordResetView(PasswordResetView):
     template_name = 'registration/password_reset_form.html'
-    success_url = reverse_lazy('password_reset_done')
-    email_template_name = 'registration/password_reset_email.html'
+    success_url = reverse_lazy('user:password_reset_done')
+
 
 class CustomPasswordResetDoneView(PasswordResetDoneView):
     template_name = 'registration/password_reset_done.html'
 
+
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     template_name = 'registration/password_reset_confirm.html'
-    success_url = reverse_lazy('password_reset_complete')
+    success_url = reverse_lazy('user:password_reset_complete')
+
 
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'registration/password_reset_complete.html'
 
-
-
 User = get_user_model()
 
-def password_reset_confirm(request, uidb64=None, token=None):
-    assert uidb64 is not None and token is not None  # Vérifiez que les deux paramètres sont présents
-    try:
-        uid = force_str(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
 
-    if user is not None and default_token_generator.check_token(user, token):
-        # Le lien est valide, vous pouvez permettre à l'utilisateur de changer son mot de passe
-        return render(request, 'registration/password_reset_confirm.html', {'validlink': True})
-    else:
-        # Le lien n'est pas valide
-        return render(request, 'registration/password_reset_confirm.html', {'validlink': False})
 
-    
+def psswrdforgot(request):
+    return render(request, 'psswrdforgot.html')
+
+def password_resethtml(request):
+    return render(request, 'user/psswrdreset.html')
+
+def password_resetdonehtml(request):
+    return render(request, 'user/?????????.html')
+
+def profile(request):
+    return render(request, 'user/profile.html')
+
+def parametre(request):
+    return render(request, 'user/parametre.html')
+
+def emailsent(request):
+    return render(request, 'emailsent.html')
+
+def changepsswrd(request):
+    return render(request,'changepsswrd.html')  
 
 def E404(request, exception=None):
     return render(request, '404.html', status=404)
