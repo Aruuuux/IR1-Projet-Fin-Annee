@@ -28,14 +28,10 @@ urlpatterns = [
     path('500/', views.E500, name='E500'),
     path('403/', views.E403, name='E403'),
     path('400/', views.E400, name='E400'),
-
     path('password_reset/', views.psswrdforgot, name='password_reset'),
-    
-    
-
+    path('add-grade/', views.add_grade, name='add_grade'), 
     
 
-    ]
+    
 
-     path('add-grade/', views.add_grade, name='add_grade'),
     ]
