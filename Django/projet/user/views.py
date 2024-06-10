@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from .forms import UserForm
-from databaseprojet.models import Speciality, Roles, User
+from databaseprojet.models import Speciality, Roles, User, Course
 import random
+from django.contrib import messages
+from .grade import AddGradeForm
 
 def admin(request):
     return render(request, 'admin.html')
@@ -50,3 +52,39 @@ def generate_student_id():
         student_id = random.randint(22300000, 23300000)
         if not User.objects.filter(student_id=student_id).exists():
             return student_id
+        
+
+
+def add_grade(request):
+    course_selected = False
+    students = User.objects.none()
+    
+    if request.method == 'POST':
+        if 'course_id' in request.POST:
+            course_id = request.POST.get('course_id')
+            if course_id:
+                course = Course.objects.get(course_id=course_id)
+                students = User.objects.filter(
+                    speciality_id=course.Speciality_id,
+                    year=course.Year,
+                    roles='Student'
+                )
+                course_selected = True
+                form = AddGradeForm(request.POST)
+                form.fields['student_id'].queryset = students
+            else:
+                form = AddGradeForm()
+        else:
+            form = AddGradeForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Grade added successfully!')
+                return redirect('add_grade')
+    else:
+        form = AddGradeForm()
+    
+    return render(request, 'add_grade.html', {
+        'form': form,
+        'course_selected': course_selected,
+        'students': students
+    })

@@ -1,4 +1,3 @@
-# user/urls.py
 from django.urls import path
 from . import views
 
@@ -11,8 +10,7 @@ urlpatterns = [
     path('psswrdforgot/', views.psswrdforgot, name='psswrdforgot'),
     
     path('main/', views.main, name='main'),
-]
 
-from django.urls import path
-from . import views
+    path('add-grade/', views.add_grade, name='add_grade'),
+]
 
