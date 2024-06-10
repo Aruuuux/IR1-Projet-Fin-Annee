@@ -126,7 +126,7 @@ def indexview(request):
 
 #######
 def psswrdforgot(request):
-    return render(request, 'user/psswrdforgot.html')
+    return render(request, 'psswrdforgot.html')
 
 def psswrdresetdone(request):
     return render(request, 'password_reset_done.html')
@@ -501,16 +501,15 @@ def password_reset_confirm(request, uidb64, token):
 
 
 def error_400(request, exception=None):
-    return render(request, 'user/error_400.html', status=400)
+    return render(request, 'user/400.html', status=400)
 
 def error_403(request, exception=None):
-    return render(request, 'user/error_403.html', status=403)
+    return render(request, 'user/403.html', status=403)
 def error_404(request, exception=None):
-    return render(request, 'user/error_404.html', status=404)
+    return render(request, 'user/404.html', status=404)
 
-def E500(request):
-    return render(request, '500.html', status=500)
-
+def error_500(request):
+    return render(request, 'user/500.html', status=500)
 
 
 

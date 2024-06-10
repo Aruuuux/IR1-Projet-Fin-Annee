@@ -21,11 +21,7 @@ urlpatterns = [
     #path('test-email/', views.test_email, name='test_email'),
     #path('psswrdreset/<uidb64>/<token>/', views.psswrdreset, name='psswrdreset'),
    
-    path('changepsswrd/', views.changepsswrd, name='changepsswrd'),
-    path('404/', views.E404, name='E404'),
-    path('500/', views.E500, name='E500'),
-    path('403/', views.E403, name='E403'),
-    path('400/', views.E400, name='E400'),
+    #path('changepsswrd/', views.changepsswrd, name='changepsswrd'),
     path('password_reset/', views.psswrdforgot, name='password_reset'),
     path('add-grade/', views.add_grade, name='add_grade'), 
      path('error_400/', views.error_400, name='error_400'),
@@ -34,12 +30,7 @@ urlpatterns = [
      path('error_500/', views.error_500, name='error_500'),
      path('changepsswrd/', views.changepsswrd,name='changepsswrd'),
      path('psswrdforgot/', views.psswrdforgot, name='psswrdforgot'),
-     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html'), name='password_reset'),
-     path('password_reset/', views.password_resethtml, name='password_reset'),
-     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'), name='password_reset_done'),
-     path('password_reset/done/', views.password_resetdonehtml, name='password_reset_done'),
-     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html'), name='password_reset_confirm'),
-     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'), name='password_reset_complete'),
+     path('password_reset/', views.psswrdforgot, name='password_reset'),
     
 
     
