@@ -2,21 +2,20 @@
 {% load static %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'user/css/loginstyles.css' %}" />
+<link rel="stylesheet" href="{% static 'user/css/styles.css' %}" />
 <link rel="stylesheet" href="{% static 'user/css/createuserstyle.css' %}" />
 {% endblock %}
-
 
 {% block main-content %}
 <div class="loginbox">
     <h2>Se connecter</h2>
     <form>
         <p>E-Mail</p>
-        <input type="text" name="email" placeholder="prenom.nom@uha.fr">
+        <input type="text" name="email" placeholder="prénom.nom@uha.fr" />
         <p>Mot de passe</p>
-        <input type="password" name="password" placeholder="********">
-        <input type="submit" name="" value="Login"><br>
-        <a href="{% url 'user:password_reset' %}" class="type1">Mot de passe oublié ?</a>
+        <input type="password" name="password" placeholder="********" />
+        <input type="submit" name="" value="Login" />
+        <a href="{% url 'user:psswrdforgot' %}">Mot de passe oublié ?</a>
     </form>
 </div>
 
@@ -32,9 +31,7 @@
                     {% endif %}
                 {% endfor %}
                 <button type="button" data-dismiss="modal">Close</button>
-</div>
--->
-
+</div>-->
 
 {% block js %}
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

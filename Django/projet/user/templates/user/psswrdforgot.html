@@ -12,7 +12,7 @@
         {% csrf_token %}
 
         <p>E-mail</p>
-        <input type="text" name="email" placeholder="prenom.nom@uha.fr" />
+        <input type="text" name="email" placeholder="prénom.nom@uha.fr">
         <input type="submit" name="send" value="OK" />
         <a href="{% url 'user:login' %}">En fait, je m'en souviens !</a>
 

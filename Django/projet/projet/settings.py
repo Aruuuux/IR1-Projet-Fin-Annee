@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'databaseprojet',
-    'user'
+    'user',
     # 'guardian', #Pour la gestion des permissions
 ]
 
@@ -143,18 +143,25 @@ STATICFILES_DIRS = [
     #os.path.join(BASE_DIR, 'static'),
 ]
 
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+    },
+}
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 
 # Pour indiquer à Django d'utiliser notre modèle User personnalisé par défaut
 AUTH_USER_MODEL = 'databaseprojet.User'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-#Email settings
 
+#Email settings
 
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
 EMAIL_HOST = os.getenv('EMAIL_HOST')
@@ -167,6 +174,8 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 # L'adresse e-mail qui sera utilisée pour envoyer les e-mails
 #DEFAULT_FROM_EMAIL = 'edutrack.supp@gmail.com'
 
+
+# Affichage des variables d'environnement pour débugger
 print('DEBUG:', DEBUG)
 print('SECRET_KEY:', SECRET_KEY)
 print('ALLOWED_HOSTS:', ALLOWED_HOSTS)
