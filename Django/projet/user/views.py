@@ -11,6 +11,7 @@ from django.template.defaultfilters import slugify
 from datetime import datetime
 from django.utils import formats
 import random
+from databaseprojet.models import *
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_decode
@@ -109,17 +110,39 @@ def indexview(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
+
         try:
             user = User.objects.get(email=email)
+            print(user.password)
             if password==user.password:
                 messages.success(request, 'Successfully logged in.')
-                return redirect('userslist')  
+                print(user.roles)
+                if user.roles == 'Teacher':
+                    return redirect('user:main')
+                elif user.roles == 'Student':
+                    return redirect('user:etudiant',user_id=user.id)
             else:
                 messages.error(request, 'Invalid email or password')
         except User.DoesNotExist:
             messages.error(request, 'Invalid email or password')
     
     return render(request, 'index.html')
+
+
+def etudiant(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    scores = Score.objects.filter(student_id=user)
+    absences = Absence.objects.filter(student_id=user)
+    courses = {score.course_id for score in scores}
+    absence_courses = {absence.course_id for absence in absences}
+    return render(request, 'etudiant.html', {
+        'user': user,
+        'scores': scores,
+        'courses': courses,
+        'absences': absences,
+        'absence_courses': absence_courses
+    })
+
 
 def psswrdforgot(request):
     return render(request, 'psswrdforgot.html')
@@ -164,7 +187,7 @@ def createuser(request):
             password = form.cleaned_data.get('password')
             if len(password) < 8:
                 messages.error(request, 'Password must be at least 8 characters long.')
-                return redirect('createuser')
+                return redirect('user:createuser')
             
             # Check if age is greater than 18
             date_of_birth = form.cleaned_data.get('date_of_birth')
@@ -172,12 +195,22 @@ def createuser(request):
                 age = datetime.now().year - date_of_birth.year - ((datetime.now().month, datetime.now().day) < (date_of_birth.month, date_of_birth.day))
                 if age < 18:
                     messages.error(request, 'User must be at least 18 years old.')
-                    return redirect('createuser')
+                    return redirect('user:createuser')
             user.password = password
             try:
+                print(f"First Name: {user.first_name}")
+                print(f"Last Name: {user.last_name}")
+                print(f"Roles: {user.roles}")
+                print(f"Date of Birth: {user.date_of_birth}")
+                print(f"Speciality: {user.speciality_id}")
+                print(f"Photo: {user.photo}")
+                print(f"Email: {user.email}")
+                print(f"Password: {user.password}")
+                print(f"Year: {user.year}")
                 user.save()
                 messages.success(request, 'User has been created successfully.')
-                return redirect('createuser')
+                print('User has been created successfully.')
+                return redirect('user:userslist')
             except:
                 messages.error(request, 'There were errors while creating the user')
             
@@ -186,7 +219,7 @@ def createuser(request):
     else:
         form = UserForm()
     roles = User._meta.get_field('roles').choices
-    specialities = specialities = Speciality.SPECIALITY_CHOICES
+    specialities = specialities = Speciality.objects.all()
 
     return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'messages': messages.get_messages(request)})
 
@@ -208,7 +241,7 @@ def edituser(request, user_id):
             password = form.cleaned_data.get('password')
             if password and len(password) < 8:
                 messages.error(request, 'Password must be at least 8 characters long.')
-                return redirect('edituser', user_id=user_id)
+                return redirect('edituser', user_id=user.id)
             
             # Check if age is greater than 18
             date_of_birth = form.cleaned_data.get('date_of_birth')
@@ -219,10 +252,22 @@ def edituser(request, user_id):
                     return redirect('edituser', user_id=user_id)
 
             try:
+                print(f"First Name: {user.first_name}")
+                print(f"Last Name: {user.last_name}")
+                print(f"Roles: {user.roles}")
+                print(f"Date of Birth: {user.date_of_birth}")
+                print(f"Speciality: {user.speciality_id}")
+                print(f"Photo: {user.photo}")
+                print(f"Email: {user.email}")
+                print(f"Password: {user.password}")
+                print(f"Year: {user.year}")
                 user.save()
+                print(user.photo)
                 messages.success(request, 'User has been updated successfully.')
-                return redirect('userslist')
-            except:
+                return redirect('user:userslist')
+            except Exception as e:
+                print(f"Exception: {e}")
+                print(user.save())
                 messages.error(request, 'There were errors while updating the user')
     else:
         form = UserForm(instance=user)
@@ -239,23 +284,11 @@ def edituser(request, user_id):
         }
         form = UserForm(instance=user, initial=initial_values)
     roles = User._meta.get_field('roles').choices
-    specialities = specialities = Speciality.SPECIALITY_CHOICES
+    specialities = specialities = Speciality.objects.all()
     users = User.objects.all()
     return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'users': users})
 
 
-def deleteuser(request, user_id):
-    context = {
-        'form': form,
-        'user': user,
-        'users': users,
-        'roles': roles,
-        'specialities': specialities,
-    }
-    return render(request, 'createuser.html', context)
-
-
-   
 def deleteuser(request, user_id):
     user = get_object_or_404(User, id=user_id)
     user.delete()
@@ -263,23 +296,35 @@ def deleteuser(request, user_id):
     return redirect('userslist') 
 
 
+   
+def deleteuser(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    user.delete()
+    messages.success(request, 'User has been deleted successfully.')
+    return redirect('user:userslist') 
+
+
 def userslist(request):
     first_name = request.GET.get('first_name', '')
     last_name = request.GET.get('last_name', '')
-    role_id = request.GET.get('roles', '')
+    role = request.GET.get('roles', '')
     speciality_id = request.GET.get('speciality_id', '')
     year = request.GET.get('year', '')
+    print(role)
+
     users = User.objects.all()
+
     if first_name:
         users = users.filter(first_name__icontains=first_name)
     if last_name:
         users = users.filter(last_name__icontains=last_name)
-    if role_id:
-        users = users.filter(roles__id=role_id)
+    if role:
+        users = users.filter(roles__icontains=Roles.objects.filter(id=role)[0].name)
     if speciality_id:
         users = users.filter(speciality_id=speciality_id)
     if year:
         users = users.filter(year=year)
+
     roles = Roles.objects.all()
     specialities = Speciality.objects.all()
     context = {
@@ -289,12 +334,13 @@ def userslist(request):
     }
     return render(request, 'userslist.html', context)
 
+
 def importusers(request):
     if request.method == 'POST' and request.FILES.get('csv_file'):
         csv_file = request.FILES['csv_file']
         if not csv_file.name.endswith('.csv'):
             messages.error(request, 'Please upload a CSV file.')
-            return redirect('importusers')
+            return redirect('user:importusers')
 
         try:
             decoded_file = csv_file.read().decode('latin-1').splitlines()
@@ -307,7 +353,6 @@ def importusers(request):
             for row in reader:
                 row = row[0].split(',')  # Split row into individual columns
                 row_data = dict(zip(header, row))
-
                 first_name = row_data['first_name'].strip()
                 last_name = row_data['last_name'].strip()
                 role_name = row_data['roles'].strip()
@@ -317,17 +362,18 @@ def importusers(request):
                 password = row_data['password'].strip()
                 year = row_data['year'].strip()
                 student_id = generate_student_id()
+
                 try:
                     role = Roles.objects.get(name=role_name)
                 except Roles.DoesNotExist:
                     messages.error(request, f'Role "{role_name}" does not exist.')
-                    return redirect('importusers')
+                    continue  # Skip this row and move to the next one
 
                 try:
                     speciality = Speciality.objects.get(name=speciality_name)
                 except Speciality.DoesNotExist:
                     messages.error(request, f'Speciality "{speciality_name}" does not exist.')
-                    return redirect('importusers')
+                    continue  # Skip this row and move to the next one
 
                 # Create user instance
                 user = User(
@@ -337,22 +383,22 @@ def importusers(request):
                     date_of_birth=date_of_birth,
                     speciality_id=speciality,
                     email=email,
-                    password=password,
                     student_id=student_id,
                     year=year
                 )
-                # Save user instance
+                user.set_password(password)  # Use set_password to hash the password
+
                 try:
                     user.save()
-                    messages.success(request, 'Users have been imported successfully.')
-                    return redirect('userslist')
-                except:
-                    messages.error(request, 'There were errors while updating the user')
-                    return redirect('userslist')
+                except Exception as e:
+                    messages.error(request, f'There was an error saving the user {first_name} {last_name}: {e}')
+
         except UnicodeDecodeError:
             messages.error(request, 'Error decoding file. Please make sure the file is encoded in Latin-1.')
         except Exception as e:
             messages.error(request, f'An error occurred while importing users: {e}')
+
+        return redirect('user:userslist')
 
     roles = Roles.objects.all()
     specialities = Speciality.objects.all()

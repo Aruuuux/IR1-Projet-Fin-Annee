@@ -49,11 +49,12 @@
 <body>
   
 <div class="container mt-5">
-    <a href="{% url 'createuser' %}" class="btn btn-primary" >Create User</a>
-    
+    <a href="{% url 'user:createuser' %}" class="btn btn-primary" >Create User</a>
+    <a href="{% url 'module:create_module' %}" class="btn btn-secondary">Create Module</a>
     <h2>Users List</h2>
     <!-- Search Form -->
-    <form method="get" action="{% url 'userslist' %}" class="mb-4">
+    <form method="get" action="{% url 'user:userslist' %}" class="mb-4">
+        
         <div class="form-row">
             <div class="col">
                 <input type="text" class="form-control" name="first_name" placeholder="First Name" value="{{ request.GET.first_name }}">
@@ -91,7 +92,7 @@
         </div>
     </form>
 
-    <form method="post" enctype="multipart/form-data" action="{% url 'importusers' %}" class="mt-4">
+    <form method="post" enctype="multipart/form-data" action="{% url 'user:importusers' %}" class="mt-4">
         {% csrf_token %}
         <div class="card" style="margin-bottom:20px">
             <div class="card-header bg-primary text-white">
@@ -140,13 +141,13 @@
                 <td>{{ user.student_id }}</td>
                 <td>{{ user.date_of_birth }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.roles.name }}</td>
+                <td>{{ user.roles }}</td>
                 <td>{{ user.speciality_id.name }}</td>
                 <td>{{ user.year }}</td>
                 <td>
                     <div class="d-inline">
                     <!-- Edit icon -->
-                    <a href="{% url 'edituser' user.id %}">
+                    <a href="{% url 'user:edituser' user.id %}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                             <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
                           </svg>
@@ -259,7 +260,7 @@
         jQuery('.delete-user-btn').click(function() {
             var userId = jQuery(this).data('user-id');
             jQuery('#userId').text(userId);
-            var deleteUrl = "{% url 'deleteuser' 0 %}".replace('0', userId);
+            var deleteUrl = "{% url 'user:deleteuser' 0 %}".replace('0', userId);
             jQuery('#confirmDeleteBtn').attr('href', deleteUrl);
             jQuery('#deleteConfirmationModal').modal('show'); // Show the modal
         });

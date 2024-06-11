@@ -10,6 +10,7 @@ urlpatterns = [
     path('user/', include('user.urls')),  # include user app URLs
     path('', RedirectView.as_view(url='/user/')),  # redirect root URL to login view
     path('accounts/', include('django.contrib.auth.urls')), 
+    path('module/', include('module.urls')),  # Include the module app's URLs
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

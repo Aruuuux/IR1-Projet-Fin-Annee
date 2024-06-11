@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Courses for {{ module.name }}</h1>
+        <p>Module: {{ module.id }}</p>
+        <p>Speciality: {{ module.speciality_id.name }}</p>
+        <p>Year: {{ module.year }}</p>
+
+        <h2>Create Course</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_name">Name:</label>
+                <input type="text" class="form-control" id="id_name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="id_number_of_credits">Number of Credits:</label>
+                <input type="number" class="form-control" id="id_number_of_credits" name="Number_of_credits" min="0" max="40" required>
+            </div>
+            <div class="form-group">
+                <label for="id_year">Year:</label>
+                <select class="form-control" id="id_year" name="Year" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_coefficient">Coefficient:</label>
+                <input type="number" class="form-control" id="id_coefficient" name="coefficient" min="0" max="40" required>
+            </div>
+            <div class="form-group">
+                <label for="id_semester">Semester:</label>
+                <select class="form-control" id="id_semester" name="semester" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_teacher_id">Teacher:</label>
+                <select class="form-control" id="id_teacher_id" name="teacher_id" required>
+                    {% for teacher in teachers %}
+                        <option value="{{ teacher.id }}">{{ teacher }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+        <h2>Existing Courses</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Number of Credits</th>
+                    <th>Year</th>
+                    <th>Coefficient</th>
+                    <th>Semester</th>
+                    <th>Teacher</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td><a href="{% url 'module:manage_course' course_id=course.course_id %}">{{ course.name }}</a></td>
+                    <td>{{ course.Number_of_credits }}</td>
+                    <td>{{ course.Year }}</td>
+                    <td>{{ course.coefficient }}</td>
+                    <td>{{ course.semester }}</td>
+                    <td>{{ course.teacher_id }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

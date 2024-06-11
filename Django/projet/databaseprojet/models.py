@@ -59,7 +59,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     roles = models.CharField(max_length=50, choices=[('Student', 'Student'), ('Teacher', 'Teacher'), ('Supervisor', 'Supervisor')])
     date_of_birth = models.DateField(blank=True, null=True)
     speciality_id = models.ForeignKey('Speciality', on_delete=models.CASCADE, blank = True, null = True)
-    photo = models.ImageField(upload_to='photos/', blank=True, null=True)
+    photo = models.ImageField(upload_to='user_photos/', blank=True, null=True)
     email = models.EmailField(unique=True)
     password = models.TextField(max_length=255)
     student_id = models.IntegerField(blank=True, null=True, unique=True)
@@ -89,7 +89,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         if not re.match(email_pattern, self.email):
             raise ValidationError(_('Email doit être sous la forme prenom.nom@uha.fr'))
         '''
-        if self.year is not None and not (self.year < 3 or self.year == -1):
+        if self.year is not None and not (self.year <= 3 or self.year == -1):
             raise ValidationError(_('Year must be less than 3 for students or equal to -1 for supervisors and teachers'))
 
 class Module(models.Model):
@@ -99,23 +99,25 @@ class Module(models.Model):
     year = models.IntegerField(blank=True, null=True)
     
     def clean(self):
-        if self.year is not None and not (self.year < 3 or self.year == -1):
+        if self.year is not None and not (self.year <= 3 or self.year == -1):
             raise ValidationError(_('Year must be less than 3 for students or equal to -1 for supervisors and teachers'))
 
     
 
 class Course(models.Model):
-    course_id=models.AutoField(primary_key=True)
-    name= models.CharField(max_length=255)
-    Number_of_credits=models.IntegerField() 
-    Year=models.IntegerField() 
-    Speciality_id=models.IntegerField() 
-    coefficient=models.IntegerField() 
-    module_id=models.ForeignKey(Module, on_delete=models.CASCADE)
-    semester=models.IntegerField() 
-    coefficient_lectures=models.IntegerField() 
-    coefficient_PW=models.IntegerField() 
-    coefficient_DW=models.IntegerField() 
+    course_id = models.AutoField(primary_key=True)
+    teacher_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    Number_of_credits = models.IntegerField()
+    Year = models.IntegerField()
+    Speciality_id = models.IntegerField()
+    coefficient = models.IntegerField()
+    module_id = models.ForeignKey(Module, on_delete=models.CASCADE)
+    semester = models.IntegerField()
+
+    def __str__(self):
+        return self.name
+
 
 class Score(models.Model):
     id=models.AutoField(primary_key=True)

@@ -53,7 +53,7 @@
             <label for="id_speciality">Spécialités</label>
             <select name="speciality_id" id="id_speciality">
                 {% for choice in specialities %}
-                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                    <option value="{{ choice.id }}">{{ choice.name }}</option>
                 {% endfor %}
             </select>
 
