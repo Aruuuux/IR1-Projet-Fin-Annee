@@ -45,7 +45,7 @@ h2 {
     outline: none;
     height: 40px;
     color: var(--white);
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 .loginbox input[type="submit"] {
@@ -67,7 +67,7 @@ h2 {
 
 .loginbox a {
     text-decoration: none;
-    font-size: 12px;
+    font-size: 0.75rem;
     line-height: 20px;
     color: var(--vlight-grey);
 }
