@@ -112,7 +112,7 @@ class Course(models.Model):
     name= models.CharField(max_length=255)
     Number_of_credits=models.IntegerField() 
     Year=models.IntegerField() 
-    Speciality_id=models.IntegerField() 
+    Speciality_id=models.ForeignKey(Speciality, on_delete=models.CASCADE)
     coefficient=models.IntegerField() 
     module_id=models.ForeignKey(Module, on_delete=models.CASCADE)
     semester=models.IntegerField() 
