@@ -37,9 +37,9 @@
     font-size: 16px;
     cursor: pointer;
     border: none;
-    border-radius: 20px; 
-    background-color: var(--main-color); 
-    color: var(--white); 
+    border-radius: 20px;
+    background-color: var(--main-color);
+    color: var(--white);
 }
 
 #prevWeek:hover, #nextWeek:hover{
@@ -206,7 +206,7 @@
 .tableau {
     /*position:absolute;*/
     height: calc(var(--table-height) - 150px);
-    overflow: auto; 
+    overflow: auto;
     z-index: 0; /* Cela place #tableau en dessous de #left-menu */
     border-radius: 8px;
 }
