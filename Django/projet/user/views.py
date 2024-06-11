@@ -8,6 +8,8 @@ from django.contrib.auth import login, authenticate
 from databaseprojet.models import Speciality, Roles, User, Course
 from .forms import UserForm, FilterForm
 
+import pandas as pd
+from django.http import HttpResponse
 import random, csv
 from django.contrib.auth.hashers import check_password
 from django.contrib import messages
@@ -271,6 +273,43 @@ def createuser(request):
 
     return render(request, 'user/createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'messages': messages.get_messages(request)})
 
+# Exporter la liste des users en fichier excel (faut installer panda eet openpyxl)
+def export_users_to_excel(request):
+    # Pour récupèrer les données des utilisateurs
+    users = User.objects.all().values('first_name', 'last_name', 'roles__name', 'date_of_birth', 'speciality_id__name', 'email', 'password', 'year', 'student_id')
+    df = pd.DataFrame(users)
+    df.rename(columns={
+        'roles__name': 'roles',
+        'speciality_id__name': 'speciality_id'
+    }, inplace=True)
+
+    # Pour créer une réponse HTTP avec le type de contenu Excel
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename="usersexported.xlsx"'
+
+    # Écrit le fichier Excel
+    with pd.ExcelWriter(response, engine='openpyxl') as writer:
+        df.to_excel(writer, index=False, sheet_name='Users')
+
+    return response
+
+#Exporter la liste des users en fichier csv (On choisit soit celle là soit en excel qui est en dessus)
+'''
+def export_users_to_csv(request):
+    # Crée une réponse HTTP avec le type de contenu CSV
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="users.csv"'
+
+    # Écrit le fichier CSV
+    writer = csv.writer(response)
+    writer.writerow(['first_name', 'last_name', 'roles', 'date_of_birth', 'speciality_id', 'email', 'password', 'year', 'student_id'])
+
+    users = User.objects.all().values_list('first_name', 'last_name', 'roles__name', 'date_of_birth', 'speciality_id__name', 'email', 'password', 'year', 'student_id')
+    for user in users:
+        writer.writerow(user)
+
+    return response
+'''
 
 
 def edituser(request, user_id):
