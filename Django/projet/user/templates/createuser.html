@@ -3,6 +3,7 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'user/mainstyle.css' %}" />
+<link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
 {% endblock %}
 
 {% block main-content %}
@@ -60,12 +61,15 @@
         
         <!-- Photo -->
         <div class="photo">
-            <label class="photo" for="id_photo">Photo</label>
+            <label class="photo" for="id_photo">
+                <svg class="fa-svg fa-user">
+                    <use xlink:href="{% static 'fontawesome/css/all.min.css' %}#user"></use>
+                </svg> Photo
+            </label>
             <div class="photo">
                 <input type="file" class="form-control-file" id="id_photo" name="photo" accept=".jpg, .jpeg, .png">
             </div>
         </div>
-        
         <!-- Email -->
         <div class="email">
             <label class="col-sm-2 col-form-label" for="id_email">Email</label>
@@ -97,7 +101,11 @@
         <!-- Submit Button -->
         <div class="form-group row">
             <div class="col-sm-4 offset-sm-2">
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">
+                    <svg class="fa-svg fa-upload">
+                        <use xlink:href="{% static 'fontawesome/css/all.min.css' %}#upload"></use>
+                    </svg> Save
+                </button>
             </div>
         </div>
     </form>
