@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="../css/psswrdstyle.css">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="{% static user/css/loginstyles.css %}">
+    <title>Document Title</title>
+</head>
+
+<body>
+    <header>
+        <p>EduTrack</p>
+    </header>
+    <section>
+        <div class="loginbox">
+            <h1>Mot de passe oublié ?</h1>
+            <form>
+                <p>Un email a été envoyé</p>
+                <p class="info">Vous n'avez pas reçu d'email ? vérifiez dans vos spam !</p>
+                <input type="submit" name="sendagain" value="Renvoyer" />
+            </form>
+        </div>
+    </section>

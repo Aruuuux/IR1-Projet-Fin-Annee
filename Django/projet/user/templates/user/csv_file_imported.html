@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'user/mainstyle.css' %}" />
+<link rel="stylesheet" href="{% static 'user/css/mainstyle.css' %}" />
 {% endblock %}
 
 {% block main-content %}
 <div>
-    <h1>Fichier CSV importé avec succès !</h1>
+    <h2>Fichier CSV importé avec succès !</h2>
     <a href="{% url 'admin' %}">Retour à la page de gestion des utilisateurs</a>
 </div>
 {% endblock %}

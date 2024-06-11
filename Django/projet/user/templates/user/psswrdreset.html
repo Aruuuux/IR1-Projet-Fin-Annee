@@ -1,0 +1,18 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'user/css/loginstyles.css' %}" />
+{% endblock %}
+
+{% block main-content %}
+<div class="loginbox">
+    <h2>Changer votre mot de passe</h2>
+    <form>
+        <p>Nouveau mot de passe</p>
+        <input type="password" name="newpassword" placeholder="********" />
+        <p>Confirmer nouveau mot de passe</p>
+        <input type="password" name="newpassword" placeholder="********" />
+    </form>
+</div>
+{% endblock %}
