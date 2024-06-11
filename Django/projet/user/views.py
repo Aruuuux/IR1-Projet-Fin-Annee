@@ -105,9 +105,6 @@ def main(request):
         'selected_filters': selected_filters
     })
 
-    
-
-
 def indexview(request):
     if request.method == 'POST':
         email = request.POST['email']
