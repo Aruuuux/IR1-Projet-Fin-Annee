@@ -8,6 +8,8 @@ html, body {
     background-position: center;
     background-size: cover;
     display:contents;
+    flex: 1;
+    overflow: hidden;
 }
 
 header {
@@ -23,6 +25,7 @@ header {
 
 #main-content {
     display: flex;
+    height:calc(100vh - 64px - 3rem);
     box-sizing: border-box;
 }
 
@@ -88,7 +91,11 @@ header {
 }
 
 footer {
-    display: flex;
+    position: absolute;
+    bottom:0px;
+    width:100%;
     color: var(--white);
     justify-content: center;
+    text-align: center;
+    height : 3rem;
 }
