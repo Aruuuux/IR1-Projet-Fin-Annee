@@ -1,4 +1,4 @@
-.loginbox{
+/*.loginbox{
     max-width: 500px;
     max-height: 400px;
     min-width: 200px;
@@ -14,7 +14,7 @@
     border-radius: 20px;
     opacity: 0.90;
     backdrop-filter: blur(2px);
-}
+}*/
 
 #Error{
     z-index: 1;
@@ -33,7 +33,7 @@
     color: var(--white);
     box-sizing: border-box;
     padding: 2rem;
-    margin: 5rem 0rem;
+    margin: auto;
     border-radius: 2rem;
     opacity: 0.92;
 }

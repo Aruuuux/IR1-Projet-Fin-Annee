@@ -4,7 +4,7 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(var(--black),var(--main-color));
+    background: linear-gradient(var(--vdark-main-color),var(--main-color));
     background-position: center;
     background-size: cover;
     display:contents;
