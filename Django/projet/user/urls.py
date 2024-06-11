@@ -23,7 +23,7 @@ urlpatterns = [
    
     #path('changepsswrd/', views.changepsswrd, name='changepsswrd'),
     path('password_reset/', views.psswrdforgot, name='password_reset'),
-    path('add-grade/', views.add_grade, name='add_grade'), 
+    path('addgrade/', views.addgrade, name='addgrade'),
      path('error_400/', views.error_400, name='error_400'),
      path('error_403/', views.error_403, name='error_403'),
      path('error_404/', views.error_404, name='error_404'),

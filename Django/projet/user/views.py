@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from .forms import UserForm
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import login, authenticate
-from databaseprojet.models import Speciality, Roles, User, Course
+from databaseprojet.models import Speciality, Roles, User, Course, Score
 from .forms import UserForm, FilterForm
 
 import random, csv
@@ -511,29 +511,32 @@ def error_500(request):
 
 
 
-def add_grade(request):
-    course_selected = False
-    students = User.objects.none()
-    selected_course_id = None
-    
-    if request.method == 'POST':
-        form = AddGradeForm(request.POST)
-        if form.is_valid():
-            selected_course_id = form.cleaned_data['course_id']  # Récupérer le cours sélectionné à partir du formulaire validé
-            course_selected = True
-            course = Course.objects.get(course_id=selected_course_id)
-            students = User.objects.filter(
-                speciality_id=course.Speciality_id,
-                year=course.Year,
-                roles='Student'
-            )
-            form.save()  # Enregistrer les données du formulaire
-            return redirect('success_page')  # Rediriger vers la page de succès après la soumission
-    else:
-        form = AddGradeForm()
+def addgrade(request):
+    courses = Course.objects.all()
+    users = None
+    selected_course = None
 
-    return render(request, 'add_grade.html', {
-        'form': form,
-        'course_selected': course_selected,
-        'students': students
-    })
+    if request.method == 'GET' and 'course_id' in request.GET:
+        course_id = request.GET.get('course_id')
+        if course_id:
+            selected_course = get_object_or_404(Course, course_id=course_id)
+            users = User.objects.filter(speciality_id=selected_course.Speciality_id, year=selected_course.Year)
+
+    if request.method == 'POST':
+        course_id = request.POST.get('course_id')
+        student_id = request.POST.get('student_id')
+        student_score = request.POST.get('student_score')
+        
+        if course_id and student_id and student_score:
+            selected_course = get_object_or_404(Course, course_id=course_id)
+            student = get_object_or_404(User, id=student_id)
+            score = Score(student_id=student, course_id=selected_course, student_score=student_score)
+            score.save()
+            return redirect('user:addgrade')
+
+    context = {
+        'courses': courses,
+        'users': users,
+        'selected_course': selected_course,
+    }
+    return render(request, 'addgrade.html', context)
