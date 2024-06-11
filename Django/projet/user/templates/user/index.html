@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'user/css/styles.css' %}" />
-<link rel="stylesheet" href="{% static 'user/css/loginstyles.css' %}" />
+<!-- <link rel="stylesheet" href="{% static 'user/css/styles.css' %}" /> -->
+<link rel="stylesheet" href="{% static 'user/css/createuserstyle.css' %}" />
 {% endblock %}
 
 {% block main-content %}
@@ -14,7 +14,7 @@
         <input type="text" name="email" placeholder="prénom.nom@uha.fr" />
         <p>Mot de passe</p>
         <input type="password" name="password" placeholder="********" />
-        <input type="submit" name="" value="Login" />
+        <button type="submit" name="" value="Login" >Connexion</button>
         <a href="{% url 'user:psswrdforgot' %}">Mot de passe oublié ?</a>
     </form>
 </div>
