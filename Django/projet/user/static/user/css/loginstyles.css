@@ -47,7 +47,7 @@ h2 {
     outline: none;
     height: 40px;
     color: var(--white);
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 .loginbox button[type="submit"] {
@@ -73,7 +73,7 @@ h2 {
     display: flex;
     text-decoration: none;
     width: 100%;
-    font-size: 12px;
+    font-size: 0.75rem;
     color: var(--vlight-grey);
 }
 
