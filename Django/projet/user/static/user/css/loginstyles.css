@@ -30,6 +30,7 @@ h2 {
 .loginbox p {
     margin: 0;
     padding: 0;
+    width: 100%;
     font-weight: bold;
     text-align: left;
 }
@@ -49,27 +50,30 @@ h2 {
     font-size: 16px;
 }
 
-.loginbox input[type="submit"] {
+.loginbox button[type="submit"] {
     border: none;
     outline: none;
+    width: 100%;
     height: 40px;
     background: var(--main-color);
     color: var(--white);
     font-size: 18px;
     border-radius: 20px;
-
+    margin: 1rem auto;
 }
 
-.loginbox input[type="submit"]:hover {
+.loginbox button[type="submit"]:hover {
     cursor: pointer;
     background: var(--lighter-main-color);
     color: var(--black);
 }
 
 .loginbox a {
+    justify-content: center;
+    display: flex;
     text-decoration: none;
+    width: 100%;
     font-size: 12px;
-    line-height: 20px;
     color: var(--vlight-grey);
 }
 
