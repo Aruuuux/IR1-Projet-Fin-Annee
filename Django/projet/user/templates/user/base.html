@@ -5,8 +5,6 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Edutrack</title>
-            <link rel="stylesheet" href="{% static 'user/mainstyle.css' %}" />
-            <link rel="stylesheet" href="{% static 'user/variables.css' %}" />
             <link rel="stylesheet" href="{% static 'user/css/basestyle.css' %}" />
             <link rel="stylesheet" href="{% static 'user/css/variables.css' %}" />
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -32,7 +30,7 @@
                         <i class="fas fa-user fa-3x"></i>
                     </button>
                     <div id="dropdown-menu">
-                        <p><i class="fas fa-user"></i>  Mon profil</p>
+                        <a href="{% url 'user:profile' %}"><i class="fas fa-user"></i>  Mon profil</a>
                         <p><i class="fas fa-calendar"></i>   Mes cours</p>
                         <p><i class="fas fa-sign-out-alt"></i>  Déconnexion</p>
                     </div>
