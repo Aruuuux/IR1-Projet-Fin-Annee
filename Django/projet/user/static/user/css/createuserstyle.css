@@ -174,16 +174,6 @@ th {
     background-color: var(--grey);
 }
 
-#table-users {
-    display: flex;
-    margin: 0;
-    width: auto;
-    height: 70vh;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: flex-start;
-    border-collapse: collapse;
-}
 #table-wrapper {
     border: 0.3rem solid var(--white);
     width: 90%;
@@ -191,7 +181,6 @@ th {
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
-    overflow: auto;
     justify-content: center;
 }
 
@@ -203,4 +192,14 @@ th {
     background-color: var(--vdark-main-color); /* Match background color */
     z-index: 1; /* Ensure it stays above other content */
     padding: 0.5rem;
+}
+
+#table-users {
+    display: flex;
+    margin: 0;
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    border-collapse: collapse;
 }
