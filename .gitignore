@@ -11,5 +11,4 @@ __pycache__
 db.sqlite3
 .git
 .DS_Store
-
-*.pyc
+/Django/projet/projet/.env
