@@ -26,6 +26,7 @@
     text-align: center;
     background: var(--vdark-main-color);
     color: var(--white);
+    margin: auto;
     box-sizing: border-box;
     border-radius: 2rem;
     opacity: 0.92;
