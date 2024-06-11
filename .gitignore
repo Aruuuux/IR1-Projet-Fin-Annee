@@ -12,3 +12,4 @@ db.sqlite3
 .git
 .DS_Store
 /Django/projet/projet/.env
+/Django/projet/staticfiles

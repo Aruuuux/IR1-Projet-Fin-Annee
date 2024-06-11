@@ -4,7 +4,7 @@
     <title>Ajouter une note</title>
 </head>
 <body>
-    <h1>Choisir une matière :</h1>
+    <h2>Choisir une matière :</h2>
     <form method="GET" action="{% url 'user:addgrade' %}">
         <label for="course">Matière :</label>
         <select name="course_id" id="course">
@@ -15,7 +15,6 @@
                 </option>
             {% endfor %}
         </select>
-        <br>
         <button type="submit">Valider</button>
     </form>
 
@@ -23,21 +22,21 @@
         <h2>Choisir un étudiant</h2>
         <form method="POST" action="{% url 'user:addgrade' %}">
             {% csrf_token %}
-            <input type="hidden" name="course_id" value="{{ selected_course.course_id }}">
-            <label for="user">Etudiant</label>
+
+            <input type="hidden" name="course_id" value="{{ selected_course.course_id }}" />
+            <label for="student">Étudiant</label>
             <select name="student_id" id="student">
-                <option value="">choisir un étudiant</option>
+                <option value="">Choisir un étudiant</option>
                 {% for user in users %}
                     <option value="{{ user.id }}">
                         {{ user.first_name }} {{ user.last_name }}
                     </option>
                 {% endfor %}
             </select>
-            <br>
             <label for="score">Entrer la note :</label>
-            <input type="number" step="0.01" name="student_score" id="score" required>
-            <br>
+            <input type="number" step="0.01" name="student_score" id="score" required />
             <button type="submit">Valider</button>
+
         </form>
     {% endif %}
 </body>

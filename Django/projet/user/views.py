@@ -1,12 +1,9 @@
 # user/views.py
 from django.shortcuts import get_object_or_404, render, redirect
-from .forms import UserForm,FilterForm
-from django.shortcuts import render, redirect
-from .forms import UserForm
+from .forms import UserForm, FilterForm
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import login, authenticate
 from databaseprojet.models import Speciality, Roles, User, Course, Score
-from .forms import UserForm, FilterForm
 
 import random, csv
 from django.contrib.auth.hashers import check_password
@@ -105,9 +102,6 @@ def main(request):
         'selected_filters': selected_filters
     })
 
-    
-
-
 def indexview(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -126,15 +120,15 @@ def indexview(request):
 
 #######
 def psswrdforgot(request):
-    return render(request, 'psswrdforgot.html')
+    return render(request, 'user/psswrdforgot.html')
 
 def psswrdresetdone(request):
-    return render(request, 'password_reset_done.html')
+    return render(request, 'user/password_reset_done.html')
 
 
 def psswrdresetcomplete(request):
     print("PASSWORD RESET COMPLETE")
-    return render(request, 'password_reset_complete.html')
+    return render(request, 'user/password_reset_complete.html')
 #############
 
 def profile(request):
@@ -161,7 +155,7 @@ def createuser(request):
         if not csv_file.name.endswith('.csv'):
             print("error in csv")
             messages.error(request, 'Please upload a CSV file.')
-            return redirect('createuser')
+            return redirect('user:createuser')
 
         try:
             
@@ -191,14 +185,14 @@ def createuser(request):
                 except Roles.DoesNotExist:
                     messages.error(request, f'Role "{role_name}" does not exist.')
                     print("role 'nexist pas")
-                    return redirect('createuser')
+                    return redirect('user:createuser')
 
                 try:
                     speciality = Speciality.objects.get(name=speciality_name)
                 except Speciality.DoesNotExist:
                     messages.error(request, f'Speciality "{speciality_name}" does not exist.')
                     print("spe n'existe pas")
-                    return redirect('createuser')
+                    return redirect('user:createuser')
 
                 # Create user instance
                 print("create user")
@@ -218,11 +212,11 @@ def createuser(request):
                     user.save()
                     messages.success(request, 'Users have been imported successfully.')
                     print("good")
-                    return redirect('createuser')
+                    return redirect('user:createuser')
                 except:
                     messages.error(request, 'There were errors while updating the user')
                     print("error while update")
-                    return redirect('createuser')
+                    return redirect('user:createuser')
         except UnicodeDecodeError:
             messages.error(request, 'Error decoding file. Please make sure the file is encoded in Latin-1.')
             print("error decode")
@@ -492,24 +486,24 @@ def password_reset_confirm(request, uidb64, token):
             form = SetPasswordForm(user, request.POST)
             if form.is_valid():
                 form.save()
-                return redirect('password_reset_complete')
+                return redirect('user:password_reset_complete')
         else:
             form = SetPasswordForm(user)
-        return render(request, 'password_reset_confirm.html', {'form': form, 'validlink': True})
+        return render(request, 'user/password_reset_confirm.html', {'form': form, 'validlink': True})
     else:
-        return render(request, 'password_reset_confirm.html', {'validlink': False})
+        return render(request, 'user/password_reset_confirm.html', {'validlink': False})
 
 
 def error_400(request, exception=None):
-    return render(request, 'user/400.html', status=400)
+    return render(request, 'user/user/error_400.html', status=400)
 
 def error_403(request, exception=None):
-    return render(request, 'user/403.html', status=403)
+    return render(request, 'user/error_403.html', status=403)
 def error_404(request, exception=None):
-    return render(request, 'user/404.html', status=404)
+    return render(request, 'user/error_404.html', status=404)
 
 def error_500(request):
-    return render(request, 'user/500.html', status=500)
+    return render(request, 'user/error_500.html', status=500)
 
 
 
@@ -542,4 +536,4 @@ def addgrade(request):
         'users': users,
         'selected_course': selected_course,
     }
-    return render(request, 'addgrade.html', context)
+    return render(request, 'user/addgrade.html', context)
