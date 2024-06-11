@@ -21,14 +21,11 @@ document.getElementById('profil-utilisateur').addEventListener('click', function
     }
 });
 
-window.addEventListener('click', function() {
-    document.getElementById('dropdown-menu').classList.remove('show');
-});
 
 
 document.getElementById('menu-filter-button').addEventListener('click', function () {
     var filtresMenu = document.getElementById('menu-filter');
-    var icon = document.getElementById('menu-filter-icon');
+    var icon = document.getElementById('menu-filter-icon'); // changed 'title-filter-icon' to 'menu-filter-icon'
     if (filtresMenu.classList.contains('open')) {
         filtresMenu.classList.remove('open');
         icon.className = "fas fa-caret-right";
@@ -36,4 +33,8 @@ document.getElementById('menu-filter-button').addEventListener('click', function
         filtresMenu.classList.add('open');
         icon.className = "fas fa-caret-down";
     }
+});
+
+window.addEventListener('click', function() {
+    document.getElementById('dropdown-menu').classList.remove('show');
 });

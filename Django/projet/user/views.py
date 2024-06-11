@@ -5,7 +5,7 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth import login, authenticate
 from databaseprojet.models import Speciality, Roles, User, Course, Score
 
-import pandas as pd
+#import pandas as pd
 from django.http import HttpResponse
 import random, csv
 from django.contrib.auth.hashers import check_password
@@ -268,6 +268,7 @@ def createuser(request):
     return render(request, 'user/createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'messages': messages.get_messages(request)})
 
 # Exporter la liste des users en fichier excel (faut installer panda eet openpyxl)
+'''
 def export_users_to_excel(request):
     # Pour récupèrer les données des utilisateurs
     users = User.objects.all().values('first_name', 'last_name', 'roles__name', 'date_of_birth', 'speciality_id__name', 'email', 'password', 'year', 'student_id')
@@ -286,6 +287,7 @@ def export_users_to_excel(request):
         df.to_excel(writer, index=False, sheet_name='Users')
 
     return response
+    '''
 
 #Exporter la liste des users en fichier csv (On choisit soit celle là soit en excel qui est en dessus)
 '''
