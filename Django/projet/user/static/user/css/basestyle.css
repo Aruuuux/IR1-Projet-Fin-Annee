@@ -84,8 +84,7 @@ header {
 #dropdown-menu p:hover {
     background-color: var(--lighter-main-color); /* Couleur de fond plus claire lors du survol */
     cursor: pointer; /* Change le curseur en main-content lors du survol */
-    color: var(--black);
-    border-radius: 8px;
+    color: var(--black)
 }
 
 footer {

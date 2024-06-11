@@ -1,8 +1,13 @@
 # user/views.py
 from django.shortcuts import get_object_or_404, render, redirect
-from .forms import UserForm, FilterForm
+from .forms import UserForm,FilterForm
+from django.shortcuts import render, redirect
+from .forms import UserForm
+from django.contrib.auth import views as auth_views
 from django.contrib.auth import login, authenticate
-from databaseprojet.models import Speciality, Roles, User
+from databaseprojet.models import Speciality, Roles, User, Course
+from .forms import UserForm, FilterForm
+
 import random, csv
 from django.contrib.auth.hashers import check_password
 from django.contrib import messages
@@ -15,6 +20,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_decode
 from django.urls import reverse_lazy
+from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.views import (LoginView, LogoutView,
                                        PasswordChangeView,
                                        PasswordChangeDoneView,
@@ -118,14 +124,18 @@ def indexview(request):
     
     return render(request, 'user/index.html')
 
+#######
 def psswrdforgot(request):
-    return render(request, 'user/psswrdforgot.html')
+    return render(request, 'psswrdforgot.html')
 
-def password_resethtml(request):
-    return render(request, 'user/psswrdreset.html')
+def psswrdresetdone(request):
+    return render(request, 'password_reset_done.html')
 
-def password_resetdonehtml(request):
-    return render(request, 'user/?????????.html')
+
+def psswrdresetcomplete(request):
+    print("PASSWORD RESET COMPLETE")
+    return render(request, 'password_reset_complete.html')
+#############
 
 def profile(request):
     return render(request, 'user/profile.html')
@@ -143,9 +153,85 @@ def edt(request):
     return render(request,'user/edt.html')
 
 def createuser(request):
-    if request.method == 'POST':
+    print("import user launch")
+    print(request.FILES)
+    if request.method == 'POST' and request.FILES.get('csv_file'):
+        print("premier if")
+        csv_file = request.FILES['csv_file']
+        if not csv_file.name.endswith('.csv'):
+            print("error in csv")
+            messages.error(request, 'Please upload a CSV file.')
+            return redirect('createuser')
+
+        try:
+            
+            decoded_file = csv_file.read().decode('latin-1').splitlines()
+            reader = csv.reader(decoded_file)
+
+            header = next(reader)
+            header = header[0].split(',')  # Split header into individual columns
+            print(header)  # Debugging header
+
+            for row in reader:
+                row = row[0].split(',')  # Split row into individual columns
+                row_data = dict(zip(header, row))
+
+                first_name = row_data['first_name'].strip()
+                last_name = row_data['last_name'].strip()
+                role_name = row_data['roles'].strip()
+                date_of_birth = row_data['date_of_birth'].strip()
+                speciality_name = row_data['speciality_id'].strip()
+                email = row_data['email'].strip()
+                password = row_data['password'].strip()
+                year = row_data['year'].strip()
+                student_id = generate_student_id()
+                try:
+                    
+                    role = Roles.objects.get(name=role_name)
+                except Roles.DoesNotExist:
+                    messages.error(request, f'Role "{role_name}" does not exist.')
+                    print("role 'nexist pas")
+                    return redirect('createuser')
+
+                try:
+                    speciality = Speciality.objects.get(name=speciality_name)
+                except Speciality.DoesNotExist:
+                    messages.error(request, f'Speciality "{speciality_name}" does not exist.')
+                    print("spe n'existe pas")
+                    return redirect('createuser')
+
+                # Create user instance
+                print("create user")
+                user = User(
+                    first_name=first_name,
+                    last_name=last_name,
+                    roles=role,
+                    date_of_birth=date_of_birth,
+                    speciality_id=speciality,
+                    email=email,
+                    password=password,
+                    student_id=student_id,
+                    year=year
+                )
+                # Save user instance
+                try:
+                    user.save()
+                    messages.success(request, 'Users have been imported successfully.')
+                    print("good")
+                    return redirect('createuser')
+                except:
+                    messages.error(request, 'There were errors while updating the user')
+                    print("error while update")
+                    return redirect('createuser')
+        except UnicodeDecodeError:
+            messages.error(request, 'Error decoding file. Please make sure the file is encoded in Latin-1.')
+            print("error decode")
+        except Exception as e:
+            messages.error(request, f'An error occurred while importing users: {e}')
+            print("error in user import")
+    elif request.method == 'POST' and not request.FILES.get('csv_file'):
         form = UserForm(request.POST, request.FILES)
-        print(form.errors)
+        print("err",form.errors)
         if form.is_valid():
             
             user = form.save(commit=False)
@@ -181,7 +267,7 @@ def createuser(request):
     else:
         form = UserForm()
     roles = User._meta.get_field('roles').choices
-    specialities = specialities = Speciality.SPECIALITY_CHOICES
+    specialities = specialities = Speciality.objects.all()
 
     return render(request, 'user/createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'messages': messages.get_messages(request)})
 
@@ -285,9 +371,13 @@ def userslist(request):
     return render(request, 'user/userslist.html', context)
 
 def importusers(request):
+    print("import user launch")
+    print(request)
     if request.method == 'POST' and request.FILES.get('csv_file'):
+        print("premier if")
         csv_file = request.FILES['csv_file']
         if not csv_file.name.endswith('.csv'):
+            print("error in csv")
             messages.error(request, 'Please upload a CSV file.')
             return redirect('user:importusers')
 
@@ -346,8 +436,10 @@ def importusers(request):
                     return redirect('user:userslist')
         except UnicodeDecodeError:
             messages.error(request, 'Error decoding file. Please make sure the file is encoded in Latin-1.')
+            print("error decode")
         except Exception as e:
             messages.error(request, f'An error occurred while importing users: {e}')
+            print("error in user import")
 
     roles = Roles.objects.all()
     specialities = Speciality.objects.all()
@@ -365,47 +457,86 @@ def generate_student_id():
         if not User.objects.filter(student_id=student_id).exists():
             return student_id
 
+
+
 class CustomPasswordResetView(PasswordResetView):
+    print("password reset done page")
     template_name = 'registration/password_reset_form.html'
-    success_url = reverse_lazy('user/password_reset_done')
+    success_url = reverse_lazy('password_reset/done')
     email_template_name = 'registration/password_reset_email.html'
 
+#np
 class CustomPasswordResetDoneView(PasswordResetDoneView):
     template_name = 'registration/password_reset_done.html'
 
+#nop
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
-    template_name = 'registration/password_reset_confirm.html'
-    success_url = reverse_lazy('user/password_reset_complete')
+    template_name = 'user/psswrdforgot.html'
+    success_url = reverse_lazy('password_reset_complete')
 
+#nop
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'registration/password_reset_complete.html'
 
-
-
 User = get_user_model()
 
-def password_reset_confirm(request, uidb64=None, token=None):
-    assert uidb64 is not None and token is not None  # Vérifiez que les deux paramètres sont présents
+def password_reset_confirm(request, uidb64, token):
     try:
-        uid = force_str(urlsafe_base64_decode(uidb64))
+        uid = urlsafe_base64_decode(uidb64).decode()
         user = User.objects.get(pk=uid)
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
 
     if user is not None and default_token_generator.check_token(user, token):
-        # Le lien est valide, vous pouvez permettre à l'utilisateur de changer son mot de passe
-        return render(request, 'registration/password_reset_confirm.html', {'validlink': True})
+        if request.method == 'POST':
+            form = SetPasswordForm(user, request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('password_reset_complete')
+        else:
+            form = SetPasswordForm(user)
+        return render(request, 'password_reset_confirm.html', {'form': form, 'validlink': True})
     else:
-        # Le lien n'est pas valide
-        return render(request, 'registration/password_reset_confirm.html', {'validlink': False})
+        return render(request, 'password_reset_confirm.html', {'validlink': False})
+
 
 def error_400(request, exception=None):
-    return render(request, 'user/error_400.html', status=400)
+    return render(request, 'user/400.html', status=400)
 
 def error_403(request, exception=None):
-    return render(request, 'user/error_403.html', status=403)
+    return render(request, 'user/403.html', status=403)
 def error_404(request, exception=None):
-    return render(request, 'user/error_404.html', status=404)
+    return render(request, 'user/404.html', status=404)
 
 def error_500(request):
-    return render(request, 'user/error_500.html', status=500)
+    return render(request, 'user/500.html', status=500)
+
+
+
+
+def add_grade(request):
+    course_selected = False
+    students = User.objects.none()
+    selected_course_id = None
+    
+    if request.method == 'POST':
+        form = AddGradeForm(request.POST)
+        if form.is_valid():
+            selected_course_id = form.cleaned_data['course_id']  # Récupérer le cours sélectionné à partir du formulaire validé
+            course_selected = True
+            course = Course.objects.get(course_id=selected_course_id)
+            students = User.objects.filter(
+                speciality_id=course.Speciality_id,
+                year=course.Year,
+                roles='Student'
+            )
+            form.save()  # Enregistrer les données du formulaire
+            return redirect('success_page')  # Rediriger vers la page de succès après la soumission
+    else:
+        form = AddGradeForm()
+
+    return render(request, 'add_grade.html', {
+        'form': form,
+        'course_selected': course_selected,
+        'students': students
+    })

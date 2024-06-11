@@ -16,6 +16,9 @@ class Roles(models.Model):
     def __str__(self):
         return self.get_name_display()
 
+
+
+
 class Speciality(models.Model):
     SPECIALITY_CHOICES = [
         (1, 'Informatique et réseaux'),
@@ -89,7 +92,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         if not re.match(email_pattern, self.email):
             raise ValidationError(_('Email doit être sous la forme prenom.nom@uha.fr'))
         '''
-        if self.year is not None and not (self.year < 3 or self.year == -1):
+        if self.year is not None and not (self.year <= 3 or self.year == -1):
             raise ValidationError(_('Year must be less than 3 for students or equal to -1 for supervisors and teachers'))
 
 class Module(models.Model):
@@ -99,7 +102,7 @@ class Module(models.Model):
     year = models.IntegerField(blank=True, null=True)
     
     def clean(self):
-        if self.year is not None and not (self.year < 3 or self.year == -1):
+        if self.year is not None and not (self.year <= 3 or self.year == -1):
             raise ValidationError(_('Year must be less than 3 for students or equal to -1 for supervisors and teachers'))
 
     
@@ -113,9 +116,23 @@ class Course(models.Model):
     coefficient=models.IntegerField() 
     module_id=models.ForeignKey(Module, on_delete=models.CASCADE)
     semester=models.IntegerField() 
-    coefficient_lectures=models.IntegerField() 
-    coefficient_PW=models.IntegerField() 
-    coefficient_DW=models.IntegerField() 
+    teacher_id=models.IntegerField(default=0)
+
+
+class Date(models.Model):
+    id = models.AutoField(primary_key=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    jours=models.DateTimeField(default=timezone.now)
+
+
+class Absence(models.Model):
+    id = models.AutoField(primary_key=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    date = models.ForeignKey(Date, on_delete=models.CASCADE)
+    date = models.DateField()
+    student_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Score(models.Model):
     id=models.AutoField(primary_key=True)
@@ -123,16 +140,4 @@ class Score(models.Model):
     course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
     student_score = models.FloatField()
 
-class Course_type(models.Model):
-    id=models.AutoField(primary_key=True)
-    course_id=models.ForeignKey(Course, on_delete=models.CASCADE)
-    student_id=models.ForeignKey(User, on_delete=models.CASCADE)
-    Score=models.FloatField()
-    absence_number=models.IntegerField()
-    course_type=models.IntegerField()
 
-class Absence(models.Model):
-    id=models.AutoField(primary_key=True)
-    course_id=models.ForeignKey(Course, on_delete=models.CASCADE)
-    date=models.DateField()
-    student_id=models.ForeignKey(User, on_delete=models.CASCADE)
