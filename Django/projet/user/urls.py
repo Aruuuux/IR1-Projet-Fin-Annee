@@ -1,5 +1,5 @@
 # user/urls.py
-from django.urls import path,include
+from django.urls import path, include
 from . import views
 from django.contrib.auth import views as auth_views
 #from .views import export_users_to_excel
@@ -35,5 +35,7 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'), name='password_reset_complete'),
     path('password_forgotten/', views.password_forgotten, name='password_forgotten'),
     #path('addgrade/', views.addgrade, name='addgrade'),
+    path('logout/', views.logout_view, name='logout'),
+
     ]
 
