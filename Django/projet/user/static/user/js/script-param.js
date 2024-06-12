@@ -1,11 +1,9 @@
-window.addEventListener('pageshow', function() {
+window.addEventListener('load', function() {
     var button = document.querySelector('#change-theme');
     var storedTheme = sessionStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
 
-    if (storedTheme) {
-        document.documentElement.setAttribute('data-theme', storedTheme);
-        updateButton(storedTheme);
-    }
+    document.documentElement.setAttribute('data-theme', storedTheme);
+    updateButton(storedTheme);
 
     if (button) {
         button.addEventListener('click', function() {
@@ -23,18 +21,17 @@ window.addEventListener('pageshow', function() {
     }
 
     function updateButton(theme) {
-        var icon = button.querySelector('i');
-
+        var button = document.querySelector('#change-theme');
+        var icon = button.querySelector('img');
+        
         if (theme === "dark") {
-            icon.classList.remove('fa-moon');
-            icon.classList.add('fa-sun');
-            button.textContent = ' Mode clair';
-        } else {
-            icon.classList.remove('fa-sun');
-            icon.classList.add('fa-moon');
+            icon.src = button.dataset.moonIcon;
             button.textContent = ' Mode sombre';
+        } else {
+            icon.src = button.dataset.sunIcon;
+            button.textContent = ' Mode clair';
         }
-
+        
         button.prepend(icon);
     }
 });
