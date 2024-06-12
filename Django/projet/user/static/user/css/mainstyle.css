@@ -154,7 +154,6 @@
     text-align: center;
     border-radius: 0.5rem;
     margin: 0;
-    width: 100%;
 }
 
 #left-menu button:hover {
@@ -242,9 +241,8 @@ table#schedule{
 }
 
 table#info-etudiant{
-    width: calc(var(--table-width) - 10px);
+    width: 50vh;
     border-collapse: collapse;
-    min-width: 1000px;
     color:rgb(10, 13, 20);
 }
 
@@ -278,11 +276,11 @@ tr:nth-child(odd) {
     background-color: rgb(237, 241, 242);
 }
 
-#schedule td:hover{
+#schedule td:hover {
     background-color: rgb(237, 241, 242);
 }
 
-#schedule td:first-child{
+#schedule td:first-child {
     background-color: var(--dark-grey);
     color: var(--white);
     width: 8rem;

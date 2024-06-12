@@ -57,10 +57,13 @@ html, body {
     font-family: Arial, sans-serif;
     background: linear-gradient(var(--black),var(--main-color));
     background-attachment: scroll;
-    background-position: center;
     background-size: cover;
     display: contents;
     overflow: hidden;
+
+    /* Scrolling behavior */
+    --scroll-behavior: smooth; /* permet un défilement de page plus doux */
+    scroll-behavior: var(--scroll-behavior);
 }
 
 header {
