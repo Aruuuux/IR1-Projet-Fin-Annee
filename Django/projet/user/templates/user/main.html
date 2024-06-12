@@ -2,7 +2,8 @@
 {% load static %}
 
 {% block styles %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+<link rel="stylesheet" href="{% static 'user/css/mainstyle.css' %}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="{% static 'user/css/mainstyle.css' %}" />
 {% endblock %}
 
@@ -17,7 +18,6 @@
 <div id="left-menu">
     <button id="menu-filter-button"><i class="fas fa-filter fa-sm"></i> Filtres <i id="menu-filter-icon" class="fas fa-caret-down"></i></button> <!-- change 'title-filter-icon' to 'menu-filter-icon' -->
     <form method="post" enctype="multipart/form-data" id="form_year">
-    {% csrf_token %}
     <div id="menu-filter" class="open">
         <div class="filter-components">
             <button class="title-filter" onclick="toggleDropdown('year-dropdown')">Année  <i id="year-filter-icon" class="fas fa-caret-right"></i></button>
@@ -41,26 +41,26 @@
                 <div class="menu-content" id="cursus-dropdown">
                     
                     {% for choice in specialities %}
-                    <div><label><input type="checkbox" name="cursus" value="{{ choice.0 }}" />{{ choice.1 }}</label></div>
-                    {% endfor %}
+                    <div><label><input type="checkbox" name="cursus" value="{{ choice.0 }}">{{ choice.1 }}</label></div>
+                {% endfor %}
                 </div>
         </div>
         <div class="filter-components">
             <button class="title-filter">Identification</button>
                 {% csrf_token %}
                 <div class="menu-content" id="identification-dropdown">
-                    <div><label><input type="checkbox" name="identification" value="1" /> N° étudiant</label></div>
-                    <div><label><input type="checkbox" name="identification" value="2" checked="true" /> Nom</label></div>
+                    <div><label><input type="checkbox" name="identification" value="1"> N° étudiant</label></div>
+                    <div><label><input type="checkbox" name="identification" value="2" checked="true">Nom</label></div>
                 </div>
         </div>
         <div id="button-container">
             <button id="reset-button">Reset</button>
-            <button id="applied-button">Apply</button>
+            <button id="apply-button">Apply</button>
         </div>
     </div>
     </form>
 </div>
-<div id="tabmain" class="tableau-wrapper tableau">
+<div id="tabmain" class="tableau-wrapper">
     {% load custom_filters %}
         <table id="noteabs">
             <thead>
@@ -90,7 +90,7 @@
                 {% else %}
                     <tr>
                         <td colspan="{{ selected_filters|length }}">Aucun résultat trouvé</td>
-                    </tr>
+                    </tr>             
                     {% endif %}
             </tbody>
         </table>

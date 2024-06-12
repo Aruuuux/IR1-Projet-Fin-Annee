@@ -30,6 +30,7 @@
     text-align: center;
     background: var(--vdark-main-color);
     color: var(--white);
+    margin: auto;
     box-sizing: border-box;
     border-radius: 2rem;
     opacity: 0.92;
@@ -57,10 +58,15 @@
 .loginbox button[type="submit"], .loginbox button[type="reset"] {
     border: 0.05rem solid var(--white);
     padding: 0.5rem;
+    margin: 1rem 0 0 0;
     background-color: var(--secondary-color);
     color: var(--primary-color);
     font-size: 1.2rem;
     border-radius: 1.5rem;
+}
+
+.loginbox button[type="reset"] {
+    margin: 1rem 0 0.5rem 0;
 }
 
 .loginbox button[type="submit"]:hover, .loginbox label[for="id_photo"]:hover {
@@ -74,6 +80,9 @@
     background: #951414;
 }
 
+.loginbox #csv-button {
+    margin: 0;
+}
 
 .loginbox select {
     border: 0.05rem solid var(--white);
@@ -159,19 +168,14 @@
 
 /* Style for the table */
 
-#table-users {
-    display: flex;
-    margin: 0;
-    width: 80%;
-    height: 70vh;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: flex-start;
-    border-collapse: collapse;
+th, td {
+    min-width: 6rem;
+    box-sizing: border-box;
+    border: 2px solid var(--black);
 }
 
-#table-users thead tr th {
-    text-align: center;
+th {
+    background-color: var(--grey);
 }
 
 #table-wrapper {
@@ -181,7 +185,6 @@
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
-    overflow: auto;
     justify-content: center;
 }
 
@@ -193,4 +196,14 @@
     background-color: var(--vdark-main-color); /* Match background color */
     z-index: 1; /* Ensure it stays above other content */
     padding: 0.5rem;
+}
+
+#table-users {
+    display: flex;
+    margin: 0;
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    border-collapse: collapse;
 }

@@ -121,8 +121,8 @@ def indexview(request):
     return render(request, 'user/index.html')
 
 #######
-def psswrdforgot(request):
-    return render(request, 'user/psswrdforgot.html')
+def password_forgotten(request):
+    return render(request, 'user/password_forgotten.html')
 
 def psswrdresetdone(request):
     return render(request, 'user/password_reset_done.html')
@@ -506,7 +506,7 @@ class CustomPasswordResetDoneView(PasswordResetDoneView):
 
 #nop
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
-    template_name = 'user/psswrdforgot.html'
+    template_name = 'user/password_forgotten.html'
     success_url = reverse_lazy('password_reset_complete')
 
 #nop
