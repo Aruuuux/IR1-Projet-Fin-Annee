@@ -127,10 +127,8 @@ def indexview(request):
 
         try:
             user = User.objects.get(email=email)
-            print(user.password)
             if password==user.password:
                 messages.success(request, 'Successfully logged in.')
-                print(user.roles)
                 if user.roles == 'Teacher':
                     return redirect('user:main', user.id)
                 elif user.roles == 'Student':
