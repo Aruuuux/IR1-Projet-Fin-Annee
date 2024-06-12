@@ -70,25 +70,35 @@ header {
 }
 
 #dropdown-menu.show {
-    display: block;
+    display: flex;
+    flex-direction: column;
     opacity: 1;
     right:0;
 }
 
+img:not(#logo *){
+    height: 2.5rem;
+    width: auto;
+    filter: invert(100%) sepia(20%) saturate(400%) hue-rotate(90deg) brightness(90%) contrast(100%);
+}
+
 #dropdown-menu * {
     color: var(--white);
-    padding: 12px 16px;
     text-decoration: none;
-    display: block;
-    margin: 5px 0;
-    font-size: 16px;
+    padding: 0.1rem;
+    margin: 0.5rem 0;
+    font-size: 20px;
     text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: inline-block;
 }
 
 #dropdown-menu *:hover,#dropdown-menu *:hover *{
     background-color: var(--lighter-main-color); /* Couleur de fond plus claire lors du survol */
     cursor: pointer; /* Change le curseur en main-content lors du survol */
     color: var(--black);
+    filter: none;
 }
 
 footer {
