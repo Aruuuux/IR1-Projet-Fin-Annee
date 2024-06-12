@@ -135,6 +135,8 @@ def indexview(request):
                     return redirect('user:main', user.id)
                 elif user.roles == 'Student':
                     return redirect('user:etudiant',user_id=user.id)
+                else :
+                    return redirect('user:supervisor')
             else:
                 messages.error(request, 'Invalid email or password')
         except User.DoesNotExist:
@@ -496,3 +498,96 @@ def E403(request, exception=None):
 
 def E400(request, exception=None):
     return render(request, '400.html', status=400)
+
+
+
+
+def supervisor(request):
+    # Retrieve the teacher object (if needed for any other purpose)
+
+    # Retrieve all courses
+    courses_taught = Course.objects.all()
+
+    # Initialize a list to store student details and specialities
+    students_details = []
+    specialities = set()
+    all_specialities = set()
+
+    # Apply filters if the form is submitted
+    if request.method == 'POST':
+        selected_years = request.POST.getlist('year')
+        selected_courses = request.POST.getlist('course')
+        selected_specialities = request.POST.getlist('cursus')
+
+        # Filter the courses based on selected criteria
+        if selected_courses:
+            courses_taught = courses_taught.filter(course_id__in=selected_courses)
+
+        # Iterate over each course
+        for course in courses_taught:
+            # Retrieve all scores for the course
+            scores = Score.objects.filter(course_id=course)
+
+            # Iterate over each score to get student details
+            for score in scores:
+                student = score.student_id
+
+                # Apply filters to student details
+                if selected_years and str(student.year) not in selected_years:
+                    continue
+                if selected_specialities and str(student.speciality_id.id) not in selected_specialities:
+                    continue
+
+                # Retrieve absences for the student in the course
+                absences_count = Absence.objects.filter(course_id=course, student_id=student).count()
+
+                student_details = {
+                    'student_id': student.student_id, 
+                    'first_name': student.first_name,
+                    'last_name': student.last_name.upper(),
+                    'year': student.year,
+                    'specialty': student.speciality_id,
+                    'course': course.name,
+                    'score': score.student_score,
+                    'absences_count': absences_count  # Add absences count to student details
+                }
+                students_details.append(student_details)
+                specialities.add(student.speciality_id)  # Add student's speciality to the set
+
+    else:
+        # Iterate over each course
+        for course in courses_taught:
+            # Retrieve all scores for the course
+            scores = Score.objects.filter(course_id=course)
+
+            # Iterate over each score to get student details
+            for score in scores:
+                student = score.student_id
+
+                # Retrieve absences for the student in the course
+                absences_count = Absence.objects.filter(course_id=course, student_id=student).count()
+
+                student_details = {
+                    'student_id': student.student_id,
+                    'first_name': student.first_name,
+                    'last_name': student.last_name.upper(),
+                    'year': student.year,
+                    'specialty': student.speciality_id,
+                    'course': course.name,
+                    'score': score.student_score,
+                    'absences_count': absences_count  # Add absences count to student details
+                }
+                students_details.append(student_details)
+                specialities.add(student.speciality_id)  # Add student's speciality to the set
+
+    # Retrieve all specialities available in the system
+    all_specialities = Speciality.objects.all()
+
+    context = {
+        'courses_taught': courses_taught,
+        'students_details': students_details,
+        'specialities': specialities,
+        'all_specialities': all_specialities
+    }
+
+    return render(request, 'supervisor.html', context)

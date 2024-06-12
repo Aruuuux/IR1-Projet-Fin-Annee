@@ -16,6 +16,7 @@ urlpatterns = [
     path('importusers/', views.importusers, name='importusers'),
     path('main/<int:user_id>/', views.main, name='main'),
     path('etudiant/<int:user_id>/', views.etudiant, name='etudiant'),
+    path('supervisor/', views.supervisor, name='supervisor'),
     path('profile/', views.profile, name='profile'),
     path('parametre/', views.parametre, name='parametre'),
     path('changepsswrd/',views.changepsswrd,name='changepsswrd'),
