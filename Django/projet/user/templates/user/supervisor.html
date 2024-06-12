@@ -7,7 +7,7 @@
 
 {% block header-content %}
 <div id="search-menu">
-    <input type="text" placeholder="Rechercher...">
+    <input type="text" placeholder="Rechercher..." />
     <button>Go</button>
 </div>
 {% endblock %}
@@ -22,9 +22,9 @@
                 <button class="title-filter">Année</button>           
                 {% csrf_token %}
                 <div class="menu-content" id="year-dropdown">
-                    <div><label><input type="checkbox" name="year" value="1"> Année 1</label></div>
-                    <div><label><input type="checkbox" name="year" value="2"> Année 2</label></div>
-                    <div><label><input type="checkbox" name="year" value="3"> Année 3</label></div>
+                    <div><label><input type="checkbox" name="year" value="1" /> Année 1</label></div>
+                    <div><label><input type="checkbox" name="year" value="2" /> Année 2</label></div>
+                    <div><label><input type="checkbox" name="year" value="3" /> Année 3</label></div>
                 </div>
             </div>
             <div class="filter-components">
@@ -34,7 +34,7 @@
                     {% for course in courses_taught %}
                     <div>
                         <label>
-                            <input type="checkbox" name="course" value="{{ course.course_id }}">{{ course.name }}
+                            <input type="checkbox" name="course" value="{{ course.course_id }}" />{{ course.name }}
                         </label>
                     </div>
                     {% endfor %}
@@ -102,4 +102,10 @@
         </table>
     </section>
 </div>
+<script>
+    if ({{ user.id}}!=0) {
+        href = "/user/profile"
+        document.getElementById("my_profile").href=href+"/"+ {{ user.id}};
+    }
+</script>
 {% endblock %}

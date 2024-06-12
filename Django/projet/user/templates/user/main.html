@@ -12,8 +12,12 @@
 </div>
 {% endblock %}
 
-{% block main-content %}
+{% block profile-content %}
 <a href="{% url 'module:create_module' %}" class="btn btn-secondary">Créer une UE</a>
+{% endblock %}
+
+{% block main-content %}
+
 <div id="left-menu">
     <button id="menu-filter-button"><i class="fas fa-filter fa-sm"></i> Filtres <i id="title-filter-icon" class="fas fa-caret-down"></i></button>
     

@@ -25,19 +25,25 @@
 html[data-theme="dark"] {
     --white : rgb(237, 241, 242);
     --vdark-main-color : rgb(2, 32, 38);
-    --main-color : rgb(66, 150, 183);
+    --main-color : #06797f;
+    --lighter-main-color :#23a7ae;
     --light-main-color : rgb(135, 198, 224);
     --black : rgb(10, 13, 20);
     --grey : rgb(46, 52, 56);
+    --light-grey :#adbdbd;
+    --dark-grey : #414e4f;
 }
 
 html[data-theme="light"] {
-    --white : rgb(237, 241, 242);
-    --vdark-main-color : rgb(83, 154, 168);
-    --main-color : rgb(172, 228, 250);
-    --light-main-color : rgb(113, 212, 254);
-    --black : rgb(144, 165, 215);
-    --grey : rgb(75, 81, 85);
+    --white : rgb(10, 13, 20);;
+    --vdark-main-color : rgb(130, 199, 213);
+    --main-color : #2aaeb5;
+    --lighter-main-color :#5acadb;
+    --light-main-color : rgb(51, 157, 202);
+    --black : rgb(237, 241, 242);
+    --grey : #667372;
+    --light-grey :#d5ddde;
+    --dark-grey : #464d4d;
 }
 
 
@@ -49,7 +55,7 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(var(--vdark-main-color),var(--main-color));
+    background: linear-gradient(var(--black),var(--main-color));
     background-attachment: scroll;
     background-position: center;
     background-size: cover;
@@ -104,13 +110,14 @@ header {
     position: absolute;
     right: 10px; /* Positionner le menu à droite de l'élément parent */
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
     z-index: 1;
     border-radius: 8px;
     opacity: 0;
     background-color: var(--main-color); /* Couleur de fond sombre */
     font-family: Arial, sans-serif; /* Police simple et propre */
-    padding: 10px;
+    margin-right: 1rem;
+    padding: 0.3rem 0.5rem;
 }
 
 #dropdown-menu.show {
@@ -127,23 +134,28 @@ img:not(#logo *){
 }
 
 #dropdown-menu * {
-    color: var(--white);
-    text-decoration: none;
-    padding: 0.1rem;
-    margin: 0.5rem 0;
-    font-size: 20px;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
+    color: rgb(237, 241, 242);
     display: inline-block;
+    text-decoration: none;
+    margin: 0.2rem;
+    font-size: 1rem;
+    text-align: center;
+    justify-content: center;
 }
 
 #dropdown-menu *:hover,#dropdown-menu *:hover *{
     background-color: var(--lighter-main-color); /* Couleur de fond plus claire lors du survol */
     cursor: pointer; /* Change le curseur en main-content lors du survol */
-    color: var(--black);
+    color:rgb(10, 13, 20);
     filter: none;
+    border-radius: 8px;
 }
+
+#dropdown-menu *:hover img{
+    border-radius: 0;
+}
+
+
 
 footer {
     position: absolute;

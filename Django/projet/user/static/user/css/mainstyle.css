@@ -2,12 +2,13 @@
 .menu-content {
     display: block;
     position: static;
-    color : var(--black);
+    color : black;
     background-color: var(--light-grey);
-    min-width: 150px;
+    min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 5px 0;
     border-radius:8px;
+    z-index: 1;
 }
 
 .menu-content label {
@@ -99,8 +100,7 @@
 
 #left-menu {
     background-color: transparent;
-    width: 19%;
-    min-width: 160px;
+    width: 200px;
     height: auto;
     float: left;
     color: var(--white);
@@ -148,13 +148,13 @@
 .title-filter {
     background-color: var(--grey);
     color: var(--white);
-    padding: 8px;
-    font-size: 16px;
+    padding: 0.5rem;
+    font-size: 1rem;
     border: 1px solid var(--black);
-    cursor: pointer;
-    width: 100%;
     text-align: center;
-    border-radius: 8px;
+    border-radius: 0.5rem;
+    margin: 0;
+    width: 100%;
 }
 
 #left-menu button:hover {
@@ -164,7 +164,7 @@
 .dropdown-content {
     display: none;
     min-width: 100%;
-    box-shadow: 0px 8px 16px 0px var(--black);
+    box-shadow: 0px 8px 16px 0px rgb(10, 13, 20);
     z-index: 1;
     border-radius: 8px;
 }
@@ -173,6 +173,7 @@
     color: var(--white);
     padding: 10px;
     display: block;
+    width: 100%;
     border-radius:8px;
     z-index: 1;
 }
@@ -189,7 +190,6 @@
 
 #menu-filter {
     display: none; /* Le menu est initialement fermé */
-    z-index: 1;
     position: relative;
     width: 100%;
 }
@@ -204,39 +204,59 @@
 }
 
 .tableau-wrapper {
-    display: flex;
     background: var(--vdark-main-color);
-    border: calc(1rem + 3px) solid var(--vdark-main-color);
+    margin: 8px 8px 0 0;
+    max-height: calc(100% - 3rem - 20px);
+    width: fit-content;
     border-radius: 8px;
-    margin: 8px;
-    z-index: 0; /* Cela place #tableau en dessous de #left-menu */
-    flex-direction: column;
-    overflow: auto;
+    border: 24px solid var(--vdark-main-color);
+    overflow-y: auto;
 }
 
-table{
-    width:100%;
-    max-height: 100%;
-    table-layout: fixed;
+.tableau-wrapper>*{
+    text-align: center;
+    color: aliceblue;
+
+}
+
+#alone{
+    margin: auto;
+}
+
+table {
     border-collapse: collapse;
+    font-size: smaller;
+    color:rgb(10, 13, 20);
 }
 
 table#noteabs{
-    border-radius: 16px;
-    max-height: 100%;
+    width: calc(100vw - 200px);
+    min-width: 800px;
+    max-width: 100%;
+    color:rgb(10, 13, 20);
 }
 
 table#schedule{
-    min-width: 100px;
-    min-height: 400px;
-    max-height: calc(100% - 400px);
+    width: calc(var(--table-width) - 10px);
+    min-width: 1000px;
+}
+
+table#info-etudiant{
+    width: calc(var(--table-width) - 10px);
+    border-collapse: collapse;
+    min-width: 1000px;
+    color:rgb(10, 13, 20);
+}
+
+table#modules{
+    width: calc(var(--table-width) - 10px);
+    color:rgb(10, 13, 20);
 }
 
 th, td {
-    max-height:150px;
+    max-height:50px;
     box-sizing: border-box;
     padding: 4px;
-    text-align: center;
     border: 2px solid var(--black);
 }
 
@@ -245,7 +265,6 @@ th {
     font-weight: bold;
     position: sticky;
     top:0;
-    transform: translate3d(0, 0, 0); /* Ajoute une transformation de traduction 3D */
     color: var(--white);
 }
 
@@ -256,11 +275,11 @@ tr:nth-child(odd) {
     background-color: var(--vlight-grey);
 }
 #noteabs tr:hover {
-    background-color: var(--white);
+    background-color: rgb(237, 241, 242);
 }
 
 #schedule td:hover{
-    background-color: var(--white);
+    background-color: rgb(237, 241, 242);
 }
 
 #schedule td:first-child{

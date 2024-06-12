@@ -1,94 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Information</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
+{% extends "user/base.html" %}
+{% load static %}
 
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+{% block styles %}
+<link rel="stylesheet" href="{% static 'user/css/mainstyle.css' %}" />
 
-        h1, h2 {
-            color: #333;
-        }
+{% endblock %}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            border: 1px solid #ddd;
-            margin-top: 20px;
-        }
 
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
 
-        th {
-            background-color: #f2f2f2;
-        }
 
-        tr:hover {
-            background-color: #f9f9f9;
-        }
 
-        .tooltip {
-            position: relative;
-            cursor: pointer;
-        }
-
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 220px;
-            background-color: #333;
-            color: #fff;
-            text-align: left;
-            border-radius: 5px;
-            padding: 8px;
-            position: absolute;
-            z-index: 1;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Student Information</h1>
+{% block main-content %}
+    <div class="tableau-wrapper" id="alone">
+        <h2>Student Information</h2>
         <p><strong>Name:</strong> {{ user }}</p>
         <p><strong>Email:</strong> {{ user.email }}</p>
         
-        <h2>Course Details</h2>
-        <table>
+        <h3>Course Details</h3>
+        <table id="info-etudiant">
             <thead>
                 <tr>
                     <th>Course Name</th>
                     <th>Score</th>
-                    <th></th>
                     <th>Number of Absences</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -127,5 +61,11 @@
             </tbody>
         </table>
     </div>
-</body>
-</html>
+    <script>
+        if ({{ user.id}}!=0) {
+            href = "/user/profile"
+            document.getElementById("my_profile").href=href+"/"+ {{ user.id}};
+        }
+    </script>
+    {% endblock %}
+    
