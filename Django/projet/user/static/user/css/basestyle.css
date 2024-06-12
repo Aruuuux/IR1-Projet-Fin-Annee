@@ -66,8 +66,8 @@ header {
     opacity: 0;
     background-color: var(--main-color); /* Couleur de fond sombre */
     font-family: Arial, sans-serif; /* Police simple et propre */
-    padding: 0 10px;
     margin-right: 1rem;
+    padding: 0.3rem 0.5rem;
 }
 
 #dropdown-menu.show {
@@ -84,15 +84,13 @@ img:not(#logo *){
 }
 
 #dropdown-menu * {
-    color: var(--white);
-    text-decoration: none;
-    padding: 0.1rem;
-    margin: 0.5rem 0;
-    font-size: 20px;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
+    color: inherit;
     display: inline-block;
+    text-decoration: none;
+    margin: 0.2rem;
+    font-size: 1rem;
+    text-align: center;
+    justify-content: center;
 }
 
 #dropdown-menu *:hover,#dropdown-menu *:hover *{
@@ -106,6 +104,8 @@ img:not(#logo *){
 #dropdown-menu *:hover img{
     border-radius: 0;
 }
+
+
 
 footer {
     position: absolute;
