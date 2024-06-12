@@ -66,7 +66,7 @@ header {
     opacity: 0;
     background-color: var(--main-color); /* Couleur de fond sombre */
     font-family: Arial, sans-serif; /* Police simple et propre */
-    padding: 10px;
+    padding: 0 10px;
     margin-right: 1rem;
 }
 
