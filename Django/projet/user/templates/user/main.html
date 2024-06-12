@@ -21,7 +21,7 @@
     <div id="menu-filter" class="open">
         <div class="filter-components">
             <button class="title-filter" onclick="toggleDropdown('year-dropdown')">Année  <i id="year-filter-icon" class="fas fa-caret-right"></i></button>
-            <div class="dropdown-content" id="year-dropdown">
+            <div class="menu-content" id="year-dropdown">
                 <label><input type="checkbox" name="year" value="1" /> 1ère année</label>
                 <label><input type="checkbox" name="year" value="2" /> 2e année</label>
                 <label><input type="checkbox" name="year" value="3" /> 3e année</label>
@@ -29,7 +29,7 @@
         </div>
         <div class="filter-components">
             <button class="title-filter" onclick="toggleDropdown('lesson-dropdown')">Matière  <i id="lesson-filter-icon" class="fas fa-caret-right"></i></button>
-            <div class="dropdown-content" id="lesson-dropdown">
+            <div class="menu-content" id="lesson-dropdown">
                 <label><input type="checkbox" name="lesson" value="1" /> ANCS</label>
                 <label><input type="checkbox" name="lesson" value="2" /> Java</label>
                 <label><input type="checkbox" name="lesson" value="3" /> HTML & CSS</label>
@@ -71,7 +71,13 @@
                                 Nom
                             {% elif filter == 'first_name' %}
                                 Prénom
-                            {% elif filter == 'first_name' %}
+                            {% elif filter == 'student_id' %}
+                                N°
+                            {% elif filter == 'Speciality_id' %}
+                                Spécialité
+                            {% elif filter == 'lesson' %}
+                                Leçon
+                            {% elif filter == 'Year' %}
                                 Année
                             {% else %}
                                 {{ filter|capfirst }}
