@@ -24,9 +24,9 @@
                 <div id="logo">
                     <img src="{% static 'user/images/logo_resized.png' %}" alt="logo"/>
                 </div>
+                {% if user.is_authenticated %}
                 <div id="profil-utilisateur">
                     <button>
-                        <!-- <i class="fas fa-user fa-3x"></i> -->
                         <img src="{% static 'user/icons/circle-user.svg' %}" alt="user"/>
                     </button>
                     <div id="dropdown-menu">
@@ -36,6 +36,7 @@
                         <a href="{% url 'user:login' %}"><img src="{% static 'user/icons/log-out.svg' %}">  Déconnexion</a>
                     </div>
                 </div>
+                {% endif %}
             </section>
         </header>
 
