@@ -3,7 +3,7 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Edutrack</title>
             <link rel="stylesheet" href="{% static 'user/css/basestyle.css' %}" />
             <link rel="stylesheet" href="{% static 'user/css/variables.css' %}" />
@@ -31,10 +31,13 @@
                         <img src="{% static 'user/images/circle-user.svg' %}" alt="user"/>
                     </button>
                     <div id="dropdown-menu">
-                        <a href="{% url 'user:profile' %}"><img src="{% static 'user/images/circle-user.svg' %}" alt="user"/>  Mon profil</a>
-                        <a href="{% url 'user:parametre' %}"><img src="{% static 'user/images/gears.svg' %}">  Paramètres</a> 
-                        <a href="{% url 'user:edt' %}"><img src="{% static 'user/images/calendar-days.svg' %}"> Mes cours</a>
-                        <a href="{% url 'user:login' %}"><img src="{% static 'user/images/log-out.svg' %}">  Déconnexion</a>
+                        <a id="my_profile" href=""><img src="{% static 'user/images/circle-user.svg' %}" alt="user"/>Mon profil</a>
+                        <a href="{% url 'user:parametre' %}"><img src="{% static 'user/images/gears.svg' %}">Paramètres</a>
+                        <a href="{% url 'module:create_module' %}" class="btn btn-secondary">Créer une UE</a>
+                        <a href="{% url 'user:edt' %}"><img src="{% static 'user/images/calendar-days.svg' %}">Mes cours</a>
+                        {% block profile-content %}
+                        {% endblock %}
+                        <a href="{% url 'user:login' %}"><img src="{% static 'user/images/log-out.svg' %}">Déconnexion</a>
                     </div>
                 </div>
             </section>
