@@ -1,14 +1,14 @@
 <!-- templates/create_module.html -->
+{% extends "user/base.html" %}
+{% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% block title %}<title>Create Module</title>{% endblock %}
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-</head>
-<body>
+{% block title %}Créer une UE{% endblock %}
+
+{% block styles %}
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block main-content %}
     <div class="container">
         <h1>Create Module</h1>
         <form method="post">
@@ -83,6 +83,7 @@
         </div>
     </div>
 
+{% block js %}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
@@ -96,5 +97,8 @@
             });
         });
     </script>
-</body>
-</html>
+{% endblock %}
+
+{% endblock %}
+
+

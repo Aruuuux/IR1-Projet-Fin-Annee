@@ -5,10 +5,10 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        {% block title %}<title>Edutrack</title>{% endblock %}
+        <title>{% block title %}Edutrack{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'user/css/basestyle.css' %}" />
         <link rel="stylesheet" href="{% static 'user/css/variables.css' %}" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <!-- <link rel="icon" type="image/ico" href="{% static '/.ico' %}">  à rajouter -->
         {% block styles %}
         {% endblock %}
@@ -32,7 +32,7 @@
                         <img src="{% static 'user/images/circle-user.svg' %}" alt="user"/>
                     </button>
                     <div id="dropdown-menu">
-                        <a href="{% url 'user:profile' %}"><img src="{% static 'user/images/circle-user.svg' %}" alt="user"/>Mon profil</a>
+                        <a id="my_profile" href=""><img src="{% static 'user/images/circle-user.svg' %}" alt="user"/>Mon profil</a>
                         <a href="{% url 'user:parametre' %}"><img src="{% static 'user/images/gears.svg' %}">Paramètres</a>
                         <a href="{% url 'user:edt' %}"><img src="{% static 'user/images/calendar-days.svg' %}">Mes cours</a>
                         {% block profile-content %}
