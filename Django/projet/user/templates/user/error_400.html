@@ -1,0 +1,14 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'user/css/loginstyles.css' %}" />
+{% endblock %}
+
+{% block main-content %}
+<div class="error-container">
+    <h1>400</h1>
+    <p>La requête est incorrecte. Veuillez vérifier et réessayer.</p>
+    <a href="{% url 'home' %}">Retour à l'accueil</a>
+</div>
+{% endblock %}

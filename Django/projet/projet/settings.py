@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'databaseprojet',
     'user',
-    'module'
+    'module',
     # 'guardian', #Pour la gestion des permissions
 ]
 
