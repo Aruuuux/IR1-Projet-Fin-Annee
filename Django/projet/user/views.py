@@ -134,7 +134,7 @@ def indexview(request):
                 elif user.roles == 'Student':
                     return redirect('user:etudiant',user_id=user.id)
                 else :
-                    return redirect('user:supervisor')
+                    return redirect('user:supervisor',user_id=user.id)
             else:
                 messages.error(request, 'Invalid email or password')
         except User.DoesNotExist:
@@ -189,8 +189,9 @@ def password_resetdonehtml(request):
 def password_resethtml(request):
     return render(request, 'user/psswrdreset.html')
 
-def profile(request):
-    return render(request, 'user/profile.html')
+def profile(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    return render(request, 'user/profile.html', {'user': user})
 
 def parametre(request):
     return render(request, 'user/parametre.html')
@@ -493,7 +494,7 @@ def error_500(request):
 
 
 
-def supervisor(request):
+def supervisor(request,user_id):
     # Retrieve the teacher object (if needed for any other purpose)
 
     # Retrieve all courses
@@ -573,12 +574,14 @@ def supervisor(request):
 
     # Retrieve all specialities available in the system
     all_specialities = Speciality.objects.all()
+    user = get_object_or_404(User, pk = user_id)
 
     context = {
         'courses_taught': courses_taught,
         'students_details': students_details,
         'specialities': specialities,
-        'all_specialities': all_specialities
+        'all_specialities': all_specialities,
+        'user':user
     }
 
     return render(request, 'user/supervisor.html', context)
