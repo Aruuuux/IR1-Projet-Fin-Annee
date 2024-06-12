@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block styles %}
+<link rel="stylesheet" href="{% static 'user/css/mainstyle.css' %}" />
 <link rel="stylesheet" href="{% static 'user/css/createuserstyle.css' %}" />
 {% endblock %}
 
@@ -16,7 +17,7 @@
         <h3>Importation de fichier CSV</h3>
         <label for="csvFile"></label>
         <input type="file" id="csvFile" name="csv_file" accept=".csv" />
-        <button type="submit" id="csv-button">Import csv</button>
+        <button type="submit">Import csv</button>
 
     </form>
 
@@ -24,20 +25,17 @@
         {% csrf_token %}
 
         <!-- First Name -->
-        <p>Prénom</p>
-        <label for="id_first_name"></label>
-        <input type="text" id="id_first_name" name="first_name" placeholder="Prénom" {% if form.first_name.value %} value="{{ form.first_name.value }}" {% endif %} required />
+        <label for="id_first_name">Prénom</label>
+        <input type="text" id="id_first_name" name="first_name" placeholder="Prénom" value="{{ form.first_name.value }}" required />
         
         
         <!-- Last Name -->
-        <p>Nom</p>
-        <label for="id_last_name"></label>
-        <input type="text" id="id_last_name" name="last_name" placeholder="Nom" {% if form.last_name.value %} value="{{ form.last_name.value }}" {% endif %} required />
+        <label for="id_last_name">Nom</label>
+        <input type="text" id="id_last_name" name="last_name" placeholder="Nom" value="{{ form.last_name.value }}" required />
         
         
         <!-- Role -->
-        <p>Statut</p>
-        <label for="id_role"></label>
+        <label for="id_role">Statut</label>
         <select name="roles" id="id_role">
             <option value="" disabled selected hidden>-- Statut --</option>
             {% for role in roles %}
@@ -47,14 +45,12 @@
         
 
         <!-- Date of Birth -->
-        <p>Date de naissance</p>
-        <label for="id_date_of_birth"></label>
+        <label for="id_date_of_birth">Date de naissance</label>
         <input type="date" id="id_date_of_birth" name="date_of_birth" value="{{ form.date_of_birth.value }}" required />
         
         
         <!-- Speciality -->
-        <p>Filière</p>
-        <label for="id_speciality"></label>
+        <label for="id_speciality">Filière</label>
         <select name="speciality_id" id="id_speciality">
             <option value="" disabled selected hidden>-- Filière --</option>
             {% for choice in specialities %}
@@ -77,13 +73,11 @@
         -->
 
         <!-- Password -->
-        <p>Mot de passe</p>
-        <label for="id_password"></label>
+        <label for="id_password">Mot de passe</label>
         <input type="password" id="id_password" name="password" placeholder="***********" required />
         
         <!-- Year -->
-        <p>Année</p>
-        <label for="id_year"></label>
+        <label for="id_year">Année</label>
         <select name="year" id="id_year" >
             <option value="" disabled selected hidden>-- Sélection de l'année --</option>
             <option value="1">1ère année</option>
@@ -91,13 +85,11 @@
             <option value="3">3ème année</option>
         </select>
 
-        <!-- pop-up success
         <h5 id="successModalLabel">Success</h5>
-        -->
 
         <!-- Submit Button -->
-        <button type="submit" class="loginbox" id="save-button">Sauvegarder</button>
-        <button type="reset" class="loginbox" id="reset-button">Reset</button>
+        <button type="submit" class="loginbox">Sauvegarder</button>
+        <button type="reset" class="loginbox">Reset</button>
 
     </form>
 </div>
