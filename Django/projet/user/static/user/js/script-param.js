@@ -1,5 +1,5 @@
-$(document).ready(function() {
-    var button = $('#change-theme');
+window.addEventListener('pageshow', function() {
+    var button = document.querySelector('#change-theme');
     var storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
 
     if (storedTheme) {
@@ -8,7 +8,7 @@ $(document).ready(function() {
     }
 
     if (button) {
-        button.click(function() {
+        button.addEventListener('click', function() {
             var currentTheme = document.documentElement.getAttribute("data-theme");
             var targetTheme = "light";
 
@@ -23,16 +23,16 @@ $(document).ready(function() {
     }
 
     function updateButton(theme) {
-        var icon = button.find('i');
+        var icon = button.querySelector('i');
 
         if (theme === "dark") {
-            icon.removeClass('fa-moon');
-            icon.addClass('fa-sun');
-            button.text(' Mode clair');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+            button.textContent = ' Mode clair';
         } else {
-            icon.removeClass('fa-sun');
-            icon.addClass('fa-moon');
-            button.text(' Mode sombre');
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+            button.textContent = ' Mode sombre';
         }
 
         button.prepend(icon);
