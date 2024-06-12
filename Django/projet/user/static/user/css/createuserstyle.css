@@ -15,6 +15,10 @@
     flex-direction: column;
 }
 
+#form-wrapper form > * {
+    margin: 0.5rem 0rem;
+}
+
 #form-content {
     display: flex;
     flex-direction: column;

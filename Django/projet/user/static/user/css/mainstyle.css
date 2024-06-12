@@ -203,7 +203,6 @@
     display: block; /* Le menu s'ouvre lorsque la classe 'open' est ajoutée */
 }
 
-
 .tableau-wrapper {
     display: flex;
     background: var(--vdark-main-color);
