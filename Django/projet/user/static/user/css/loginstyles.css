@@ -6,11 +6,15 @@
     flex-wrap: nowrap;
 }
 
-h2 {
+h2, h3 {
     margin: 0;
     padding: 0 0 20px;
     text-align: center;
     font-size: 22px;
+}
+
+h3{
+    font-size: 16px;
 }
 
 .loginbox {
@@ -87,4 +91,9 @@ h2 {
     margin: auto;
     width: auto;
     padding: 10%;
+}
+
+#profilepage{
+    width: 30%;
+    height: 50%;
 }
