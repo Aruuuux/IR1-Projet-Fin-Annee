@@ -127,10 +127,8 @@ def indexview(request):
 
         try:
             user = User.objects.get(email=email)
-            print(user.password)
             if password==user.password:
                 messages.success(request, 'Successfully logged in.')
-                print(user.roles)
                 if user.roles == 'Teacher':
                     return redirect('user:main', user.id)
                 elif user.roles == 'Student':
@@ -190,6 +188,7 @@ def password_resetdonehtml(request):
 
 def password_resethtml(request):
     return render(request, 'user/psswrdreset.html')
+
 def profile(request):
     return render(request, 'user/profile.html')
 
