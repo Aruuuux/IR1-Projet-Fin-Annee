@@ -130,35 +130,6 @@ def main(request, user_id):
     return render(request, 'user/main.html', context)
 
 
-            # Iterate over each score to get student details
-            for score in scores:
-                student = score.student_id
-
-                # Retrieve absences for the student in the course
-                absences_count = Absence.objects.filter(course_id=course, student_id=student).count()
-
-                student_details = {
-                    'student_id': student.student_id,
-                    'first_name': student.first_name,
-                    'last_name': student.last_name.upper(),
-                    'specialty': student.speciality_id,
-                    'year':student.year,
-                    'course': course.name,
-                    'score': score.student_score,
-                    'absences_count': absences_count  # Add absences count to student details
-                }
-                students_details.append(student_details)
-                specialities.add(student.speciality_id)  # Add student's speciality to the set
-
-    context = {
-        'teacher': teacher,
-        'courses_taught': courses_taught,
-        'students_details': students_details,
-        'specialities': specialities
-    }
-
-    return render(request, 'user/main.html', context)
-
 
 '''
 def indexview(request):
