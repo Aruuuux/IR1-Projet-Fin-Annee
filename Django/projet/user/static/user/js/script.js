@@ -25,19 +25,31 @@ document.getElementById('profil-utilisateur').addEventListener('click', function
 });
 
 
-document.getElementById('menu-filter-button').addEventListener('click', function () {
+window.addEventListener('DOMContentLoaded', (event) => {
     var filtresMenu = document.getElementById('menu-filter');
-    var icon = document.getElementById('menu-filter-icon');
-    var icon = document.getElementById('title-filter-icon');
+    var menuIcon = document.getElementById('menu-filter-icon');
+    var rightSrc = menuIcon.getAttribute('data-right-src');
+    var downSrc = menuIcon.getAttribute('data-down-src');
+
+    // Set initial icon state based on menu state
     if (filtresMenu.classList.contains('open')) {
-        filtresMenu.classList.remove('open');
-        this.classList.remove('open');
-        icon.className = "fas fa-caret-right";
+        menuIcon.src = downSrc;
     } else {
-        filtresMenu.classList.add('open');
-        this.classList.add('open');
-        icon.className = "fas fa-caret-down";
+        menuIcon.src = rightSrc;
     }
+
+    document.getElementById('menu-filter-button').addEventListener('click', function () {
+        var uniqueParam = '?v=' + new Date().getTime();
+        if (filtresMenu.classList.contains('open')) {
+            filtresMenu.classList.remove('open');
+            this.classList.remove('open');
+            menuIcon.src = rightSrc + uniqueParam;
+        } else {
+            filtresMenu.classList.add('open');
+            this.classList.add('open');
+            menuIcon.src = downSrc + uniqueParam;
+        }
+    });
 });
 document.getElementById('reset-button').addEventListener('click', function() {
     var checkboxes = document.querySelectorAll('#menu-filter input[type="checkbox"]');

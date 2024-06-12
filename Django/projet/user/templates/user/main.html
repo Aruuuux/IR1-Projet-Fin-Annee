@@ -16,7 +16,7 @@
 
 {% block main-content %}
 <div id="left-menu">
-    <button id="menu-filter-button"><i class="fas fa-filter fa-sm"></i> Filtres <i id="menu-filter-icon" class="fas fa-caret-down"></i></button> <!-- change 'title-filter-icon' to 'menu-filter-icon' -->
+    <button id="menu-filter-button"><i class="fas fa-filter fa-sm"></i> Filtres <img id="menu-filter-icon" data-right-src="{% static 'user/icons/fleche-droite.svg' %}" data-down-src="{% static 'user/icons/fleche-bas.svg' %}" src="{% static 'user/icons/fleche-bas.svg' %}" alt="Icone de menu"></button> 
     <form method="post" enctype="multipart/form-data" id="form_year">
     <div id="menu-filter" class="open">
         <div class="filter-components">
