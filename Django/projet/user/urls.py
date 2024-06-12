@@ -2,7 +2,7 @@
 from django.urls import path,include
 from . import views
 from django.contrib.auth import views as auth_views
-#from .views import export_users_to_excel
+
 
 app_name = 'user'
 urlpatterns = [
@@ -11,20 +11,31 @@ urlpatterns = [
     path('createuser/', views.createuser, name='createuser'),
     path('edituser/<int:user_id>/', views.edituser, name='edituser'),
     path('deleteuser/<int:user_id>/', views.deleteuser, name='deleteuser'),
+    path('psswrdforgot/', views.psswrdforgot, name='psswrdforgot'),
     path('userslist/', views.userslist, name='userslist'),
     path('importusers/', views.importusers, name='importusers'),
-    path('main/<int:user_id>/', views.main, name='main'),
-    path('etudiant/<int:user_id>/', views.etudiant, name='etudiant'),
-    path('supervisor/<int:user_id>/', views.supervisor, name='supervisor'),
-    path('profile/<int:user_id>/', views.profile, name='profile'),
+    path('main/', views.main, name='main'),
+    path('profile/', views.profile, name='profile'),
     path('parametre/', views.parametre, name='parametre'),
-    path('changepsswrd/',views.changepsswrd, name='changepsswrd'),
-    path('edt/', views.edt, name='edt'),
-    path('error_400/', views.error_400, name='error_400'),
-    path('error_403/', views.error_403, name='error_403'),
-    path('error_404/', views.error_404, name='error_404'),
-    path('error_500/', views.error_500, name='error_500'),
-    path('password_reset/', views.passwordreset, name='password_reset'),
+    path('changepsswrd/',views.changepsswrd,name='changepsswrd'),
+    path('edt/',views.edt,name='edt'),
+    #path('emailsent/', views.emailsent, name='emailsent'),
+    #path('test-email/', views.test_email, name='test_email'),
+    #path('psswrdreset/<uidb64>/<token>/', views.psswrdreset, name='psswrdreset'),
+   
+    path('changepsswrd/', views.changepsswrd, name='changepsswrd'),
+    path('404/', views.E404, name='E404'),
+    path('500/', views.E500, name='E500'),
+    path('403/', views.E403, name='E403'),
+    path('400/', views.E400, name='E400'),
+
+    path('password_reset/', views.psswrdforgot, name='password_reset'),
+    #path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    # Other URL patterns
+    #nop
     
+
+    
+
     ]
 

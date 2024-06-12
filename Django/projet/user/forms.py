@@ -4,6 +4,7 @@ from databaseprojet.models import User,Roles,Speciality
 from django.contrib.auth.forms import UserCreationForm
 from databaseprojet.models import User
 
+
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
@@ -16,9 +17,9 @@ class UserForm(forms.ModelForm):
         widgets = {
             'password': forms.PasswordInput(),
         }
-
-    def init(self, args, **kwargs):
-        super(UserForm, self).init(args, **kwargs)
+        
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
         self.fields.pop('email', None)
         self.fields['photo'].required = False
         self.fields['first_name'].initial = ''
@@ -49,7 +50,7 @@ class FilterForm(forms.Form):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        email_pattern = r'^[a-zA-Z]+.[a-zA-Z]+@uha.fr$'
+        email_pattern = r'^[a-zA-Z]+\.[a-zA-Z]+@uha\.fr$'
         if not re.match(email_pattern, email):
             raise forms.ValidationError('Email doit être sous la forme prenom.nom@uha.fr')
         return email

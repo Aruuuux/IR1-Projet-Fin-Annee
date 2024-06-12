@@ -1,10 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import User, Roles, Speciality, Module, Course, Score, Absence
+from .models import User, Roles, Speciality, Module, Course, Score, Course_type, Absence
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
-#Cette classe sert à la gestion des mdp entrés (il faut que les 2 soient identiques)
+# Cette classe sert à la gestion des mdp entrés (il faut que les 2 soient identiques)
 class UserCreationForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
@@ -28,7 +28,8 @@ class UserCreationForm(forms.ModelForm):
         return user
 
 
-#Cette classe sert comme configuration spécifique pour le modèle 'User' dans l'interface d'administration de Django
+# Cette classe sert comme configuration spécifique pour le modèle 'User' dans l'interface d'administration de Django
+
 class UserAdmin(BaseUserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
@@ -52,4 +53,5 @@ admin.site.register(Speciality)
 admin.site.register(Module)
 admin.site.register(Course)
 admin.site.register(Score)
+admin.site.register(Course_type)
 admin.site.register(Absence)

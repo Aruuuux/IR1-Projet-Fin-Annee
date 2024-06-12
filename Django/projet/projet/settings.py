@@ -42,8 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'databaseprojet',
-    'user',
-    'module',
+    'user'
     # 'guardian', #Pour la gestion des permissions
 ]
 
