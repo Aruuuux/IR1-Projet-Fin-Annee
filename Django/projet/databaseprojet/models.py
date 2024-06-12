@@ -16,9 +16,6 @@ class Roles(models.Model):
     def __str__(self):
         return self.get_name_display()
 
-
-
-
 class Speciality(models.Model):
     SPECIALITY_CHOICES = [
         (1, 'Informatique et réseaux'),
@@ -62,7 +59,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     roles = models.CharField(max_length=50, choices=[('Student', 'Student'), ('Teacher', 'Teacher'), ('Supervisor', 'Supervisor')])
     date_of_birth = models.DateField(blank=True, null=True)
     speciality_id = models.ForeignKey('Speciality', on_delete=models.CASCADE, blank = True, null = True)
-    photo = models.ImageField(upload_to='photos/', blank=True, null=True)
+    photo = models.ImageField(upload_to='user_photos/', blank=True, null=True)
     email = models.EmailField(unique=True)
     password = models.TextField(max_length=255)
     student_id = models.IntegerField(blank=True, null=True, unique=True)
@@ -108,31 +105,19 @@ class Module(models.Model):
     
 
 class Course(models.Model):
-    course_id=models.AutoField(primary_key=True)
-    name= models.CharField(max_length=255)
-    Number_of_credits=models.IntegerField() 
-    Year=models.IntegerField() 
-    Speciality_id=models.ForeignKey(Speciality, on_delete=models.CASCADE)
-    coefficient=models.IntegerField() 
-    module_id=models.ForeignKey(Module, on_delete=models.CASCADE)
-    semester=models.IntegerField() 
-    teacher_id=models.IntegerField(default=0)
+    course_id = models.AutoField(primary_key=True)
+    teacher_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    Number_of_credits = models.IntegerField()
+    Year = models.IntegerField()
+    Speciality_id = models.IntegerField()
+    coefficient = models.IntegerField()
+    module_id = models.ForeignKey(Module, on_delete=models.CASCADE)
+    semester = models.IntegerField()
 
+    def __str__(self):
+        return self.name
 
-class Date(models.Model):
-    id = models.AutoField(primary_key=True)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    start_time = models.TimeField()
-    end_time = models.TimeField()
-    jours=models.DateTimeField(default=timezone.now)
-
-
-class Absence(models.Model):
-    id = models.AutoField(primary_key=True)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    date = models.ForeignKey(Date, on_delete=models.CASCADE)
-    date = models.DateField()
-    student_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Score(models.Model):
     id=models.AutoField(primary_key=True)
@@ -148,3 +133,8 @@ class Course_type(models.Model):
     absence_number=models.IntegerField()
     course_type=models.IntegerField()
 
+class Absence(models.Model):
+    id=models.AutoField(primary_key=True)
+    course_id=models.ForeignKey(Course, on_delete=models.CASCADE)
+    date=models.DateField()
+    student_id=models.ForeignKey(User, on_delete=models.CASCADE)

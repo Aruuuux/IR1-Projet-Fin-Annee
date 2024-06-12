@@ -48,13 +48,13 @@
     </style>
 </head>
 <body>
-  
+
 <div class="container mt-5">
     <a href="{% url 'user:createuser' %}" class="btn btn-primary" >Create User</a>
-    
     <h2>Users List</h2>
     <!-- Search Form -->
     <form method="get" action="{% url 'user:userslist' %}" class="mb-4">
+        
         <div class="form-row">
             <div class="col">
                 <input type="text" class="form-control" name="first_name" placeholder="First Name" value="{{ request.GET.first_name }}">
@@ -141,7 +141,7 @@
                 <td>{{ user.student_id }}</td>
                 <td>{{ user.date_of_birth }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.roles.name }}</td>
+                <td>{{ user.roles }}</td>
                 <td>{{ user.speciality_id.name }}</td>
                 <td>{{ user.year }}</td>
                 <td>
