@@ -248,11 +248,16 @@ table#info-etudiant{
     color:rgb(10, 13, 20);
 }
 
+table#modules{
+    width: calc(var(--table-width) - 10px);
+    color:rgb(10, 13, 20);
+}
+
+
 th, td {
     max-height:50px;
     box-sizing: border-box;
     padding: 4px;
-    text-align: center;
     border: 2px solid var(--black);
 }
 
