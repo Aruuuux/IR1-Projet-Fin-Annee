@@ -13,15 +13,14 @@
 {% endblock %}
 
 {% block main-content %}
-
-<div id="left-menu">
+<section id="left-menu">
     <button id="menu-filter-button"><i class="fas fa-filter fa-sm"></i> Filtres <i id="title-filter-icon" class="fas fa-caret-down"></i></button>
     
-    <form method="post" enctype="multipart/form-data" id="form_year">
+    <form method="post" id="form_year">
         <div id="menu-filter" class="open">
-            {% csrf_token %}
             <div class="filter-components">
-                <button class="title-filter">Année</button>
+                <button class="title-filter">Année</button>           
+                {% csrf_token %}
                 <div class="menu-content" id="year-dropdown">
                     <div><label><input type="checkbox" name="year" value="1" /> Année 1</label></div>
                     <div><label><input type="checkbox" name="year" value="2" /> Année 2</label></div>
@@ -30,6 +29,7 @@
             </div>
             <div class="filter-components">
                 <button class="title-filter">Courses</button>
+                {% csrf_token %}
                 <div class="menu-content" id="course-dropdown">
                     {% for course in courses_taught %}
                     <div>
@@ -45,7 +45,7 @@
                 {% csrf_token %}
                 <div class="menu-content" id="cursus-dropdown">
                     {% for speciality in specialities %}
-                    <div><label><input type="checkbox" name="cursus" value="{{ speciality.id }}" />{{ speciality.name }}</label></div>
+                    <div><label><input type="checkbox" name="cursus" value="{{ speciality.id }}">{{ speciality.name }}</label></div>
                     {% endfor %}
                 </div>
             </div>
@@ -53,8 +53,8 @@
                 <button class="title-filter">Identification</button>
                 {% csrf_token %}
                 <div class="menu-content" id="identification-dropdown">
-                    <div><label><input type="checkbox" name="identification" value="1" /> N° étudiant</label></div>
-                    <div><label><input type="checkbox" name="identification" value="2" checked="true" /> Nom</label></div>
+                    <div><label><input type="checkbox" name="identification" value="1"> N° étudiant</label></div>
+                    <div><label><input type="checkbox" name="identification" value="2" checked="true"> Nom</label></div>
                 </div>
             </div>
             <div id="button-container">
@@ -68,10 +68,10 @@
     
     
     
-</div>
-
-<div  id="tabmain" class="tableau-wrapper">
+</section>
+<div  class="tableau-wrapper">
     {% load custom_filters %}
+    <section id="tabmain" class="tableau">
         <table id="noteabs">
             <thead>
                 <tr>
@@ -100,5 +100,6 @@
             {% endfor %}
             </tbody>
         </table>
+    </section>
 </div>
 {% endblock %}

@@ -2,51 +2,27 @@
 {% load static %}
 
 {% block styles %}
-<!-- <link rel="stylesheet" href="{% static 'user/css/styles.css' %}" /> -->
-<link rel="stylesheet" href="{% static 'user/css/createuserstyle.css' %}" />
+<link rel="stylesheet" href="{% static 'user/css/loginstyles.css' %}" />
 {% endblock %}
+
 
 {% block main-content %}
 <div class="loginbox">
     <h2>Se connecter</h2>
-    <form>
+    <form method="post">
+        {% csrf_token %}
         <p>E-Mail</p>
-        <input type="text" name="email" placeholder="prénom.nom@uha.fr" />
+        <input type="text" name="email" placeholder="prénom.nom@uha.fr">
         <p>Mot de passe</p>
-        <input type="password" name="password" placeholder="********" />
-        <button type="submit" name="" value="Login" >Connexion</button>
-        <a href="{% url 'user:psswrdforgot' %}">Mot de passe oublié ?</a>
+        <input type="password" name="password" placeholder="********">
+        <button type="submit" name="" value="Login">Connexion</button>
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <p style="color: red;">{{ message }}</p>
+        {% endif %}
+        {% endfor %}
+        <a href="{% url 'user:password_forgotten' %}">Mot de passe oublié ?</a>
     </form>
 </div>
-
-<!-- Error Modal
-<div tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-                <h5>Error</h5>
-                <button type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                {% for message in messages %}
-                    {% if message.tags == 'error' %}
-                    <div>{{ message }}</div>
-                    {% endif %}
-                {% endfor %}
-                <button type="button" data-dismiss="modal">Close</button>
-</div>-->
-
-{% block js %}
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    $(document).ready(function() {
-        {% if messages %}
-            {% for message in messages %}
-                {% if message.tags == 'error' %}
-                    $('#errorModal').modal('show');
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    });
-</script>
-{% endblock %}
-
+    
 {% endblock %}
