@@ -23,8 +23,11 @@ document.getElementById('profil-utilisateur').addEventListener('click', function
         dropdownMenu.classList.add('show');
     }
 });
-
-
+/*
+window.addEventListener('click', function() {
+    document.getElementById('dropdown-menu').classList.remove('show');
+});
+*/
 document.getElementById('menu-filter-button').addEventListener('click', function () {
     var filtresMenu = document.getElementById('menu-filter');
     var icon = document.getElementById('menu-filter-icon');
@@ -39,6 +42,7 @@ document.getElementById('menu-filter-button').addEventListener('click', function
         icon.className = "fas fa-caret-down";
     }
 });
+
 document.getElementById('reset-button').addEventListener('click', function() {
     var checkboxes = document.querySelectorAll('#menu-filter input[type="checkbox"]');
     checkboxes.forEach(function(checkbox) {
