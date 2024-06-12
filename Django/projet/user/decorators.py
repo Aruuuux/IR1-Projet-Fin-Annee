@@ -1,10 +1,12 @@
 from django.core.exceptions import PermissionDenied
+from django.shortcuts import redirect
+
 
 def role_required(role):
     def decorator(view_func):
         def _wrapped_view(request, *args, **kwargs):
             if request.user.roles != role:
-                raise PermissionDenied
+                return redirect('user:error_403')
             return view_func(request, *args, **kwargs)
         return _wrapped_view
     return decorator

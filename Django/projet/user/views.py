@@ -129,42 +129,13 @@ def main(request, user_id):
 
     return render(request, 'user/main.html', context)
 
-
-
-'''
-def indexview(request):
-    if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-
-        try:
-            user = User.objects.get(email=email)
-            user = User.authe
-            print(user.password)
-            if password==user.password:
-                messages.success(request, 'Successfully logged in.')
-                print(user.roles)
-                if user.roles == 'Teacher':
-                    return redirect('user:main', user.id)
-                elif user.roles == 'Student':
-                    return redirect('user:etudiant',user_id=user.id)
-                else :
-                    return redirect('user:supervisor')
-            else:
-                messages.error(request, 'Invalid email or password')
-        except User.DoesNotExist:
-            messages.error(request, 'Invalid email or password')
-    
-    return render(request, 'user/index.html')
-'''
-
 def indexview(request):
     print('INDEX')
     if request.method == 'POST':
         email = request.POST['email']
         print ('email', email)
         password = request.POST['password']
-        print ('PSWRD',password)        
+        print ('PSWRD',password)
         
         user = authenticate(request, email=email, password=password)
         print('user',user)
@@ -177,7 +148,7 @@ def indexview(request):
             elif user.roles == 'Student':
                 return redirect('user:etudiant', user.id)
             else:
-                return redirect('user:supervisor')
+                return redirect('user:supervisor', user.id)
         else:
             messages.error(request, 'Invalid email or password')
 
@@ -255,7 +226,8 @@ def changepsswrd(request):
 def edt(request):
     return render(request,'user/edt.html')
 
-#@role_required('Supervisor')
+@login_required
+@role_required('Supervisor')
 def createuser(request):
     if request.method == 'POST':
         form = UserForm(request.POST, request.FILES)
@@ -306,11 +278,12 @@ def createuser(request):
     else:
         form = UserForm()
     roles = User._meta.get_field('roles').choices
-    specialities = specialities = Speciality.objects.all()
+    specialities = Speciality.objects.all()
 
     return render(request, 'user/createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'messages': messages.get_messages(request)})
 
-#@role_required('Supervisor')
+@login_required
+@role_required('Supervisor')
 def edituser(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     if request.method == 'POST':
@@ -374,7 +347,7 @@ def edituser(request, user_id):
     users = User.objects.all()
     return render(request, 'user/createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'users': users})
 
-
+@login_required
 @role_required('Supervisor')
 def deleteuser(request, user_id):
     user = get_object_or_404(User, id=user_id)
@@ -382,8 +355,8 @@ def deleteuser(request, user_id):
     messages.success(request, 'User has been deleted successfully.')
     return redirect('user:userslist') 
 
-
-#@role_required('Supervisor')
+@login_required
+@role_required('Supervisor')
 def userslist(request):
     first_name = request.GET.get('first_name', '')
     last_name = request.GET.get('last_name', '')
@@ -414,7 +387,8 @@ def userslist(request):
     }
     return render(request, 'user/userslist.html', context)
 
-
+#@login_required
+#@role_required('Supervisor')
 def importusers(request):
     if request.method == 'POST' and request.FILES.get('csv_file'):
         csv_file = request.FILES['csv_file']
@@ -546,8 +520,9 @@ def error_500(request):
 
 @login_required
 @role_required('Supervisor')
-def supervisor(request):
+def supervisor(request, user_id):
     # Retrieve the teacher object (if needed for any other purpose)
+    user = get_object_or_404(User, pk=user_id)
 
     # Retrieve all courses
     courses_taught = Course.objects.all()
@@ -626,7 +601,6 @@ def supervisor(request):
 
     # Retrieve all specialities available in the system
     all_specialities = Speciality.objects.all()
-    user = get_object_or_404(User, pk = user_id)
 
     context = {
         'courses_taught': courses_taught,
