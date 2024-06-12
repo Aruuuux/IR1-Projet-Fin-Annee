@@ -1,0 +1,187 @@
+/* basestyle.css */
+
+/*------------------------------Variables-----------------------------------*/
+/* variables.css */
+:root {
+    --vdark-main-color : #001317;
+    --darker-main-color : #013538;
+    --dark-main-color : #00575C;
+    --main-color : #06797f;
+    --lighter-main-color :#23a7ae;
+    --clair-main-color : #31a6c3;
+    --light-main-color : #7dc6de;
+    --vlight-main-color : rgb(193, 228, 232);
+    --white : rgb(237, 242, 242);
+    --vlight-grey :#d5ddde;
+    --light-grey :#adbdbd;
+    --grey : #667372;
+    --dark-grey : #414e4f;
+    --black : rgb(10, 20, 17);
+
+    --table-height : calc(100vh - 150px);
+    --table-width : calc(100vw - 250px);
+}
+
+html[data-theme="dark"] {
+    --white : rgb(237, 241, 242);
+    --vdark-main-color : rgb(2, 32, 38);
+    --main-color : #06797f;
+    --lighter-main-color :#23a7ae;
+    --light-main-color : rgb(135, 198, 224);
+    --black : rgb(10, 13, 20);
+    --grey : rgb(46, 52, 56);
+    --light-grey :#adbdbd;
+    --dark-grey : #414e4f;
+}
+
+html[data-theme="light"] {
+    --white : rgb(10, 13, 20);;
+    --vdark-main-color : rgb(130, 199, 213);
+    --main-color : #2aaeb5;
+    --lighter-main-color :#5acadb;
+    --light-main-color : rgb(51, 157, 202);
+    --black : rgb(237, 241, 242);
+    --grey : #667372;
+    --light-grey :#d5ddde;
+    --dark-grey : #464d4d;
+}
+
+
+
+/*------------------------------Global---------------------------------------*/
+html, body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(var(--black),var(--main-color));
+    background-attachment: scroll;
+    background-size: cover;
+    display: contents;
+    overflow: hidden;
+
+    /* Scrolling behavior */
+    --scroll-behavior: smooth; /* permet un défilement de page plus doux */
+    scroll-behavior: var(--scroll-behavior);
+}
+
+header {
+    background-color: var(--vdark-main-color);
+    height: 4rem;
+    color : var(--white);
+    padding: 5px;
+    opacity: 1;
+    font-size: 11px;
+    padding-left:  0.5rem;
+}
+
+#main-content {
+    display: flex;
+    /* Height of the window minus the height of the header minus the height of the footer:
+    this prevents the page from being too large and being able to scroll in it */
+    height: calc(100vh - 4rem - 3rem);
+    box-sizing: border-box;
+}
+
+#profil-utilisateur button {
+    margin: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+#menu-top {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    height:100%;
+}
+
+#logo {
+    width:10%;
+    height:100%;
+}
+
+#logo img {
+    height: 100%;
+    width: auto;
+}
+
+#dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 10px; /* Positionner le menu à droite de l'élément parent */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+    z-index: 1;
+    border-radius: 8px;
+    opacity: 0;
+    background-color: var(--main-color); /* Couleur de fond sombre */
+    font-family: Arial, sans-serif; /* Police simple et propre */
+    margin-right: 1rem;
+    padding: 0.3rem 0.5rem;
+}
+
+#dropdown-menu.show {
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    right:0;
+}
+
+img:not(#logo *){
+    height: 2.5rem;
+    width: auto;
+    filter: invert(100%) sepia(20%) saturate(400%) hue-rotate(90deg) brightness(90%) contrast(100%);
+}
+
+#dropdown-menu * {
+    color: rgb(237, 241, 242);
+    display: inline-block;
+    text-decoration: none;
+    margin: 0.2rem;
+    font-size: 1rem;
+    text-align: center;
+    justify-content: center;
+}
+
+#dropdown-menu *:hover,#dropdown-menu *:hover *{
+    background-color: var(--lighter-main-color); /* Couleur de fond plus claire lors du survol */
+    cursor: pointer; /* Change le curseur en main-content lors du survol */
+    color:rgb(10, 13, 20);
+    filter: none;
+    border-radius: 8px;
+}
+
+#dropdown-menu *:hover img{
+    border-radius: 0;
+}
+
+
+
+footer {
+    position: absolute;
+    bottom:0px;
+    width:100%;
+    color: var(--white);
+    justify-content: center;
+    text-align: center;
+    height : 3rem;
+}
+
+/* Scrollbar style */
+::-webkit-scrollbar {
+    width: 0.5rem; /* largeur de la scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent; /* couleur de fond de la scrollbar */
+    border-radius: 10px; /* coins arrondis de la scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(140, 154, 165, 0.3); /* couleur de la poignée de la scrollbar */
+    border-radius: 10px; /* coins arrondis de la poignée de la scrollbar */
+}
+

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Course</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+    <style>
+        .toggle-section {
+            display: none;
+        }
+
+        slidecontainer {
+            width: 100%; /* Width of the outside container */
+          }
+          
+          /* The slider itself */
+          .slider {
+            -webkit-appearance: none;  /* Override default CSS styles */
+            appearance: none;
+            width: 100%; /* Full-width */
+            height: 25px; /* Specified height */
+            background: #d3d3d3; /* Grey background */
+            outline: none; /* Remove outline */
+            opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+            -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+            transition: opacity .2s;
+          }
+          
+          /* Mouse-over effects */
+          .slider:hover {
+            opacity: 1; /* Fully shown on mouse-over */
+          }
+          
+          /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+          .slider::-webkit-slider-thumb {
+            -webkit-appearance: none; /* Override default look */
+            appearance: none;
+            width: 25px; /* Set a specific slider handle width */
+            height: 25px; /* Slider handle height */
+            background: blue; /* Green background */
+            cursor: pointer; /* Cursor on hover */
+          }
+          
+          .slider::-moz-range-thumb {
+            width: 25px; /* Set a specific slider handle width */
+            height: 25px; /* Slider handle height */
+            background: blue; /* Green background */
+            cursor: pointer; /* Cursor on hover */
+          }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Manage Course: {{ course.name }}</h1>
+        {% comment %}
+        <p>Teacher: {{ course.teacher_id }}</p>
+        <p>Number of Credits: {{ course.Number_of_credits }}</p>
+        <p>Year: {{ course.Year }}</p>
+        <p>Speciality ID: {{ course.Speciality_id }}</p>
+        <p>Coefficient: {{ course.coefficient }}</p>
+        <p>Module: {{ course.module_id.name }}</p>
+        <p>Semester: {{ course.semester }}</p>
+        {% endcomment %}
+
+        <div class="btn-group mt-3" role="group" aria-label="Toggle Sections">
+            <button type="button" class="btn btn-primary" id="toggle-absence">Absence</button>
+            <button type="button" class="btn btn-secondary" id="toggle-grade">Grade</button>
+        </div>
+
+        <div id="grade-section" class="toggle-section mt-3">
+            <h2>Grade Section</h2>
+        
+            <h3>Add Scores</h3>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="student_id">Student</label>
+                    {% if score.id %}
+                    <select name="student_id" class="form-control" disabled>
+                    {% else %}
+                    <select name="student_id" class="form-control" required>
+                    {% endif %}
+                        {% for student in students %}
+                            <option value="{{ student.id }}" 
+                            {% if student.id == score.student_id.id %} selected {% endif %}>{{ student }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="student_score">Score:</label>
+                    <input type="range" min="0" max="20" value="{{ score.student_score }}" class="slider" name="student_score" id="myRange" step="0.1">
+                    <p>Value: <span id="demo">{{ score.student_score }}</span></p>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Score</button>
+                <p></p>
+            </form>
+            
+            
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Score</th>
+                        <th></th> <!-- New header for actions -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for score in scores %}
+                    <tr>
+                        <td>{{ score.student_id }}</td>
+                        <td>{{ score.student_score }}</td>
+                        <td>
+                            <div class="d-inline">
+                                <!-- Edit icon -->
+                                <a href="{% url 'module:editscore' score.id %}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                        <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
+                                    </svg>
+                                </a>
+                                <!-- Delete icon -->
+                                <a href="#" class="delete-score-btn" data-toggle="modal" data-target="#deleteConfirmationModalScore" data-score-id="{{ score.id }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+
+        <div id="absence-section" class="toggle-section mt-3">
+            <h2>Absence Section</h2>
+
+            <h3>Add Absence</h3>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_student_id">Student</label>
+                    {% if absence.id %}
+                    <select name="student_id" id="id_student_id" class="form-control" disabled>
+                    {% else %}
+                    <select name="student_id" id="id_student_id" class="form-control" required  >
+                    {% endif %}
+
+                        {% for student in students %}
+                        <option value="{{ student.id }}" {% if student.id == absence.student_id.id %}selected{% endif %}>{{student}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="id_date">Date</label>
+                    <input type="text" name="date" id="id_date" class="form-control" value="{{ absence.date|date:'Y-m-d' }}" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Absence</button>
+                <br>
+                <p></p>
+            </form>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Date</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for absence in absences %}
+                        <tr>
+                            <td>{{ absence.student_id }}</td>
+                            <td>{{ absence.date }}</td>
+                            <td>
+                                <div class="d-inline">
+                                <!-- Edit icon -->
+                                <a href="{% url 'module:editabsence' absence.id %}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                        <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
+                                      </svg>
+                                </a>
+                                <!-- Delete icon -->
+                                <a href="#" class="delete-absence-btn" data-toggle="modal" data-target="#deleteConfirmationModal" data-absence-id="{{ absence.id }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                    </svg>
+                                </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Are you sure you want to delete this absence?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  <a href="#" id="confirmDelete" class="btn btn-danger">Delete</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade" id="deleteConfirmationModalScore" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Are you sure you want to delete this score?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  <a href="#" id="confirmDeleteScore" class="btn btn-danger">Delete</a>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $('#absence-section').toggle();
+        $(document).ready(function(){
+            $('#toggle-grade').click(function(){
+                $('#grade-section').toggle();
+                $('#absence-section').hide();
+            });
+            $('#toggle-absence').click(function(){
+                $('#absence-section').toggle();
+                $('#grade-section').hide();
+            });
+
+            // Initialize the datepicker for the date field
+            $('#id_date').datepicker({
+                dateFormat: 'yy-mm-dd'
+            });
+
+            $('.delete-absence-btn').click(function() {
+                var absenceId = $(this).data('absence-id');
+                var deleteUrl = "{% url 'module:deleteabsence' 0 %}".replace('0', absenceId);
+                console.log(deleteUrl)
+                $('#confirmDelete').attr('href', deleteUrl);
+                $('#deleteConfirmationModal').modal('show');
+            });
+
+            $('.delete-score-btn').click(function() {
+                var scoreId = $(this).data('score-id');
+                var deleteUrl = "{% url 'module:deletescore' 0 %}".replace('0', scoreId);
+                $('#confirmDeleteScore').attr('href', deleteUrl);
+                $('#deleteConfirmationModalScore').modal('show');
+            });
+        });
+
+        var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+
+    </script>
+</body>
+</html>

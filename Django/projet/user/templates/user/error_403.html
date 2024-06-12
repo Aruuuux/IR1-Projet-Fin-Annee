@@ -1,0 +1,14 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'user/css/loginstyles.css' %}" />
+{% endblock %}
+
+{% block main-content %}
+<div class="error-container">
+    <h1>403</h1>
+    <p>Vous n'avez pas la permission d'accéder à cette page.</p>
+    <a href="{% url 'user:login' %}">Retour à l'accueil</a>
+</div>
+{% endblock %}

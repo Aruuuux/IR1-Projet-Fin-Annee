@@ -1,0 +1,21 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'user/css/loginstyles.css' %}" />
+{% endblock %}
+
+{% block main-content %}
+<div class="loginbox">
+    <h1><i class="fas fa-cog"></i>  Paramètre </h1>
+    <div id="parametre-affichage">
+        <h2>Affichage</h2>
+        <button id="mode-daltonien"><i class="fas fa-eye"></i> Mode daltonien</button>
+        <button id = "change-theme"><i class="fas fa-moon"></i> Mode sombre</button>
+    </div>
+    <div id="parametre-securite">
+    <h2>Sécurité</h2>
+        <button id = "mode-daltonien"><i class="fas fa-lock"></i>  Changer mot de passe</button>
+    </div>
+</div>
+{% endblock %}

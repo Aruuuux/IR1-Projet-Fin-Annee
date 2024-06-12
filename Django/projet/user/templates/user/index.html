@@ -1,0 +1,28 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'user/css/loginstyles.css' %}" />
+{% endblock %}
+
+
+{% block main-content %}
+<div class="loginbox">
+    <h2>Se connecter</h2>
+    <form method="post">
+        {% csrf_token %}
+        <p>E-Mail</p>
+        <input type="text" name="email" placeholder="prénom.nom@uha.fr">
+        <p>Mot de passe</p>
+        <input type="password" name="password" placeholder="********">
+        <button type="submit" name="" value="Login">Connexion</button>
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <p id="message-error">{{ message }}</p>
+        {% endif %}
+        {% endfor %}
+        <a href="{% url 'user:password_forgotten' %}">Mot de passe oublié ?</a>
+    </form>
+</div>
+    
+{% endblock %}

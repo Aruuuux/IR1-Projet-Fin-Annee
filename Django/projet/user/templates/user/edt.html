@@ -1,0 +1,274 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'user/css/mainstyle.css' %}" />
+{% endblock %}
+
+{% block header-content %}
+<div id="search-menu">
+    <input type="text" placeholder="Rechercher..." />
+    <button>Go</button>
+</div>
+{% endblock %}
+
+{% block main-content %}
+<section id="left-menu">
+    <button id="menu-filter-button"><i class="fas fa-filter fa-sm"></i>    Filtres  <i id="title-filter-icon" class="fas fa-caret-down"></i></button>
+    <div id="menu-filter" class="open">
+        <div class="filter-components">
+            <button class="title-filter">Année  </button>
+            <div class="menu-content" id="year-dropdown">
+                <div><label><input type="checkbox" name="year" value="1" /> 1ère année</label></div>
+                <div><label><input type="checkbox" name="year" value="2" /> 2e année</label></div>
+                <div><label><input type="checkbox" name="year" value="3" /> 3e année</label></div>
+            </div>
+        </div>
+        <div class="filter-components">
+            <button class="title-filter">Matière  </button>
+            <div class="menu-content" id="lesson-dropdown">
+                <div><label><input type="checkbox" name="lesson" value="1" /> ANCS</label></div>
+                <div><label><input type="checkbox" name="lesson" value="2" /> Java</label></div>
+                <div><label><input type="checkbox" name="lesson" value="3" /> HTML & CSS</label></div>
+                <div><label><input type="checkbox" name="lesson" value="4" /> F#</label></div>
+                <div><label><input type="checkbox" name="lesson" value="5" /> Signal</label></div>
+                <div><label><input type="checkbox" name="lesson" value="6" /> Economie</label></div>
+                <div><label><input type="checkbox" name="lesson" value="7" /> Orientation</label></div>
+                <div><label><input type="checkbox" name="lesson" value="8" /> UML</label></div>
+                <div><label><input type="checkbox" name="lesson" value="9" /> Stat</label></div>
+                <div><label><input type="checkbox" name="lesson" value="10" /> Math. Disc</label></div>
+                <div><label><input type="checkbox" name="lesson" value="11" /> WEB2</label></div>
+                <div><label><input type="checkbox" name="lesson" value="12" /> Reseau</label></div>
+                <div><label><input type="checkbox" name="lesson" value="14" /> Physique</label></div>
+                <div><label><input type="checkbox" name="lesson" value="15" /> Chimie</label></div>
+                <div><label><input type="checkbox" name="lesson" value="16" /> Biologie</label></div>
+                <div><label><input type="checkbox" name="lesson" value="17" /> Philosophie</label></div>
+                <div><label><input type="checkbox" name="lesson" value="18" /> Littérature</label></div>
+            </div>
+        </div>
+        <div class="filter-components">
+            <button class="title-filter">Filière </button>
+            <div class="menu-content" id="cursus-dropdown">
+                <div><label><input type="checkbox" name="cursus" value="1"  /> IR</label></div>
+                <div><label><input type="checkbox" name="cursus" value="2" /> Textile</label></div>
+                <div><label><input type="checkbox" name="cursus" value="3" /> GI</label></div>
+                <div><label><input type="checkbox" name="cursus" value="4" /> ASE</label></div>
+                <div><label><input type="checkbox" name="cursus" value="5" /> MECA</label></div>
+            </div>
+        </div>
+        <div class="filter-components">
+            <button class="title-filter">Identification</button>
+            <div class="menu-content" id="cursus-dropdown">
+                <div><label><input type="checkbox" name="cursus" value="1" /> N° étudiant</label></div>
+                <div><label><input type="checkbox" name="cursus" value="2" /> Nom</label></div>
+            </div>
+        </div>
+        <div id="button-container">
+            <button id="reset-button">Reset</button>
+            <button id="apply-button">Apply</button>
+        </div>
+    </div>
+</section>
+<div class="tableau-wrapper">
+    <div class="header">
+        <button id="prevWeek" onclick="changeWeek(-1)">Semaine Précédente</button>
+        <span >Semaine du 01/01/2024</span>
+        <button id="nextWeek" onclick="changeWeek(1)">Semaine Suivante</button>
+        <h2 id="weekLabel">Semaine du 12/06/2023 au 18/06/2023</h2>
+    </div>
+    <section class="tableau">
+        <table id="schedule">
+            <thead>
+                <tr>
+                    <th>Heure</th>
+                    <th>Lundi</th>
+                    <th>Mardi</th>
+                    <th>Mercredi</th>
+                    <th>Jeudi</th>
+                    <th>Vendredi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>8:00 - 8:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>8:30 - 9:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>9:00 - 9:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>9:30 - 10:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>10:00 - 10:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>10:30 - 11:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>11:00 - 11:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>11:30 - 12:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>12:00 - 12:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>12:30 - 13:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>13:00 - 13:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>13:30 - 14:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>14:00 - 14:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>14:30 - 15:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>15:00 - 15:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>15:30 - 16:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>16:00 - 16:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>16:30 - 17:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>17:00 - 17:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>17:30 - 18:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>18:00 - 18:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>18:30 - 19:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</div>
+<script type="text/javascript" src="{% static 'user/js/script-edt.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+    {% block styles %}
+    <link rel="stylesheet" href="{% static 'user/css/loginstyles.css' %}" />
+    {% endblock %}
+
+{% block main-content %}
+        <div class="loginbox">
+            <h2>Mot de passe oublié ?</h2>
+            <form>
+                <p>Un email a été envoyé</p>
+                <p class="info">Vous n'avez pas reçu d'email ? vérifiez dans vos spam !</p>
+                <input type="submit" name="sendagain" value="Renvoyer" />
+            </form>
+        </div>
+{% endblock %}

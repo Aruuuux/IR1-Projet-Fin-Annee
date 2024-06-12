@@ -1,0 +1,22 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'user/css/styles.css' %}" />
+<link rel="stylesheet" href="{% static 'user/css/loginstyles.css' %}" />
+{% endblock %}
+
+{% block main-content %}
+<div class="loginbox">
+    <div class="icon">
+        <i class="fas fa-user-circle fa-6x"></i>
+    </div>
+    <h1><span style="text-transform:uppercase">{{user.last_name}}</span> {{user.first_name}}</h1>
+    <p>{{user.student_id}}</p>
+    <p>{{user.roles}}</p>
+
+     {% if user.roles == "Student" %}
+        <p>{{ user.speciality_id }}</p>
+    {% endif %}
+</div>
+{% endblock %}

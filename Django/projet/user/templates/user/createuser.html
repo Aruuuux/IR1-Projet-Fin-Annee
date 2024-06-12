@@ -1,0 +1,139 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'user/css/createuserstyle.css' %}" />
+{% endblock %}
+
+{% block main-content %}
+<div id="form-wrapper" class="loginbox">
+    <h2>Création d'étudiants/professeurs</h2>
+
+    <form method="post" enctype="multipart/form-data" action="{% url 'user:importusers' %}">
+        {% csrf_token %}
+
+        <!-- CSV File importation -->
+        <h3>Importation de fichier CSV</h3>
+        <label for="csvFile"></label>
+        <input type="file" id="csvFile" name="csv_file" accept=".csv" />
+        <button type="submit">Import csv</button>
+
+    </form>
+
+    <form method="post" enctype="multipart/form-data" id="form-content">
+        {% csrf_token %}
+
+        <!-- First Name -->
+        <label for="id_first_name">Prénom</label>
+        <input type="text" id="id_first_name" name="first_name" placeholder="Prénom" {% if form.first_name.value %} value="{{ form.first_name.value }}" {% endif %} required />
+
+
+        <!-- Last Name -->
+        <label for="id_last_name">Nom</label>
+        <input type="text" id="id_last_name" name="last_name" placeholder="Nom" {% if form.last_name.value %} value="{{ form.last_name.value }}" {% endif %} required />
+
+
+        <!-- Role -->
+        <label for="id_role">Statut</label>
+        <select name="roles" id="id_role">
+            <option value="" disabled selected hidden>-- Statut --</option>
+            {% for value, label in roles %}
+            <option value="{{ value }}">{{ label }}</option>
+        {% endfor %}
+        </select>
+
+
+        <!-- Date of Birth -->
+        <label for="id_date_of_birth">Date de naissance</label>
+        <input type="date" id="id_date_of_birth" name="date_of_birth" value="{{ form.date_of_birth.value }}" required />
+
+
+        <!-- Speciality -->
+            <label for="id_speciality">Spécialités</label>
+            <select name="speciality_id" id="id_speciality">
+                {% for choice in specialities %}
+                    <option value="{{ choice.id }}">{{ choice.name }}</option>
+                {% endfor %}
+            </select>
+
+        <!-- Photo -->
+        <p>Importation de la photo</p>
+        <label for="id_photo">Import photo</label>
+        <input type="file" id="id_photo" name="photo" accept=".jpg, .jpeg, .png" />
+
+        <!-- Password -->
+        <label for="id_password">Mot de passe</label>
+        <input type="password" id="id_password" name="password" placeholder="***********" required />
+
+        <!-- Year -->
+        <label for="id_year">Année</label>
+        <select name="year" id="id_year" >
+            <option value="" disabled selected hidden>-- Sélection de l'année --</option>
+            <option value="1">1ère année</option>
+            <option value="2">2ème année</option>
+            <option value="3">3ème année</option>
+        </select>
+
+        <h5 id="successModalLabel">Success</h5>
+
+        <!-- Submit Button -->
+        <button type="submit" class="loginbox">Sauvegarder</button>
+        <button type="reset" class="loginbox">Reset</button>
+    </form>
+</div>
+
+
+<!--<div id="table-wrapper" class="loginbox">
+    <h2>Liste des utilisateurs à ajouter</h2>
+    <table id="table-users">
+        <thead>
+            <tr>
+                <th>Photo</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>ID étudiant</th>
+                <th>Date de naissance</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Spécialité</th>
+                <th>Année</th>
+            </tr>
+        </thead>
+        <tbody id="tableau-creatuser">
+            {% for user in users %}
+            <tr>
+                <td>
+                    {% comment %} <img src="{{ user.photo.url }}" alt="Photo étudiant" width="50" /> {% endcomment %}
+                </td>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.student_id }}</td>
+                <td>{{ user.date_of_birth }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles.name }}</td>
+                <td>{{ user.speciality_id.name }}</td>
+                <td>{{ user.year }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>-->
+
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    $('#successModal').modal('show');
+                {% elif message.tags == 'error' %}
+                    $('#errorModal').modal('show');
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    });
+</script>
+

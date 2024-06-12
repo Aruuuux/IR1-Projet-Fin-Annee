@@ -1,0 +1,71 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'user/css/mainstyle.css' %}" />
+
+{% endblock %}
+
+
+
+
+
+{% block main-content %}
+    <div class="tableau-wrapper" id="alone">
+        <h2>Student Information</h2>
+        <p><strong>Name:</strong> {{ user }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        
+        <h3>Course Details</h3>
+        <table id="info-etudiant">
+            <thead>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Score</th>
+                    <th>Number of Absences</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for detail in course_details %}
+                    <tr>
+                        <td>{{ detail.course_name }}
+                        </td>
+                        <td>{{ detail.course_score }}</td>
+                        <td>
+                            <span class="tooltip"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                              </svg> <span class="tooltiptext">
+                                Highest Score: {{ detail.highest_score }}<br>
+                                Lowest Score: {{ detail.lowest_score }}<br>
+                                Average Score: {{ detail.average_score|floatformat:2 }}
+                            </span></span>
+                        </td>
+                        <td class="tooltip">{{ detail.num_absences }}
+                        </td>
+                        <td>
+                        <span class="tooltip">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                              </svg>
+                        <span class="tooltiptext">
+                            Absence Dates:<br>
+                            {% for date in detail.absence_dates %}
+                                {{ date|date:'Y-m-d' }}<br>
+                            {% endfor %}
+                        </span></span>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+        if ({{ user.id}}!=0) {
+            href = "/user/profile"
+            document.getElementById("my_profile").href=href+"/"+ {{ user.id}};
+        }
+    </script>
+    {% endblock %}
+    

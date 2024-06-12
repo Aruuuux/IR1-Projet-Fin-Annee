@@ -1,0 +1,292 @@
+/* mainstyle.css */
+.menu-content {
+    display: block;
+    position: static;
+    color : black;
+    background-color: var(--light-grey);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 5px 0;
+    border-radius:8px;
+    z-index: 1;
+}
+
+.menu-content label {
+    display: block;
+    width: 100%;
+}
+
+.header{
+    border-radius: 4px;
+    width: calc(100% - 2rem);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    color: var(--white);
+    text-align: center;
+    background-color: var(--darker-main-color);
+}
+
+#weekLabel{
+    margin: 0;
+    margin-top: 1rem;
+}
+
+#prevWeek, #nextWeek {
+    padding: 10px 20px;
+    margin: 0 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    background-color: var(--main-color);
+    color: var(--white);
+}
+
+#prevWeek:hover, #nextWeek:hover{
+    background-color: var(--lighter-main-color);
+    color: var(--black)
+}
+
+.menu-content label:hover {
+    background-color: var(--vlight-grey);
+    border-radius:8px;
+}
+
+#menu-recherche-container {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+#search-menu {
+    display: flex;
+    align-items: center;
+    width: 60%;
+    max-width: 400px; /* Ajustez cette largeur selon vos besoins */
+    margin: 0 auto;
+}
+
+#search-menu input {
+    width: 20%;
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px 0 0 8px;
+    outline: none;
+    box-sizing: border-box;
+    height: 40px; /* Assurez-vous que la hauteur est la même pour les deux éléments */
+}
+
+#search-menu button {
+    background-color: var(--vlight-grey);
+    border: none;
+    cursor: pointer;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+    height: 40px; /* Assurez-vous que la hauteur est la même pour les deux éléments */
+    box-sizing: border-box;
+}
+
+#search-menu button:hover {
+    background-color: var(--light-main-color);
+}
+
+#search-menu button img {
+    height: 20px;
+}
+
+#left-menu {
+    background-color: transparent;
+    width: 200px;
+    height: auto;
+    float: left;
+    color: var(--white);
+    box-sizing: border-box;
+    padding: 3px 5px 4px 5px;
+    margin-top: 8px;
+    border-radius: 0px 0px 8px 0px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#reset-button, #apply-button {
+    background-color:  var(--grey);
+    color: var(--white);
+    font-size: 13px;
+    border: 1px solid var(--black);
+    cursor: pointer;
+    width: 50%;
+    border-radius: 8px;
+    display: flex;
+}
+
+#reset-button:hover, #apply-button:hover {
+    background-color:  var(--light-grey);
+}
+
+#button-container {
+    display: flex;
+    justify-content: space-between; /* Si vous voulez un espace entre les boutons */
+}
+
+#menu-filter-button {
+    box-sizing: border-box; /* Ajoutez cette ligne */
+    font-size: 18px;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    background-color: var(--dark-grey);
+    color: var(--white);
+    border-radius: 8px;
+    padding:5px;
+}
+
+.title-filter {
+    background-color: var(--grey);
+    color: var(--white);
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid var(--black);
+    text-align: center;
+    border-radius: 0.5rem;
+    margin: 0;
+}
+
+#left-menu button:hover {
+    background-color: var(--light-grey); /* Changez ceci à la couleur que vous voulez */
+}
+
+.dropdown-content {
+    display: none;
+    min-width: 100%;
+    box-shadow: 0px 8px 16px 0px rgb(10, 13, 20);
+    z-index: 1;
+    border-radius: 8px;
+}
+
+.dropdown-content label {
+    color: var(--white);
+    padding: 10px;
+    display: block;
+    width: 100%;
+    border-radius:8px;
+    z-index: 1;
+}
+
+.dropdown-content label:hover {
+    background-color: var(--grey);
+    z-index: 1;
+}
+
+.dropdown-content input {
+    margin-right: 10px;
+    z-index: 1;
+}
+
+#menu-filter {
+    display: none; /* Le menu est initialement fermé */
+    position: relative;
+    width: 100%;
+}
+
+#lesson-dropdown {
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+#menu-filter.open {
+    display: block; /* Le menu s'ouvre lorsque la classe 'open' est ajoutée */
+}
+
+.tableau-wrapper {
+    background: var(--vdark-main-color);
+    margin: 8px 8px 0 0;
+    max-height: calc(100% - 3rem - 20px);
+    width: fit-content;
+    border-radius: 8px;
+    border: 24px solid var(--vdark-main-color);
+    overflow-y: auto;
+}
+
+.tableau-wrapper>*{
+    text-align: center;
+    color: aliceblue;
+
+}
+
+#alone{
+    margin: auto;
+}
+
+table {
+    border-collapse: collapse;
+    font-size: smaller;
+    color:rgb(10, 13, 20);
+}
+
+table#noteabs{
+    width: calc(100vw - 200px);
+    min-width: 800px;
+    max-width: 100%;
+    color:rgb(10, 13, 20);
+}
+
+table#schedule{
+    width: calc(var(--table-width) - 10px);
+    min-width: 1000px;
+}
+
+table#info-etudiant{
+    width: 50vh;
+    border-collapse: collapse;
+    color:rgb(10, 13, 20);
+}
+
+table#modules{
+    width: calc(var(--table-width) - 10px);
+    color:rgb(10, 13, 20);
+}
+
+th, td {
+    max-height:50px;
+    box-sizing: border-box;
+    padding: 4px;
+    border: 2px solid var(--black);
+}
+
+th {
+    background-color: var(--grey);
+    font-weight: bold;
+    position: sticky;
+    top:0;
+    color: var(--white);
+}
+
+tr:nth-child(even) {
+    background-color: var(--light-grey);
+}
+tr:nth-child(odd) {
+    background-color: var(--vlight-grey);
+}
+#noteabs tr:hover {
+    background-color: rgb(237, 241, 242);
+}
+
+#schedule td:hover {
+    background-color: rgb(237, 241, 242);
+}
+
+#schedule td:first-child {
+    background-color: var(--dark-grey);
+    color: var(--white);
+    width: 8rem;
+    text-align: center;
+}
+
+.filter-icon {
+    margin-right: 10px;
+}

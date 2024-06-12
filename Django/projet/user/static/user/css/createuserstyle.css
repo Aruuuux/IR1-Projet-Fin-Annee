@@ -1,0 +1,220 @@
+/* createuserstyle.css */
+
+@media screen and (max-width:800px) {
+    #form-wrapper {
+        width: 80%;
+    }
+
+    ::-webkit-scrollbar {
+        width: 0.4rem;
+    }
+}
+
+#main-content {
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow: auto;
+}
+
+#form-wrapper {
+    padding: 0rem 1rem;
+    margin: 1rem 0rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#form-wrapper form > * {
+    margin: 0.5rem 0rem;
+}
+
+#form-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.loginbox {
+    text-align: center;
+    background: var(--vdark-main-color);
+    color: var(--white);
+    box-sizing: border-box;
+    border-radius: 2rem;
+    opacity: 0.92;
+}
+
+.loginbox input{
+    width: 80%;
+}
+
+.loginbox input[type="text"], .loginbox input[type="password"], .loginbox input[type="date"], .loginbox input[type="email"]  {
+    padding: 0.5rem 0;
+    border: 0.05rem solid var(--white);
+    background: transparent;
+    color: var(--primary-color);
+    font-size: 1rem;
+    border-radius: 1.5rem;
+    height: 2rem;
+    text-align: center;
+}
+
+.loginbox input[type="date"] {
+    padding: 0.5rem 1rem;
+}
+
+.loginbox button[type="submit"], .loginbox button[type="reset"] {
+    border: 0.05rem solid var(--white);
+    padding: 0.5rem;
+    margin: 1rem 0 0 0;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    border-radius: 1.5rem;
+}
+
+.loginbox button[type="reset"] {
+    margin: 1rem 0 0.5rem 0;
+}
+
+.loginbox button[type="submit"]:hover, .loginbox label[for="id_photo"]:hover {
+    cursor: pointer;
+    color: var(--black);
+    background: var(--light-main-color)
+}
+
+.loginbox button[type="reset"]:hover {
+    cursor: pointer;
+    background: #951414;
+}
+
+.loginbox #csv-button {
+    margin: 0;
+}
+
+.loginbox select {
+    border: 0.05rem solid var(--white);
+    background: transparent url('data:image/svg+xml;utf8,<svg fill="white" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 0.5rem center;
+    background-size: 2rem;
+    color: var(--primary-color);
+    font-size: 1rem;
+    border-radius: 1.5rem;
+    height: 2rem;
+    text-align: center;
+    width: auto;
+    appearance: none; /* Remove default styling */
+    -webkit-appearance: none; /* Remove default styling for WebKit browsers */
+    -moz-appearance: none; /* Remove default styling for Firefox */
+    position: relative;
+    padding-right: 2.4rem; /* Add space for the custom arrow */
+    padding-left: 0.5rem; /* Add space for the text */
+}
+
+.loginbox select:hover, .loginbox select:focus {
+    cursor: pointer;
+    background: var(--light-main-color) url('data:image/svg+xml;utf8,<svg fill="black" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 0.5rem center;
+    color: var(--black);
+    outline: 0.1rem solid var(--white);
+    background-size: 2rem;
+}
+
+.loginbox select::-ms-expand {
+    display: none; /* Remove default arrow in IE */
+}
+
+.loginbox label, .loginbox p{
+    font-weight: bold;
+}
+
+/* Hide the default file input */
+.loginbox input[type="file"] {
+    display: none;
+}
+
+/* Style the label to look like a button */
+.loginbox label[for="id_photo"] {
+    border: 0.05rem solid var(--white);
+    padding: 0.5rem;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    border-radius: 1.5rem;
+    font-weight: normal;
+}
+
+/* Specific styles for date input */
+.loginbox input[type="date"] {
+    -webkit-appearance: none; /* Remove default styling for WebKit browsers */
+    -moz-appearance: none; /* Remove default styling for Firefox */
+    appearance: none; /* Remove default styling for other browsers */
+    position: relative;
+}
+
+.loginbox input[type="date"]::-webkit-inner-spin-button,
+.loginbox input[type="date"]::-webkit-clear-button {
+    display: none; /* Hide default buttons in WebKit browsers */
+}
+
+.loginbox input[type="date"]::-webkit-calendar-picker-indicator {
+    font-size: 1.2rem;
+    position: absolute;
+    right: 1rem;
+    cursor: pointer;
+    background-color: rgba(237, 242, 242, 0.7); /* Transparent background */
+    border-radius: 1.5rem;
+    padding: 0.5rem;
+}
+
+.loginbox input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    background-color: rgba(237, 242, 242, 0.9); /* Slightly less transparent on hover */
+}
+
+.loginbox input[type="date"]::-webkit-input-placeholder, .loginbox input[type="date"]::-moz-placeholder,
+.loginbox input[type="date"]:-ms-input-placeholder, .loginbox input[type="date"]:-moz-placeholder{
+    text-align: center;
+}
+
+/* Style for the table */
+
+th, td {
+    min-width: 6rem;
+    box-sizing: border-box;
+    border: 2px solid var(--black);
+}
+
+th {
+    background-color: var(--grey);
+}
+
+#table-wrapper {
+    border: 0.3rem solid var(--white);
+    width: 90%;
+    /*
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    */
+}
+
+#table-wrapper h2 {
+    /*
+    position: sticky;
+    top: 0;  Ensure it stays at the top
+    left: 50%;
+    transform: translateX(-50%);
+    */
+    background-color: var(--vdark-main-color); /* Match background color */
+    padding: 0.5rem;
+}
+
+#table-users {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-collapse: collapse;
+    overflow: auto;
+    height: 70vh;
+}

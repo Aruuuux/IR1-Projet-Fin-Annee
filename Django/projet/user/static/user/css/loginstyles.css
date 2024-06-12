@@ -1,0 +1,100 @@
+/* loginstyles.css */
+
+#main-content {
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+h2, h3 {
+    margin: 0;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 22px;
+}
+
+h3{
+    font-size: 16px;
+}
+
+.loginbox {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    background: var(--vdark-main-color);
+    color: var(--white);
+    box-sizing: border-box;
+    padding: 2rem;
+    border-radius: 2rem;
+    opacity: 0.92;
+}
+
+p#message-error{
+    color: rgb(210, 29, 50); 
+    text-align: center; 
+    margin-bottom: 1rem;
+}
+
+.loginbox p{
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+
+.loginbox input{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.loginbox input[type="text"], input[type="password"]{
+    border: none;
+    border-bottom: 1px solid var(--white);
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: var(--white);
+    font-size: 16px;
+}
+
+.loginbox button[type="submit"] {
+    border: none;
+    width: 100%;
+    outline: none;
+    height: 40px;
+    background: var(--main-color);
+    color: var(--white);
+    font-size: 18px;
+    margin-bottom: 1rem;
+    border-radius: 20px;
+}
+
+.loginbox button[type="submit"]:hover {
+    cursor: pointer;
+    background: var(--lighter-main-color);
+    color: var(--black);
+}
+
+.loginbox a {
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--vlight-grey);
+}
+
+.loginbox a:hover {
+    color: var(--white);
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width: auto;
+    padding: 10%;
+}
+
+#profilepage{
+    width: 20%;
+    height: auto;
+    min-width: fit-content;
+}
