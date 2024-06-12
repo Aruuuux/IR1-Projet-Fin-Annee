@@ -60,13 +60,14 @@ header {
     position: absolute;
     right: 10px; /* Positionner le menu à droite de l'élément parent */
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
     z-index: 1;
     border-radius: 8px;
     opacity: 0;
     background-color: var(--main-color); /* Couleur de fond sombre */
     font-family: Arial, sans-serif; /* Police simple et propre */
     padding: 10px;
+    margin-right: 1rem;
 }
 
 #dropdown-menu.show {
@@ -99,7 +100,11 @@ img:not(#logo *){
     cursor: pointer; /* Change le curseur en main-content lors du survol */
     color: var(--black);
     filter: none;
-    border-radius: 16px;
+    border-radius: 8px;
+}
+
+#dropdown-menu *:hover img{
+    border-radius: 0;
 }
 
 footer {
