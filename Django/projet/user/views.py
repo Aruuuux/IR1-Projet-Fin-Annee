@@ -1,10 +1,17 @@
+from .decorators import role_required
+from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.auth import logout
+
+from django.shortcuts import get_object_or_404, render, redirect
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import UserForm,FilterForm
 from django.shortcuts import render, redirect
 from .forms import UserForm
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import login, authenticate
-from databaseprojet.models import Speciality, Roles, User
+from databaseprojet.models import Speciality, Roles, User, Course, Score, Absence
 import random, csv
 from django.contrib.auth.hashers import check_password
 from django.contrib import messages
@@ -29,12 +36,24 @@ from django.contrib.auth.views import (LoginView, LogoutView,
                                        PasswordResetConfirmView,
                                        PasswordResetCompleteView)
 
+
 def admin(request):
-    return render(request, 'admin.html')
-def main(request):
-    roles = User._meta.get_field('roles').choices
-    specialities = specialities = Speciality.SPECIALITY_CHOICES
-    
+    return render(request, 'user/admin.html')
+
+@login_required
+@role_required('Teacher')
+def main(request, user_id):
+    # Retrieve the teacher object
+    teacher = get_object_or_404(User, pk=user_id)
+
+    # Retrieve all courses taught by the teacher
+    courses_taught = Course.objects.filter(teacher_id=teacher)
+
+    # Initialize a list to store student details and specialities
+    students_details = []
+    specialities = set()
+
+    # Apply filters if the form is submitted
     if request.method == 'POST':
         form = FilterForm(request.POST, request.FILES)
         
@@ -107,50 +126,132 @@ def main(request):
     
 
 
+
+'''
 def indexview(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
         try:
             user = User.objects.get(email=email)
+            user = User.authe
+            print(user.password)
             if password==user.password:
                 messages.success(request, 'Successfully logged in.')
-                return redirect('userslist')  
+                print(user.roles)
+                if user.roles == 'Teacher':
+                    return redirect('user:main', user.id)
+                elif user.roles == 'Student':
+                    return redirect('user:etudiant',user_id=user.id)
+                else :
+                    return redirect('user:supervisor')
             else:
                 messages.error(request, 'Invalid email or password')
         except User.DoesNotExist:
             messages.error(request, 'Invalid email or password')
     
-    return render(request, 'index.html')
+    return render(request, 'user/index.html')
+'''
 
-#######
-def psswrdforgot(request):
-    return render(request, 'psswrdforgot.html')
+def indexview(request):
+    print('INDEX')
+    if request.method == 'POST':
+        email = request.POST['email']
+        print ('email', email)
+        password = request.POST['password']
+        print ('PSWRD',password)        
+        
+        user = authenticate(request, email=email, password=password)
+        print('user',user)
+        if user is not None:
+            l=login(request, user)
+            print (l)
+            messages.success(request, 'Successfully logged in.')
+            if user.roles == 'Teacher':
+                return redirect('user:main', user.id)
+            elif user.roles == 'Student':
+                return redirect('user:etudiant', user.id)
+            else:
+                return redirect('user:supervisor')
+        else:
+            messages.error(request, 'Invalid email or password')
+
+    return render(request, 'user/index.html')
+
+
+@login_required
+@role_required('Student')
+def etudiant(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    scores = Score.objects.filter(student_id=user)
+    absences = Absence.objects.filter(student_id=user)
+    
+    # Using course_id for the filter since Course model has course_id instead of id
+    course_ids = scores.values_list('course_id', flat=True)
+    courses = Course.objects.filter(course_id__in=course_ids)
+    
+    course_details = []
+    for course in courses:
+        highest_score = Score.objects.filter(course_id=course).aggregate(Max('student_score'))['student_score__max']
+        lowest_score = Score.objects.filter(course_id=course).aggregate(Min('student_score'))['student_score__min']
+        average_score = Score.objects.filter(course_id=course).aggregate(Avg('student_score'))['student_score__avg']
+        student_score = scores.get(course_id=course.course_id).student_score
+        absence_dates = absences.filter(course_id=course.course_id).values_list('date', flat=True)
+
+        course_details.append({
+            'course_name': course.name,  # Assuming the Course model has a 'name' field
+            'course_score': student_score,
+            'num_absences': absence_dates.count(),
+            'absence_dates': list(absence_dates),
+            'highest_score': highest_score,
+            'lowest_score': lowest_score,
+            'average_score': average_score
+        })
+
+    return render(request, 'user/etudiant.html', {
+        'user': user,
+        'course_details': course_details
+    })
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('user:login')
+
+def password_forgotten(request):
+    return redirect('user:email_sent')
 
 def psswrdresetdone(request):
     return render(request, 'password_reset_done.html')
 
 
-def psswrdresetcomplete(request):
-    print("PASSWORD RESET COMPLETE")
-    return render(request, 'password_reset_complete.html')
-#############
+def password_resetdonehtml(request):
+    return render(request, 'user/?????????.html')
 
-def profile(request):
-    return render(request, 'user/profile.html')
+def password_resethtml(request):
+    return render(request, 'user/psswrdreset.html')
 
+@login_required
+def profile(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    return render(request, 'user/profile.html', {'user': user})
+
+@login_required
 def parametre(request):
     return render(request, 'user/parametre.html')
 
 def emailsent(request):
     return render(request, 'emailsent.html')
 
+@login_required
 def changepsswrd(request):
     return render(request,'changepsswrd.html')
 
+@login_required
 def edt(request):
     return render(request,'edt.html')
 
+#@role_required('Supervisor')
 def createuser(request):
     print("import user launch")
     print(request.FILES)
@@ -255,6 +356,16 @@ def createuser(request):
                     return redirect('createuser')
             user.password = password
             try:
+                print(f"First Name: {user.first_name}")
+                print(f"Last Name: {user.last_name}")
+                print(f"Roles: {user.roles}")
+                print(f"Date of Birth: {user.date_of_birth}")
+                print(f"Speciality: {user.speciality_id}")
+                print(f"Photo: {user.photo}")
+                print(f"Email: {user.email}")
+                print(f"Password: {user.password}")
+                print(f"Year: {user.year}")
+                user.set_password(password)
                 user.save()
                 messages.success(request, 'User has been created successfully.')
                 return redirect('createuser')
@@ -270,8 +381,7 @@ def createuser(request):
 
     return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'messages': messages.get_messages(request)})
 
-
-
+#@role_required('Supervisor')
 def edituser(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     if request.method == 'POST':
@@ -321,21 +431,10 @@ def edituser(request, user_id):
     roles = User._meta.get_field('roles').choices
     specialities = specialities = Speciality.SPECIALITY_CHOICES
     users = User.objects.all()
-    return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'users': users})
+    return render(request, 'user/createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'users': users})
 
 
-def deleteuser(request, user_id):
-    context = {
-        'form': form,
-        'user': user,
-        'users': users,
-        'roles': roles,
-        'specialities': specialities,
-    }
-    return render(request, 'createuser.html', context)
-
-
-   
+@role_required('Supervisor')
 def deleteuser(request, user_id):
     user = get_object_or_404(User, id=user_id)
     user.delete()
@@ -343,6 +442,7 @@ def deleteuser(request, user_id):
     return redirect('userslist') 
 
 
+#@role_required('Supervisor')
 def userslist(request):
     first_name = request.GET.get('first_name', '')
     last_name = request.GET.get('last_name', '')
@@ -508,11 +608,105 @@ def password_reset_confirm(request, uidb64, token):
 def E404(request, exception=None):
     return render(request, '404.html', status=404)
 
-def E500(request):
-    return render(request, '500.html', status=500)
+def error_403(request, exception=None):
+    return render(request, 'user/error_403.html', status=403)
+def error_404(request, exception=None):
+    return render(request, 'user/error_404.html', status=404)
 
-def E403(request, exception=None):
-    return render(request, '403.html', status=403)
+def error_500(request):
+    return render(request, 'user/error_500.html', status=500)
 
-def E400(request, exception=None):
-    return render(request, '400.html', status=400)
+
+@login_required
+@role_required('Supervisor')
+def supervisor(request):
+    # Retrieve the teacher object (if needed for any other purpose)
+
+    # Retrieve all courses
+    courses_taught = Course.objects.all()
+
+    # Initialize a list to store student details and specialities
+    students_details = []
+    specialities = set()
+    all_specialities = set()
+
+    # Apply filters if the form is submitted
+    if request.method == 'POST':
+        selected_years = request.POST.getlist('year')
+        selected_courses = request.POST.getlist('course')
+        selected_specialities = request.POST.getlist('cursus')
+
+        # Filter the courses based on selected criteria
+        if selected_courses:
+            courses_taught = courses_taught.filter(course_id__in=selected_courses)
+
+        # Iterate over each course
+        for course in courses_taught:
+            # Retrieve all scores for the course
+            scores = Score.objects.filter(course_id=course)
+
+            # Iterate over each score to get student details
+            for score in scores:
+                student = score.student_id
+
+                # Apply filters to student details
+                if selected_years and str(student.year) not in selected_years:
+                    continue
+                if selected_specialities and str(student.speciality_id.id) not in selected_specialities:
+                    continue
+
+                # Retrieve absences for the student in the course
+                absences_count = Absence.objects.filter(course_id=course, student_id=student).count()
+
+                student_details = {
+                    'student_id': student.student_id, 
+                    'first_name': student.first_name,
+                    'last_name': student.last_name.upper(),
+                    'year': student.year,
+                    'specialty': student.speciality_id,
+                    'course': course.name,
+                    'score': score.student_score,
+                    'absences_count': absences_count  # Add absences count to student details
+                }
+                students_details.append(student_details)
+                specialities.add(student.speciality_id)  # Add student's speciality to the set
+
+    else:
+        # Iterate over each course
+        for course in courses_taught:
+            # Retrieve all scores for the course
+            scores = Score.objects.filter(course_id=course)
+
+            # Iterate over each score to get student details
+            for score in scores:
+                student = score.student_id
+
+                # Retrieve absences for the student in the course
+                absences_count = Absence.objects.filter(course_id=course, student_id=student).count()
+
+                student_details = {
+                    'student_id': student.student_id,
+                    'first_name': student.first_name,
+                    'last_name': student.last_name.upper(),
+                    'year': student.year,
+                    'specialty': student.speciality_id,
+                    'course': course.name,
+                    'score': score.student_score,
+                    'absences_count': absences_count  # Add absences count to student details
+                }
+                students_details.append(student_details)
+                specialities.add(student.speciality_id)  # Add student's speciality to the set
+
+    # Retrieve all specialities available in the system
+    all_specialities = Speciality.objects.all()
+    user = get_object_or_404(User, pk = user_id)
+
+    context = {
+        'courses_taught': courses_taught,
+        'students_details': students_details,
+        'specialities': specialities,
+        'all_specialities': all_specialities,
+        'user':user
+    }
+
+    return render(request, 'user/supervisor.html', context)

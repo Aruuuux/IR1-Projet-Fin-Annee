@@ -75,7 +75,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     # Je ne sais pas vraiment à quoi servent ces 2 lignes mais il apparait qu'elles résolvent le problème du conflit django.contrib.auth (il y'avait un problème avec ces tables et je les ai créées manuellement sur dbbrowsersql)
     groups = models.ManyToManyField(Group, related_name='databaseprojet_user_set', blank=True)
     user_permissions = models.ManyToManyField(Permission, related_name='databaseprojet_user_permissions_set', blank=True)
-        
+
     objects = UserManager() # Pour assigner le gestionnaire personnalisé 'UseManager' à ce modèle
     
     USERNAME_FIELD = 'email'

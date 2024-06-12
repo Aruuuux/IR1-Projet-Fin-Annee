@@ -1,6 +1,11 @@
-{% extends 'user/base.html' %}
+{% extends "user/base.html" %}
+{% load static %}
 
-{% block content %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'user/css/loginstyles.css' %}" />
+{% endblock %}
+
+{% block main-content %}
 <h2>Connexion</h2>
 
 <div class="form-holder">
@@ -9,7 +14,7 @@
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <input type="submit" value="Connexion" />
+                <button type="submit" value="Connexion"></button>
             </form>
         </div>
     </div>

@@ -1,15 +1,17 @@
 <!-- templates/create_module.html -->
+{% extends "user/base.html" %}
+{% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Module</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container">
+{% block title %}Créer une UE{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'user/css/loginstyles.css' %}" />
+<link rel="stylesheet" href="{% static 'user/css/mainstyle.css' %}" />
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block main-content %}
+    <div class="tableau-wrapper" id="alone">
         <h1>Create Module</h1>
         <form method="post">
             {% csrf_token %}
@@ -19,7 +21,7 @@
 
         <!-- Table to display modules -->
         <h2 class="mt-5">Existing Modules</h2>
-        <table class="table table-striped mt-3">
+        <table id="modules">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -83,6 +85,7 @@
         </div>
     </div>
 
+{% block js %}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
@@ -96,5 +99,8 @@
             });
         });
     </script>
-</body>
-</html>
+{% endblock %}
+
+{% endblock %}
+
+

@@ -1,0 +1,114 @@
+body {
+    background-color: #0d3b66;
+    color: #faf0ca;
+}
+
+.container {
+    background-color: #1a2c40;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-top: 50px;
+    overflow: auto;
+}
+
+h2 {
+    line-height: 2;
+}
+
+.btn-primary {
+    background-color: #faf0ca;
+    border-color: #faf0ca;
+    color: #0d3b66;
+}
+
+.btn-primary:hover {
+    background-color: #f0e3af;
+    border-color: #f0e3af;
+}
+
+.form-control {
+    background-color: #1a2c40;
+    color: #faf0ca;
+    border: 1px solid #3b4d61;
+}
+
+.form-control::placeholder {
+    color: #6c8496;
+}
+
+.card {
+    background-color: #1a2c40;
+    border: none;
+}
+
+.card-header {
+    background-color: #3b4d61;
+}
+
+.card-body {
+    background-color: #1a2c40;
+}
+
+.card-footer {
+    background-color: #1a2c40;
+}
+
+.table {
+    color: #faf0ca;
+}
+
+.thead-dark th {
+    background-color: #3b4d61;
+}
+
+#scrollTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 99;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    background-color: #faf0ca;
+    color: #0d3b66;
+    cursor: pointer;
+    padding: 0.1rem;
+    border-radius: 0.5rem;
+}
+
+@media (max-width: 820px) {
+    #scrollTopBtn {
+        bottom: 3.5rem;
+    }
+}
+
+#scrollTopBtn:hover {
+    background-color: #f0e3af;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+/* Custom Button Styles */
+#btn-create-user {
+    margin: 0 0 2rem 0;
+}
+
+button[type="submit"], input[type="submit"], #btn-create-user {
+    border: 0.05rem solid var(--white);
+    padding: 0.5rem;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    border-radius: 1.5rem;
+}
+
+button[type="submit"]:hover, input[type="submit"]:hover, #btn-create-user:hover {
+    cursor: pointer;
+    color: var(--black);
+    background: var(--light-main-color)
+}

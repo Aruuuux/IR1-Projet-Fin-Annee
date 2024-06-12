@@ -1,5 +1,5 @@
 # user/urls.py
-from django.urls import path,include
+from django.urls import path, include
 from . import views
 from django.contrib.auth import views as auth_views
 
@@ -36,6 +36,19 @@ urlpatterns = [
     
 
     
+    path('error_400/', views.error_400, name='error_400'),
+    path('error_403/', views.error_403, name='error_403'),
+    path('error_404/', views.error_404, name='error_404'),
+    path('error_500/', views.error_500, name='error_500'),
+    #path('password_reset/', auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html'), name='password_reset'),
+    #path('password_reset/', views.password_resethtml, name='password_reset'),
+    #path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'), name='password_reset_done'),
+    #path('password_reset/done/', views.password_resetdonehtml, name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html'), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'), name='password_reset_complete'),
+    path('password_forgotten/', views.password_forgotten, name='password_forgotten'),
+    #path('addgrade/', views.addgrade, name='addgrade'),
+    path('logout/', views.logout_view, name='logout'),
 
     ]
 

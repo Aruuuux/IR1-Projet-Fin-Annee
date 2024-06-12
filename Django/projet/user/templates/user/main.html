@@ -12,6 +12,10 @@
 </div>
 {% endblock %}
 
+{% block profile-content %}
+<a href="{% url 'module:create_module' %}" class="btn btn-secondary">Créer une UE</a>
+{% endblock %}
+
 {% block main-content %}
 
 <div id="left-menu">
@@ -101,12 +105,4 @@
             </tbody>
         </table>
 </div>
-<script>
-    if ({{ teacher.id}}!=0) {
-        href = "/user/profile"
-        document.getElementById("my_profile").href=href+"/"+ {{ teacher.id}};
-    }
-</script>
 {% endblock %}
-
-
