@@ -12,6 +12,10 @@ body {
     overflow: auto;
 }
 
+h2 {
+    line-height: 2;
+}
+
 .btn-primary {
     background-color: #faf0ca;
     border-color: #faf0ca;
@@ -90,14 +94,21 @@ body {
 }
 
 /* Custom Button Styles */
-.btn.custom-btn {
-    background-color: var(--main-color);
-    border-color: var(--main-color);
-    color: var(--white);
+#btn-create-user {
+    margin: 0 0 2rem 0;
 }
 
-.btn.custom-btn:hover {
-    background-color: var(--darker-main-color);
-    border-color: var(--darker-main-color);
-    color: var(--white);
+button[type="submit"], input[type="submit"], #btn-create-user {
+    border: 0.05rem solid var(--white);
+    padding: 0.5rem;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    border-radius: 1.5rem;
+}
+
+button[type="submit"]:hover, input[type="submit"]:hover, #btn-create-user:hover {
+    cursor: pointer;
+    color: var(--black);
+    background: var(--light-main-color)
 }
