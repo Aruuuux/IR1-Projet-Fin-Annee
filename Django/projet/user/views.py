@@ -177,14 +177,15 @@ def etudiant(request, user_id):
 
 
 
-def password_forgotten(request):
-    return redirect('user:email_sent')
+def passwordreset(request):
+    return render(request,'user/password_forgotten.html')
 
 def psswrdresetdone(request):
     return render(request, 'user/password_reset_done.html')
 
-def password_resetdonehtml(request):
-    return render(request, 'user/?????????.html')
+def psswrdresetcomplete(request):
+    print("PASSWORD RESET COMPLETE")
+    return render(request, 'password_reset_complete.html')
 
 def password_resethtml(request):
     return render(request, 'user/psswrdreset.html')
