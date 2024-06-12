@@ -188,6 +188,7 @@ def password_resetdonehtml(request):
 
 def password_resethtml(request):
     return render(request, 'user/psswrdreset.html')
+
 def profile(request):
     return render(request, 'user/profile.html')
 
