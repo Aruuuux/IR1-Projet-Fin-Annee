@@ -180,7 +180,7 @@ def etudiant(request, user_id):
 
 
 def password_forgotten(request):
-    return render(request, 'user/password_forgotten.html')
+    return redirect('user:email_sent')
 
 def psswrdresetdone(request):
     return render(request, 'user/password_reset_done.html')
@@ -196,8 +196,8 @@ def profile(request):
 def parametre(request):
     return render(request, 'user/parametre.html')
 
-def emailsent(request):
-    return render(request, 'user/emailsent.html')
+def email_sent(request):
+    return render(request, 'user/email_sent.html')
 
 def changepsswrd(request):
     return render(request,'user/changepsswrd.html')
@@ -322,13 +322,6 @@ def edituser(request, user_id):
     specialities = specialities = Speciality.objects.all()
     users = User.objects.all()
     return render(request, 'user/createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'users': users})
-
-
-def deleteuser(request, user_id):
-    user = get_object_or_404(User, id=user_id)
-    user.delete()
-    messages.success(request, 'User has been deleted successfully.')
-    return redirect('userslist') 
 
 
    
