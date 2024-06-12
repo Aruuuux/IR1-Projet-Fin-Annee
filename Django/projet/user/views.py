@@ -1,9 +1,16 @@
+from .decorators import role_required
+from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.auth import logout
+
+from django.shortcuts import get_object_or_404, render, redirect
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import UserForm,FilterForm
 from django.shortcuts import render, redirect
 from .forms import UserForm
 from django.contrib.auth import login, authenticate
-from databaseprojet.models import Speciality, Roles, User
+from databaseprojet.models import Speciality, Roles, User, Course, Score, Absence
 import random, csv
 from django.db.models import Max, Min, Avg
 from django.contrib.auth.hashers import check_password
@@ -29,9 +36,12 @@ from django.contrib.auth.views import (LoginView, LogoutView,
                                        PasswordResetConfirmView,
                                        PasswordResetCompleteView)
 
+
 def admin(request):
     return render(request, 'user/admin.html')
 
+@login_required
+@role_required('Teacher')
 def main(request, user_id):
     # Retrieve the teacher object
     teacher = get_object_or_404(User, pk=user_id)
@@ -120,6 +130,8 @@ def main(request, user_id):
     return render(request, 'user/main.html', context)
 
 
+
+'''
 def indexview(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -127,22 +139,53 @@ def indexview(request):
 
         try:
             user = User.objects.get(email=email)
+            user = User.authe
+            print(user.password)
             if password==user.password:
                 messages.success(request, 'Successfully logged in.')
+                print(user.roles)
                 if user.roles == 'Teacher':
                     return redirect('user:main', user.id)
                 elif user.roles == 'Student':
                     return redirect('user:etudiant',user_id=user.id)
                 else :
-                    return redirect('user:supervisor',user_id=user.id)
+                    return redirect('user:supervisor')
             else:
                 messages.error(request, 'Invalid email or password')
         except User.DoesNotExist:
             messages.error(request, 'Invalid email or password')
     
     return render(request, 'user/index.html')
+'''
+
+def indexview(request):
+    print('INDEX')
+    if request.method == 'POST':
+        email = request.POST['email']
+        print ('email', email)
+        password = request.POST['password']
+        print ('PSWRD',password)        
+        
+        user = authenticate(request, email=email, password=password)
+        print('user',user)
+        if user is not None:
+            l=login(request, user)
+            print (l)
+            messages.success(request, 'Successfully logged in.')
+            if user.roles == 'Teacher':
+                return redirect('user:main', user.id)
+            elif user.roles == 'Student':
+                return redirect('user:etudiant', user.id)
+            else:
+                return redirect('user:supervisor')
+        else:
+            messages.error(request, 'Invalid email or password')
+
+    return render(request, 'user/index.html')
 
 
+@login_required
+@role_required('Student')
 def etudiant(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     scores = Score.objects.filter(student_id=user)
@@ -176,6 +219,9 @@ def etudiant(request, user_id):
     })
 
 
+def logout_view(request):
+    logout(request)
+    return redirect('user:login')
 
 def password_forgotten(request):
     return redirect('user:email_sent')
@@ -189,22 +235,27 @@ def password_resetdonehtml(request):
 def password_resethtml(request):
     return render(request, 'user/psswrdreset.html')
 
+@login_required
 def profile(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     return render(request, 'user/profile.html', {'user': user})
 
+@login_required
 def parametre(request):
     return render(request, 'user/parametre.html')
 
 def email_sent(request):
     return render(request, 'user/email_sent.html')
 
+@login_required
 def changepsswrd(request):
     return render(request,'user/changepsswrd.html')
 
+@login_required
 def edt(request):
     return render(request,'user/edt.html')
 
+#@role_required('Supervisor')
 def createuser(request):
     if request.method == 'POST':
         form = UserForm(request.POST, request.FILES)
@@ -242,6 +293,7 @@ def createuser(request):
                 print(f"Email: {user.email}")
                 print(f"Password: {user.password}")
                 print(f"Year: {user.year}")
+                user.set_password(password)
                 user.save()
                 messages.success(request, 'User has been created successfully.')
                 print('User has been created successfully.')
@@ -258,8 +310,7 @@ def createuser(request):
 
     return render(request, 'user/createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'messages': messages.get_messages(request)})
 
-
-
+#@role_required('Supervisor')
 def edituser(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     if request.method == 'POST':
@@ -324,7 +375,7 @@ def edituser(request, user_id):
     return render(request, 'user/createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'users': users})
 
 
-   
+@role_required('Supervisor')
 def deleteuser(request, user_id):
     user = get_object_or_404(User, id=user_id)
     user.delete()
@@ -332,6 +383,7 @@ def deleteuser(request, user_id):
     return redirect('user:userslist') 
 
 
+#@role_required('Supervisor')
 def userslist(request):
     first_name = request.GET.get('first_name', '')
     last_name = request.GET.get('last_name', '')
@@ -492,9 +544,9 @@ def error_500(request):
     return render(request, 'user/error_500.html', status=500)
 
 
-
-
-def supervisor(request,user_id):
+@login_required
+@role_required('Supervisor')
+def supervisor(request):
     # Retrieve the teacher object (if needed for any other purpose)
 
     # Retrieve all courses
