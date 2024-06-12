@@ -7,7 +7,6 @@
 
         <title>{% block title %}Edutrack{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'user/css/basestyle.css' %}" />
-        <link rel="stylesheet" href="{% static 'user/css/variables.css' %}" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <!-- <link rel="icon" type="image/ico" href="{% static '/.ico' %}">  à rajouter -->
         {% block styles %}
@@ -29,13 +28,15 @@
                 <div id="profil-utilisateur">
                     <button>
                         <!-- <i class="fas fa-user fa-3x"></i> -->
-                        <img src="{% static 'user/images/circle-user.svg' %}" alt="user"/>
+                        <img src="{% static 'user/icons/circle-user.svg' %}" alt="user"/>
                     </button>
                     <div id="dropdown-menu">
-                        <a href="{% url 'user:profile' %}"><img src="{% static 'user/images/circle-user.svg' %}" alt="user"/>  Mon profil</a>
-                        <a href="{% url 'user:parametre' %}"><img src="{% static 'user/images/gears.svg' %}">  Paramètres</a> 
-                        <a href="{% url 'user:edt' %}"><img src="{% static 'user/images/calendar-days.svg' %}"> Mes cours</a>
-                        <a href="{% url 'user:logout' %}"><img src="{% static 'user/images/log-out.svg' %}">  Déconnexion</a>
+                        <a id="my_profile" href=""><img src="{% static 'user/icons/circle-user.svg' %}" alt="user"/>Mon profil</a>
+                        <a href="{% url 'user:parametre' %}"><img src="{% static 'user/icons/gears.svg' %}">Paramètres</a>
+                        <a href="{% url 'user:edt' %}"><img src="{% static 'user/icons/calendar-days.svg' %}">Mes cours</a>
+                        {% block profile-content %}
+                        {% endblock %}
+                        <a href="{% url 'user:logout' %}"><img src="{% static 'user/icons/log-out.svg' %}">Déconnexion</a>
                     </div>
                 </div>
             </section>
