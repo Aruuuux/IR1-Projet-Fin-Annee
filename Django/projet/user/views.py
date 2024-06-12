@@ -255,7 +255,7 @@ def changepsswrd(request):
 def edt(request):
     return render(request,'user/edt.html')
 
-@role_required('Supervisor')
+#@role_required('Supervisor')
 def createuser(request):
     if request.method == 'POST':
         form = UserForm(request.POST, request.FILES)
