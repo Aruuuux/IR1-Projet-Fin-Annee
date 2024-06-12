@@ -2,7 +2,7 @@
 .menu-content {
     display: block;
     position: static;
-    color : var(--black);
+    color : black;
     background-color: var(--light-grey);
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -164,7 +164,7 @@
 .dropdown-content {
     display: none;
     min-width: 100%;
-    box-shadow: 0px 8px 16px 0px var(--black);
+    box-shadow: 0px 8px 16px 0px rgb(10, 13, 20);
     z-index: 1;
     border-radius: 8px;
 }
@@ -248,6 +248,9 @@ th, td {
     min-width: 100px;
     max-height:150px;
     box-sizing: border-box;
+    padding: 4px;
+    text-align: center;
+    border: 2px solid black;
     border: 2px solid var(--black);
 }
 
@@ -267,11 +270,11 @@ tr:nth-child(odd) {
     background-color: var(--vlight-grey);
 }
 #noteabs tr:hover {
-    background-color: var(--white);
+    background-color: rgb(237, 241, 242);
 }
 
 #schedule td:hover{
-    background-color: var(--white);
+    background-color: rgb(237, 241, 242);
 }
 
 #schedule td:first-child{
