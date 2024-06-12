@@ -84,7 +84,6 @@ def manage_course(request, course_id):
             absence.student_id = student_id
             absence.save()
             return redirect('module:manage_course', course_id=course_id)
-        print(score_form.errors)
         if score_form.is_valid():
             score = score_form.save(commit=False)
             score.course_id = course
@@ -148,7 +147,6 @@ def editscore(request, pk):
     students = User.objects.filter(roles='Student')
     if request.method == 'POST':
         form = ScoreForm(request.POST, instance=score)
-        print(form.errors)
         if form.is_valid():
             form.save()
             messages.success(request, 'Score updated successfully.')
@@ -171,3 +169,27 @@ def deletescore(request, score_id):
     score.delete()
     messages.success(request, 'Score deleted successfully.')
     return redirect('module:manage_course', course_id=score.course_id.course_id)
+
+
+def editcourse(request, course_id):
+    # Retrieve the course object
+    course = get_object_or_404(Course, course_id=course_id)
+    
+    if request.method == 'POST':
+        form = CourseForm(request.POST, instance=course)
+        if form.is_valid():
+            form.save()
+            return redirect('module:create_course',course.module_id.id)  # Adjust this URL as needed
+    else:
+        form = CourseForm(instance=course)
+    teachers = User.objects.filter(roles='Teacher')
+    courses = Course.objects.filter(module_id=course.module_id)
+    return render(request, 'courses.html', {'form': form, 'course': course, 'teachers':teachers,'courses':courses})
+
+
+def deletecourse(request, course_id):
+    course = get_object_or_404(Course, pk=course_id)
+    module = course.module_id
+    course.delete()
+    messages.success(request, 'Score deleted successfully.')
+    return redirect('module:create_course',module.id)  # Replace 'module_view_name' with the name of the view you want to redirect to

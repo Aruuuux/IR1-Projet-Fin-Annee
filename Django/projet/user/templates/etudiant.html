@@ -3,55 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Student Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .tooltip {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 220px;
+            background-color: #333;
+            color: #fff;
+            text-align: left;
+            border-radius: 5px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container">
         <h1>Student Information</h1>
-        <p><strong>Name:</strong> {{ user.get_full_name }}</p>
+        <p><strong>Name:</strong> {{ user }}</p>
         <p><strong>Email:</strong> {{ user.email }}</p>
         
-        <h2>Courses and Scores</h2>
-        <table class="table table-striped">
+        <h2>Course Details</h2>
+        <table>
             <thead>
                 <tr>
-                    <th>Course</th>
+                    <th>Course Name</th>
                     <th>Score</th>
+                    <th></th>
+                    <th>Number of Absences</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                {% for score in scores %}
+                {% for detail in course_details %}
                     <tr>
-                        <td>{{ score.course_id.name }}</td>
-                        <td>{{ score.student_score }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        <h2>Absences</h2>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Course</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for absence in absences %}
-                    <tr>
-                        <td>{{ absence.course_id.name }}</td>
-                        <td>{{ absence.date }}</td>
+                        <td>{{ detail.course_name }}
+                        </td>
+                        <td>{{ detail.course_score }}</td>
+                        <td>
+                            <span class="tooltip"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                              </svg> <span class="tooltiptext">
+                                Highest Score: {{ detail.highest_score }}<br>
+                                Lowest Score: {{ detail.lowest_score }}<br>
+                                Average Score: {{ detail.average_score|floatformat:2 }}
+                            </span></span>
+                        </td>
+                        <td class="tooltip">{{ detail.num_absences }}
+                        </td>
+                        <td>
+                        <span class="tooltip">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                              </svg>
+                        <span class="tooltiptext">
+                            Absence Dates:<br>
+                            {% for date in detail.absence_dates %}
+                                {{ date|date:'Y-m-d' }}<br>
+                            {% endfor %}
+                        </span></span>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-
-    <!-- Include Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -15,52 +15,59 @@
 {% block main-content %}
 <section id="left-menu">
     <button id="menu-filter-button"><i class="fas fa-filter fa-sm"></i> Filtres <i id="title-filter-icon" class="fas fa-caret-down"></i></button>
-    <form method="post" enctype="multipart/form-data" id="form_year">
-    <div id="menu-filter" class="open">
-        <div class="filter-components">
-            <button class="title-filter">Année</button>
-            
+    
+    <form method="post" id="form_year">
+        <div id="menu-filter" class="open">
+            <div class="filter-components">
+                <button class="title-filter">Année</button>           
                 {% csrf_token %}
                 <div class="menu-content" id="year-dropdown">
-                    <div><label><input type="checkbox" name="year" value="1"> 1ère année</label></div>
-                    <div><label><input type="checkbox" name="year" value="2"> 2e année</label></div>
-                    <div><label><input type="checkbox" name="year" value="3"> 3e année</label></div>
+                    <div><label><input type="checkbox" name="year" value="1"> Année 1</label></div>
+                    <div><label><input type="checkbox" name="year" value="2"> Année 2</label></div>
+                    <div><label><input type="checkbox" name="year" value="3"> Année 3</label></div>
                 </div>
-            
-        </div>
-        <div class="filter-components">
-            <button class="title-filter">Matière</button>
+            </div>
+            <div class="filter-components">
+                <button class="title-filter">Courses</button>
                 {% csrf_token %}
-                <div class="menu-content" id="lesson-dropdown">
-                    {% for lesson in lessons %}
-                    <div><label><input type="checkbox" name="lesson" value="{{ lesson.id }}">{{ lesson.name }}</label></div>
+                <div class="menu-content" id="course-dropdown">
+                    {% for course in courses_taught %}
+                    <div>
+                        <label>
+                            <input type="checkbox" name="course" value="{{ course.course_id }}">{{ course.name }}
+                        </label>
+                    </div>
                     {% endfor %}
                 </div>
-            
-        </div>
-        <div class="filter-components">
-            <button class="title-filter">Filière</button>
+            </div>
+            <div class="filter-components">
+                <button class="title-filter">Filière</button>
                 {% csrf_token %}
                 <div class="menu-content" id="cursus-dropdown">
                     {% for speciality in specialities %}
                     <div><label><input type="checkbox" name="cursus" value="{{ speciality.id }}">{{ speciality.name }}</label></div>
                     {% endfor %}
                 </div>
-        </div>
-        <div class="filter-components">
-            <button class="title-filter">Identification</button>
+            </div>
+            <div class="filter-components">
+                <button class="title-filter">Identification</button>
                 {% csrf_token %}
                 <div class="menu-content" id="identification-dropdown">
                     <div><label><input type="checkbox" name="identification" value="1"> N° étudiant</label></div>
                     <div><label><input type="checkbox" name="identification" value="2" checked="true"> Nom</label></div>
                 </div>
+            </div>
+            <div id="button-container">
+                <button id="reset-button">Reset</button>
+                <button type="submit" id="apply-button">Apply</button>
+            </div>
         </div>
-        <div id="button-container">
-            <button id="reset-button">Reset</button>
-            <button type="submit" id="apply-button">Apply</button>
-        </div>
-    </div>
     </form>
+    
+    
+    
+    
+    
 </section>
 <div  class="tableau-wrapper">
     {% load custom_filters %}
@@ -68,33 +75,29 @@
         <table id="noteabs">
             <thead>
                 <tr>
-                    {% for filter in selected_filters %}
-                        <th>
-                            {% if filter == 'last_name' %}
-                                
-                            {% elif filter == 'first_name' %}
-                                Prénom
-                            {% elif filter == 'first_name' %}
-                                Année
-                            {% else %}
-                                {{ filter|capfirst }}
-                            {% endif %}
-                        </th>
-                    {% endfor %}
+                <th>N étudiant</th>
+                <th>Pénom</th>
+                <th>Nom</th>
+                <th>Specialité</th>
+                <th>Année</th>
+                <th>Matière</th>
+                <th>Note</th>
+                <th>Absences</th>
                 </tr>
             </thead>
             <tbody>
-                {% if users %}
-                    <tr>{% for user in users %}
-                        {% for filter in selected_filters %}
-                            <td>{{ user|get_attribute:filter }}</td>
-                        {% endfor %}
-                    </tr>{% endfor %}
-                {% else %}
-                    <tr>
-                        <td colspan="{{ selected_filters|length }}">Aucun résultat trouvé</td>
-                    </tr>
-                    {% endif %}
+                {% for student in students_details %}
+                <tr>
+                    <td>{{ student.student_id }}</td>
+                    <td>{{ student.first_name }}</td>
+                    <td>{{ student.last_name }}</td>
+                    <td>{{ student.specialty }}</td>
+                    <td>{{ student.year }}</td>
+                    <td>{{ student.course }}</td>
+                    <td>{{ student.score }}</td>
+                    <td>{{ student.absences_count }}</td>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
     </section>

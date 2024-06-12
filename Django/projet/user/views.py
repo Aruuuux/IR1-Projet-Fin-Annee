@@ -5,6 +5,7 @@ from .forms import UserForm
 from django.contrib.auth import login, authenticate
 from databaseprojet.models import Speciality, Roles, User
 import random, csv
+from django.db.models import Max, Min, Avg
 from django.contrib.auth.hashers import check_password
 from django.contrib import messages
 from django.template.defaultfilters import slugify
@@ -30,80 +31,93 @@ from django.contrib.auth.views import (LoginView, LogoutView,
 
 def admin(request):
     return render(request, 'admin.html')
-def main(request):
-    roles = User._meta.get_field('roles').choices
-    specialities = specialities = Speciality.SPECIALITY_CHOICES
-    
+
+def main(request, user_id):
+    # Retrieve the teacher object
+    teacher = get_object_or_404(User, pk=user_id)
+
+    # Retrieve all courses taught by the teacher
+    courses_taught = Course.objects.filter(teacher_id=teacher)
+
+    # Initialize a list to store student details and specialities
+    students_details = []
+    specialities = set()
+
+    # Apply filters if the form is submitted
     if request.method == 'POST':
-        form = FilterForm(request.POST, request.FILES)
-        
-        if form.is_valid():
-            selected_years = request.POST.getlist('year')
-            selected_lessons = request.POST.getlist('lesson')
-            selected_specialities = request.POST.getlist('cursus')
-            selected_identifications = request.POST.getlist('identification')
-            print("SELECTED : ",selected_years,selected_lessons,selected_specialities,selected_identifications)
-            users = User.objects.all()  # Start with all users
-            
-            # Apply filters based on form data
-            if selected_years:
-                users = users.filter(year__in=selected_years)
-                
-            if selected_lessons:
-                users = users.filter(lesson__id__in=selected_lessons)
-                
-            if selected_specialities:
-                users = users.filter(speciality_id__in=selected_specialities)
-                
-            if selected_years or selected_lessons or selected_specialities or selected_identifications:
-                
-                selected_filters = []
-                if selected_identifications:
-                    if "1" in selected_identifications:
-                        selected_filters.append('student_id')
-                    if "2" in selected_identifications:
-                        selected_filters.append('last_name')
-                        selected_filters.append('first_name')
-                        #add photo    
-                if selected_years:
-                    selected_filters.append('year')
-                if selected_specialities:
-                    selected_filters.append('speciality_id')
-                if selected_lessons:
-                    selected_filters.append('lesson')
-                
-                
-                    
-            else:
-                
-                selected_filters = ['year', 'lesson', 'speciality_id','last_name','first_name' ]
-            
-            form = FilterForm()
-            contexte={
-                'form': form,
-                'specialities': specialities,
-                'users': users,
-                'selected_filters': selected_filters
-            }
-            print(contexte)
-            return render(request, 'main.html', contexte)
+        selected_years = request.POST.getlist('year')
+        selected_courses = request.POST.getlist('course')
+        selected_specialities = request.POST.getlist('cursus')
+
+        # Filter the courses based on selected criteria
+        if selected_courses:
+            courses_taught = courses_taught.filter(course_id__in=selected_courses)
+
+        # Iterate over each course taught by the teacher
+        for course in courses_taught:
+            # Retrieve all scores for the course
+            scores = Score.objects.filter(course_id=course)
+
+            # Iterate over each score to get student details
+            for score in scores:
+                student = score.student_id
+
+                # Apply filters to student details
+                if selected_years and str(student.year) not in selected_years:
+                    continue
+                if selected_specialities and str(student.speciality_id.id) not in selected_specialities:
+                    continue
+
+                # Retrieve absences for the student in the course
+                absences_count = Absence.objects.filter(course_id=course, student_id=student).count()
+
+                student_details = {
+                    'student_id': student.student_id, 
+                    'first_name': student.first_name ,
+                    'last_name': student.last_name.upper(),
+                    'year':student.year,
+                    'specialty': student.speciality_id,
+                    'course': course.name,
+                    'score': score.student_score,
+                    'absences_count': absences_count  # Add absences count to student details
+                }
+                students_details.append(student_details)
+                specialities.add(student.speciality_id)  # Add student's speciality to the set
 
     else:
-        form = FilterForm()
-    
-    # If it's a GET request or the form is invalid, display all users and all filters
-    users = User.objects.all()
-    selected_filters = ['year', 'lesson', 'speciality_id','last_name','first_name' ]
-    
-    # Render the template with initial context
-    return render(request, 'main.html', {
-        'form': form,
-        'specialities': specialities,
-        'users': users,
-        'selected_filters': selected_filters
-    })
+        # Iterate over each course taught by the teacher
+        for course in courses_taught:
+            # Retrieve all scores for the course
+            scores = Score.objects.filter(course_id=course)
 
-    
+            # Iterate over each score to get student details
+            for score in scores:
+                student = score.student_id
+
+                # Retrieve absences for the student in the course
+                absences_count = Absence.objects.filter(course_id=course, student_id=student).count()
+
+                student_details = {
+                    'student_id': student.student_id,
+                    'first_name': student.first_name,
+                    'last_name': student.last_name.upper(),
+                    'specialty': student.speciality_id,
+                    'year':student.year,
+                    'course': course.name,
+                    'score': score.student_score,
+                    'absences_count': absences_count  # Add absences count to student details
+                }
+                students_details.append(student_details)
+                specialities.add(student.speciality_id)  # Add student's speciality to the set
+
+    context = {
+        'teacher': teacher,
+        'courses_taught': courses_taught,
+        'students_details': students_details,
+        'specialities': specialities
+    }
+
+    return render(request, 'main.html', context)
 
 
 def indexview(request):
@@ -118,7 +132,7 @@ def indexview(request):
                 messages.success(request, 'Successfully logged in.')
                 print(user.roles)
                 if user.roles == 'Teacher':
-                    return redirect('user:main')
+                    return redirect('user:main', user.id)
                 elif user.roles == 'Student':
                     return redirect('user:etudiant',user_id=user.id)
             else:
@@ -133,15 +147,34 @@ def etudiant(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     scores = Score.objects.filter(student_id=user)
     absences = Absence.objects.filter(student_id=user)
-    courses = {score.course_id for score in scores}
-    absence_courses = {absence.course_id for absence in absences}
+    
+    # Using course_id for the filter since Course model has course_id instead of id
+    course_ids = scores.values_list('course_id', flat=True)
+    courses = Course.objects.filter(course_id__in=course_ids)
+    
+    course_details = []
+    for course in courses:
+        highest_score = Score.objects.filter(course_id=course).aggregate(Max('student_score'))['student_score__max']
+        lowest_score = Score.objects.filter(course_id=course).aggregate(Min('student_score'))['student_score__min']
+        average_score = Score.objects.filter(course_id=course).aggregate(Avg('student_score'))['student_score__avg']
+        student_score = scores.get(course_id=course.course_id).student_score
+        absence_dates = absences.filter(course_id=course.course_id).values_list('date', flat=True)
+
+        course_details.append({
+            'course_name': course.name,  # Assuming the Course model has a 'name' field
+            'course_score': student_score,
+            'num_absences': absence_dates.count(),
+            'absence_dates': list(absence_dates),
+            'highest_score': highest_score,
+            'lowest_score': lowest_score,
+            'average_score': average_score
+        })
+
     return render(request, 'etudiant.html', {
         'user': user,
-        'scores': scores,
-        'courses': courses,
-        'absences': absences,
-        'absence_courses': absence_courses
+        'course_details': course_details
     })
+
 
 
 def psswrdforgot(request):
