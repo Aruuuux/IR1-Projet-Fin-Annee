@@ -173,6 +173,7 @@
     color: var(--white);
     padding: 10px;
     display: block;
+    width: 100%;
     border-radius:8px;
     z-index: 1;
 }
@@ -189,7 +190,6 @@
 
 #menu-filter {
     display: none; /* Le menu est initialement fermé */
-    z-index: 1;
     position: relative;
     width: 100%;
 }
@@ -203,54 +203,61 @@
     display: block; /* Le menu s'ouvre lorsque la classe 'open' est ajoutée */
 }
 
-.tableau {
-    /*position:absolute;*/
-    height: calc(var(--table-height) - 150px);
-    overflow: auto;
-    z-index: 0; /* Cela place #tableau en dessous de #left-menu */
-    border-radius: 8px;
-}
-
-#tabmain{
-    display: flex;
-    height: var(--table-height);
-}
-
-
 .tableau-wrapper {
     background: var(--vdark-main-color);
-    padding: 1rem;
-    margin-top: 8px;
-    height: var(--table-height);
-    width: var(--table-width);
+    margin: 8px 8px 0 0;
+    max-height: calc(100% - 3rem - 20px);
+    width: fit-content;
     border-radius: 8px;
+    border: 24px solid var(--vdark-main-color);
+    overflow-y: auto;
+}
+
+.tableau-wrapper>*{
+    text-align: center;
+    color: aliceblue;
+
+}
+
+#alone{
+    margin: auto;
+}
+
+table {
+    border-collapse: collapse;
+    font-size: smaller;
+    color:rgb(10, 13, 20);
 }
 
 table#noteabs{
-    width: calc(var(--table-width) - 10px);
-    border-collapse: collapse;
-    min-width: 1000px;
-    min-height: var(--table-height);
-    table-layout: fixed;
+    width: calc(100vw - 200px);
+    min-width: 800px;
+    max-width: 100%;
+    color:rgb(10, 13, 20);
 }
 
 table#schedule{
     width: calc(var(--table-width) - 10px);
-    border-collapse: collapse;
     min-width: 1000px;
-    min-height: 400px;
-    table-layout: fixed;
 }
 
+table#info-etudiant{
+    width: calc(var(--table-width) - 10px);
+    border-collapse: collapse;
+    min-width: 1000px;
+    color:rgb(10, 13, 20);
+}
+
+table#modules{
+    width: calc(var(--table-width) - 10px);
+    color:rgb(10, 13, 20);
+}
+
+
 th, td {
-    padding: 8px;
-    text-align: left;
-    min-width: 100px;
-    max-height:150px;
+    max-height:50px;
     box-sizing: border-box;
     padding: 4px;
-    text-align: center;
-    border: 2px solid black;
     border: 2px solid var(--black);
 }
 
@@ -259,7 +266,6 @@ th {
     font-weight: bold;
     position: sticky;
     top:0;
-    transform: translate3d(0, 0, 0); /* Ajoute une transformation de traduction 3D */
     color: var(--white);
 }
 
