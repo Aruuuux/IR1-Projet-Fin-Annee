@@ -99,6 +99,7 @@ img:not(#logo *){
     cursor: pointer; /* Change le curseur en main-content lors du survol */
     color: var(--black);
     filter: none;
+    border-radius: 16px;
 }
 
 footer {
