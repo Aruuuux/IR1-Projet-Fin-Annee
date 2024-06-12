@@ -72,8 +72,8 @@ h2 {
     justify-content: center;
     display: flex;
     text-decoration: none;
-    width: 100%;
     font-size: 0.75rem;
+    width: 100%;
     color: var(--vlight-grey);
 }
 

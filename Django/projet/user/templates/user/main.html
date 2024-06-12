@@ -9,7 +9,7 @@
 
 {% block header-content %}
 <div id="menu-recherche">
-    <input type="text" placeholder="Rechercher...">
+    <input type="text" placeholder="Rechercher..." />
     <button>Go</button>
 </div>
 {% endblock %}
@@ -22,17 +22,17 @@
         <div class="filter-components">
             <button class="title-filter" onclick="toggleDropdown('year-dropdown')">Année  <i id="year-filter-icon" class="fas fa-caret-right"></i></button>
             <div class="dropdown-content" id="year-dropdown">
-                <label><input type="checkbox" name="year" value="1"> 1ère année</label>
-                <label><input type="checkbox" name="year" value="2"> 2e année</label>
-                <label><input type="checkbox" name="year" value="3"> 3e année</label>
+                <label><input type="checkbox" name="year" value="1" /> 1ère année</label>
+                <label><input type="checkbox" name="year" value="2" /> 2e année</label>
+                <label><input type="checkbox" name="year" value="3" /> 3e année</label>
             </div>
         </div>
         <div class="filter-components">
             <button class="title-filter" onclick="toggleDropdown('lesson-dropdown')">Matière  <i id="lesson-filter-icon" class="fas fa-caret-right"></i></button>
             <div class="dropdown-content" id="lesson-dropdown">
-                <label><input type="checkbox" name="lesson" value="1"> ANCS</label>
-                <label><input type="checkbox" name="lesson" value="2"> Java</label>
-                <label><input type="checkbox" name="lesson" value="3"> HTML & CSS</label>
+                <label><input type="checkbox" name="lesson" value="1" /> ANCS</label>
+                <label><input type="checkbox" name="lesson" value="2" /> Java</label>
+                <label><input type="checkbox" name="lesson" value="3" /> HTML & CSS</label>
             </div>
         </div>
         <div class="filter-components">
@@ -50,7 +50,7 @@
                 {% csrf_token %}
                 <div class="menu-content" id="identification-dropdown">
                     <div><label><input type="checkbox" name="identification" value="1"> N° étudiant</label></div>
-                    <div><label><input type="checkbox" name="identification" value="2" checked="true"> Nom</label></div>
+                    <div><label><input type="checkbox" name="identification" value="2" checked="true">Nom</label></div>
                 </div>
         </div>
         <div id="button-container">
@@ -95,7 +95,6 @@
             </tbody>
         </table>
 </div>
-</section>
 
 {% endblock %}
 
