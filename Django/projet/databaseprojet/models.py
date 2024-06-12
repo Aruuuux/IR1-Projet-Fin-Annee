@@ -140,4 +140,13 @@ class Score(models.Model):
     course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
     student_score = models.FloatField()
 
+class Course_type(models.Model):
+    id=models.AutoField(primary_key=True)
+    course_id=models.ForeignKey(Course, on_delete=models.CASCADE)
+    student_id=models.ForeignKey(User, on_delete=models.CASCADE)
+    Score=models.FloatField()
+    absence_number=models.IntegerField()
+    course_type=models.IntegerField()
+
+
 

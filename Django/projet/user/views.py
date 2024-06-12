@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from .forms import UserForm, FilterForm
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import login, authenticate
-from databaseprojet.models import Speciality, Roles, User, Course, Score
+from databaseprojet.models import Speciality, Roles, User, Course, Score,Course,Course_type
 
 import pandas as pd
 from django.http import HttpResponse
@@ -33,7 +33,8 @@ def admin(request):
 
 def main(request):
     roles = User._meta.get_field('roles').choices
-    specialities = specialities = Speciality.SPECIALITY_CHOICES
+    courses = Course_type.objects.all()
+    specialities = Speciality.SPECIALITY_CHOICES
     
     if request.method == 'POST':
         form = FilterForm(request.POST, request.FILES)
@@ -51,7 +52,7 @@ def main(request):
                 users = users.filter(year__in=selected_years)
                 
             if selected_lessons:
-                users = users.filter(lesson__id__in=selected_lessons)
+                courses = courses.filter(course_id__in=selected_lessons)
                 
             if selected_specialities:
                 users = users.filter(speciality_id__in=selected_specialities)
