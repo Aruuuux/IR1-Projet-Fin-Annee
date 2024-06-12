@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'databaseprojet',
     'user',
+    'module',
     # 'guardian', #Pour la gestion des permissions
 ]
 
@@ -75,8 +76,6 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
-            "libraries": {
-                'custom_filters': 'user.templatetags.custom_filters',            },
         },
     },
 ]
@@ -136,6 +135,12 @@ LOCALE_PATHS = [
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 #BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
@@ -143,25 +148,13 @@ STATICFILES_DIRS = [
     #os.path.join(BASE_DIR, 'static'),
 ]
 
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
-    },
-}
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-
 # Pour indiquer à Django d'utiliser notre modèle User personnalisé par défaut
 AUTH_USER_MODEL = 'databaseprojet.User'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-
 #Email settings
+
 
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
 EMAIL_HOST = os.getenv('EMAIL_HOST')
@@ -174,8 +167,6 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 # L'adresse e-mail qui sera utilisée pour envoyer les e-mails
 #DEFAULT_FROM_EMAIL = 'edutrack.supp@gmail.com'
 
-
-# Affichage des variables d'environnement pour débugger
 print('DEBUG:', DEBUG)
 print('SECRET_KEY:', SECRET_KEY)
 print('ALLOWED_HOSTS:', ALLOWED_HOSTS)
