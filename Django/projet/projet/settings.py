@@ -43,10 +43,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'databaseprojet',
     'user',
-    'module'
-    # 'guardian', #Pour la gestion des permissions
+    'module'   
 ]
-
+# 'guardian', #Pour la gestion des permissions
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',  
     #'guardian.backends.ObjectPermissionBackend',
