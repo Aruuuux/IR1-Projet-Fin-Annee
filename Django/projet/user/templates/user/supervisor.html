@@ -102,4 +102,10 @@
         </table>
     </section>
 </div>
+<script>
+    if ({{ user.id}}!=0) {
+        href = "/user/profile"
+        document.getElementById("my_profile").href=href+"/"+ {{ user.id}};
+    }
+</script>
 {% endblock %}
