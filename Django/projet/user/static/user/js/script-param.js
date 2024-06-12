@@ -1,32 +1,40 @@
-document.addEventListener('DOMContentLoaded', (event) => {
-    const button = document.getElementById('change-theme');
-
+$(document).ready(function() {
+    var button = $('#change-theme');
     var storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    if (storedTheme)
-        document.documentElement.setAttribute('data-theme', storedTheme)
+
+    if (storedTheme) {
+        document.documentElement.setAttribute('data-theme', storedTheme);
+        updateButton(storedTheme);
+    }
 
     if (button) {
-        const icon = button.querySelector('i');
-
-        button.addEventListener('click', function() {
+        button.click(function() {
             var currentTheme = document.documentElement.getAttribute("data-theme");
             var targetTheme = "light";
 
             if (currentTheme === "light") {
                 targetTheme = "dark";
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-                button.textContent = ' Mode clair';
-            } else {
-                targetTheme = "light";
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-                button.textContent = ' Mode sombre';
             }
 
-            document.documentElement.setAttribute('data-theme', targetTheme)
+            document.documentElement.setAttribute('data-theme', targetTheme);
             localStorage.setItem('theme', targetTheme);
-            button.prepend(icon);
+            updateButton(targetTheme);
         });
+    }
+
+    function updateButton(theme) {
+        var icon = button.find('i');
+
+        if (theme === "dark") {
+            icon.removeClass('fa-moon');
+            icon.addClass('fa-sun');
+            button.text(' Mode clair');
+        } else {
+            icon.removeClass('fa-sun');
+            icon.addClass('fa-moon');
+            button.text(' Mode sombre');
+        }
+
+        button.prepend(icon);
     }
 });
