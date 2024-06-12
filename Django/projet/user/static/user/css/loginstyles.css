@@ -20,13 +20,11 @@ h3{
 .loginbox {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    text-align: center;
+    margin: auto;
     background: var(--vdark-main-color);
     color: var(--white);
     box-sizing: border-box;
     padding: 2rem;
-    margin: 5rem 0rem;
     border-radius: 2rem;
     opacity: 0.92;
 }
@@ -37,18 +35,18 @@ p#message-error{
     margin-bottom: 1rem;
 }
 
-.loginbox p {
+.loginbox p{
     margin: 0;
     padding: 0;
     font-weight: bold;
 }
 
-.loginbox input {
+.loginbox input{
     width: 100%;
     margin-bottom: 20px;
 }
 
-.loginbox input[type="text"], input[type="password"] {
+.loginbox input[type="text"], input[type="password"]{
     border: none;
     border-bottom: 1px solid var(--white);
     background: transparent;
@@ -60,11 +58,13 @@ p#message-error{
 
 .loginbox button[type="submit"] {
     border: none;
+    width: 100%;
     outline: none;
     height: 40px;
     background: var(--main-color);
     color: var(--white);
     font-size: 18px;
+    margin-bottom: 1rem;
     border-radius: 20px;
 }
 

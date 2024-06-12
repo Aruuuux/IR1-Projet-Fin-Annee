@@ -5,11 +5,13 @@
 {% block title %}Créer une UE{% endblock %}
 
 {% block styles %}
+<link rel="stylesheet" href="{% static 'user/css/loginstyles.css' %}" />
+<link rel="stylesheet" href="{% static 'user/css/mainstyle.css' %}" />
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
 {% endblock %}
 
 {% block main-content %}
-    <div class="container">
+    <div class="tableau-wrapper" id="alone">
         <h1>Create Module</h1>
         <form method="post">
             {% csrf_token %}
@@ -19,7 +21,7 @@
 
         <!-- Table to display modules -->
         <h2 class="mt-5">Existing Modules</h2>
-        <table class="table table-striped mt-3">
+        <table id="modules">
             <thead>
                 <tr>
                     <th>ID</th>
