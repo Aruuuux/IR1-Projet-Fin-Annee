@@ -30,7 +30,7 @@ from django.contrib.auth.views import (LoginView, LogoutView,
                                        PasswordResetCompleteView)
 
 def admin(request):
-    return render(request, 'admin.html')
+    return render(request, 'user/admin.html')
 
 def main(request, user_id):
     # Retrieve the teacher object
@@ -117,7 +117,7 @@ def main(request, user_id):
         'specialities': specialities
     }
 
-    return render(request, 'main.html', context)
+    return render(request, 'user/main.html', context)
 
 
 def indexview(request):
@@ -142,7 +142,7 @@ def indexview(request):
         except User.DoesNotExist:
             messages.error(request, 'Invalid email or password')
     
-    return render(request, 'index.html')
+    return render(request, 'user/index.html')
 
 
 def etudiant(request, user_id):
@@ -172,18 +172,18 @@ def etudiant(request, user_id):
             'average_score': average_score
         })
 
-    return render(request, 'etudiant.html', {
+    return render(request, 'user/etudiant.html', {
         'user': user,
         'course_details': course_details
     })
 
 
 
-def psswrdforgot(request):
-    return render(request, 'psswrdforgot.html')
+def password_forgotten(request):
+    return render(request, 'user/password_forgotten.html')
 
-def password_resethtml(request):
-    return render(request, 'user/psswrdreset.html')
+def psswrdresetdone(request):
+    return render(request, 'user/password_reset_done.html')
 
 def password_resetdonehtml(request):
     return render(request, 'user/?????????.html')
@@ -197,13 +197,13 @@ def parametre(request):
     return render(request, 'user/parametre.html')
 
 def emailsent(request):
-    return render(request, 'emailsent.html')
+    return render(request, 'user/emailsent.html')
 
 def changepsswrd(request):
-    return render(request,'changepsswrd.html')
+    return render(request,'user/changepsswrd.html')
 
 def edt(request):
-    return render(request,'edt.html')
+    return render(request,'user/edt.html')
 
 def createuser(request):
     if request.method == 'POST':
@@ -256,7 +256,7 @@ def createuser(request):
     roles = User._meta.get_field('roles').choices
     specialities = specialities = Speciality.objects.all()
 
-    return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'messages': messages.get_messages(request)})
+    return render(request, 'user/createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'messages': messages.get_messages(request)})
 
 
 
@@ -321,7 +321,7 @@ def edituser(request, user_id):
     roles = User._meta.get_field('roles').choices
     specialities = specialities = Speciality.objects.all()
     users = User.objects.all()
-    return render(request, 'createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'users': users})
+    return render(request, 'user/createuser.html', {'form': form, 'roles': roles, 'specialities': specialities, 'users': users})
 
 
 def deleteuser(request, user_id):
@@ -367,7 +367,7 @@ def userslist(request):
         'roles': roles,
         'specialities': specialities,
     }
-    return render(request, 'userslist.html', context)
+    return render(request, 'user/userslist.html', context)
 
 
 def importusers(request):
@@ -443,7 +443,7 @@ def importusers(request):
         'roles': roles,
         'specialities': specialities,
     }
-    return render(request, 'userslist.html', context)
+    return render(request, 'user/userslist.html', context)
 
 def generate_student_id():
     while True:
@@ -480,24 +480,23 @@ def password_reset_confirm(request, uidb64=None, token=None):
 
     if user is not None and default_token_generator.check_token(user, token):
         # Le lien est valide, vous pouvez permettre à l'utilisateur de changer son mot de passe
-        return render(request, 'registration/password_reset_confirm.html', {'validlink': True})
+        return render(request, 'user/registration/password_reset_confirm.html', {'validlink': True})
     else:
         # Le lien n'est pas valide
-        return render(request, 'registration/password_reset_confirm.html', {'validlink': False})
+        return render(request, 'user/registration/password_reset_confirm.html', {'validlink': False})
 
     
 
-def E404(request, exception=None):
-    return render(request, '404.html', status=404)
+def error_400(request, exception=None):
+    return render(request, 'user/user/error_400.html', status=400)
 
-def E500(request):
-    return render(request, '500.html', status=500)
+def error_403(request, exception=None):
+    return render(request, 'user/error_403.html', status=403)
+def error_404(request, exception=None):
+    return render(request, 'user/error_404.html', status=404)
 
-def E403(request, exception=None):
-    return render(request, '403.html', status=403)
-
-def E400(request, exception=None):
-    return render(request, '400.html', status=400)
+def error_500(request):
+    return render(request, 'user/error_500.html', status=500)
 
 
 
@@ -590,4 +589,4 @@ def supervisor(request):
         'all_specialities': all_specialities
     }
 
-    return render(request, 'supervisor.html', context)
+    return render(request, 'user/supervisor.html', context)

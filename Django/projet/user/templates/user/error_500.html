@@ -1,0 +1,14 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'user/css/loginstyles.css' %}" />
+{% endblock %}
+
+{% block main-content %}
+<div class="error-container">
+    <h1>500</h1>
+    <p>Oups, quelque chose s'est mal passé de notre côté. Veuillez réessayer plus tard.</p>
+    <a href="{% url 'user:login' %}">Retour à l'accueil</a>
+</div>
+{% endblock %}
