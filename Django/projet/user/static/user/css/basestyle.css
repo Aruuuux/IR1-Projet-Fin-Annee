@@ -64,6 +64,8 @@ html, body {
 }
 
 header {
+    position:sticky;
+    top:0;
     background-color: var(--vdark-main-color);
     height: 4rem;
     color : var(--white);
